@@ -18,8 +18,9 @@ Route::get('/', function () {
 });
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 // 会員登録ルート
-Route::get('register', [RegisterController::class, 'showRegistrationForm'])->name('register');
-Route::post('register', [RegisterController::class, 'register']);
+Route::get('/member_registration', [RegisterController::class, 'showRegistrationForm'])->name('register');
+Route::post('/member_registration', [RegisterController::class, 'register']);
+
 // ログインルート
 Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('login', [LoginController::class, 'login']);
