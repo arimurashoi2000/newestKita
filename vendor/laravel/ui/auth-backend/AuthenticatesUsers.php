@@ -151,7 +151,7 @@ trait AuthenticatesUsers
         }
         return $request->wantsJson()
             ? new JsonResponse([], 204)
-            : redirect('auth/login');
+            : redirect('/login');
     }
     /**
      * The user has logged out of the application.
