@@ -1,8 +1,8 @@
-web.php
 <?php
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\ArticlesController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -26,3 +26,5 @@ Route::post('login', [LoginController::class, 'login']);
 // ログアウトルート
 Route::post('logout', [LoginController::class, 'logout'])->name('logout');
 
+//記事一覧
+Route::get('/articles', [ArticlesController::class, 'index'])->name('articles.index');
