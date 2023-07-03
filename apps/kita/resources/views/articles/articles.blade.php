@@ -9,6 +9,7 @@
 </head>
 <body>
 @foreach ($articles as $article)
+    <p>{{$articles->member->name}}</p>
     <p>{{$article->created_at}}</p>
     <p>{{$article->title}}</p>
     <p>{{$article->contents}}</p>
