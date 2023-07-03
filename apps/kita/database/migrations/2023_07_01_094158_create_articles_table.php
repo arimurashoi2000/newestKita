@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('title');
             $table->string('contents');
             $table->unsignedBigInteger('member_id');
+            $table->foreignId('member_id');
             $table->timestamps();
             $table->softDeletes()->nullable();
         });
