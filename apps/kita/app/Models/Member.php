@@ -41,4 +41,8 @@ class Member extends Authenticatable
      * @var string
      */
     protected $table = 'members';
+
+    public function articles() {
+        return $this->hasMany(Article::class);
+    }
 }
