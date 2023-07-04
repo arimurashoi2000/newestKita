@@ -11,6 +11,14 @@
 
 </head>
 <body>
+{{ Form::open(['route' => 'articles.search', 'method' => 'get']) }}
+@csrf
+{{Form::label('search', '検索')}}
+{{Form::text('keyword', null, ['class'=>'search'])}}
+{{Form::submit('検索する', ['class'=>'search_button'])}}
+
+{{Form::close()}}
+
 @foreach ($articles as $article)
    <p>{{$article->member->name}}</p>
     <p>{{$article->created_at}}</p>
