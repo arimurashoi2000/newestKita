@@ -15,4 +15,8 @@ class Article extends Model
         'contents',
         'member_id',
     ];
+    public function member()
+    {
+        return $this->belongsTo(Member::class);
+    }
 }

@@ -7,12 +7,10 @@ class ArticlesController extends Controller
 {
     //
 
-    $validated['member_id'] = auth()->id():
     public function index() {
-        $articles = Article::paginate(10);
+        $member_id = auth()->id();
+        $articles = Article::with('member')->paginate(10);
         return view('articles.articles', compact('articles'));
     }
-    public function member() {
-        return $this->belognsTo(Article::class);
-    }
+
 }
