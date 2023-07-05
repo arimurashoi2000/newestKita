@@ -33,5 +33,24 @@ class ArticlesController extends Controller
         $article->save();
         return redirect()->route('index');
     }
+
+    public function showEditPage($id) {
+        $article = Article::findOrFail($id);
+        return view('articles.articles_edit', compact('article'));
+    }
+
+    public function update(Request $request, $id) {
+        $validated = $request->validate([
+            'title' => 'required|max:20',
+            'contents' => 'required|max:400',
+        ]);
+
+        $article = Article::findOrFail($id);
+        $article->title = $validated['title'];
+        $article->contents = $validated['contents'];
+        $article->save();
+
+        return redirect()->route('articles.edit', ['id' => $article->id])->with('message', '編集しました。');;
+    }
 }
 ?>
