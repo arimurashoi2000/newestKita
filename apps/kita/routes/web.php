@@ -29,3 +29,6 @@ Route::post('logout', [LoginController::class, 'logout'])->name('logout');
 Route::get('/articles', [ArticlesController::class, 'index'])->name('index');
 //記事検索機能
 Route::get('/articles/search', [ArticlesController::class, 'search'])->name('articles.search');
+//記事作成機能
+Route::get('/articles/create', [ArticlesController::class, 'showCreatePage'])->name('articles.create');
+Route::post('/articles', [ArticlesController::class, 'store'])->name('store');
