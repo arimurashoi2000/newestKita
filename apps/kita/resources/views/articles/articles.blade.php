@@ -12,15 +12,13 @@
 </head>
 <body>
 {{ Form::open(['route' => 'articles.search', 'method' => 'get']) }}
-@csrf
 {{Form::label('search', '検索')}}
 {{Form::text('keyword', null, ['class'=>'search'])}}
 {{Form::submit('検索する', ['class'=>'search_button'])}}
 {{Form::close()}}
 
 <!--記事投稿-->
-{{ Form::open(['route' => 'articles.create', 'method' => 'get']) }}
-@csrf
+{{ Form::open(['url' => route('articles.create'), 'method' => 'get']) }}
 {{Form::submit('記事を作成する', ['class'=>'search_button'])}}
 {{Form::close()}}
 
