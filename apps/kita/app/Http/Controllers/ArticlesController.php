@@ -9,7 +9,7 @@ class ArticlesController extends Controller
 
     public function index() {
         $member_id = auth()->id();
-        $articles = Article::with('member')->paginate(10);
+        $articles = Article::with('member')->orderBy('updated_at', 'desc')->paginate(10);
         return view('articles.articles', compact('articles'));
     }
 
