@@ -18,7 +18,8 @@
 
     <p>{{$article->title}}</p>
     <p>{{$article->created_at}}</p>
-    <p>{{$article->contents}}</p>
+    <p>{!! nl2br($article->contents) !!}</p>
+
 
 
 </body>
