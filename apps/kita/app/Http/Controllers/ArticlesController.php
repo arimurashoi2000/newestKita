@@ -11,7 +11,7 @@ class ArticlesController extends Controller
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function index() {
-        $articles = Article::with('member')->orderBy('updated_at', 'desc')->paginate(10);
+        $articles = Article::with('member')->orderBy('created_at', 'desc')->paginate(10);
         return view('articles.articles', compact('articles'));
     }
 
