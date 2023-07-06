@@ -25,10 +25,8 @@
 @foreach ($articles as $article)
    <p>{{$article->member->name}}</p>
     <p>{{$article->created_at}}</p>
-    <p>{{$article->title}}</p>
+    <a href="{{ route('articles.show', ['id' => $article->id]) }}"><p>{{$article->title}}</p></a>
     <p>{{$article->contents}}</p>
-   <!--仮の編集ボタン-->
-   <a href="{{ route('articles.edit', ['id' => $article->id]) }}">編集</a>
 
 @endforeach
 <div class="mb-4">

@@ -52,5 +52,10 @@ class ArticlesController extends Controller
 
         return redirect()->route('articles.edit', ['id' => $article->id])->with('message', '編集しました。');;
     }
+
+    public function show($id) {
+        $article = Article::findOrFail($id);
+        return view('articles.articles_show', compact('article'));
+    }
 }
 ?>

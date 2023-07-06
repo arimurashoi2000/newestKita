@@ -35,3 +35,5 @@ Route::post('/articles', [ArticlesController::class, 'store'])->name('store');
 //記事編集機能
 Route::get('/articles/{id}/edit', [ArticlesController::class, 'showEditPage'])->name('articles.edit');
 Route::post('/articles/{id}', [ArticlesController::class, 'update'])->name('update');
+//記事詳細表示機能
+Route::get('/articles/{id}', [ArticlesController::class, 'show'])->name('articles.show');
