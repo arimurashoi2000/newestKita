@@ -15,7 +15,6 @@
    <p>{{$article->member->name}}</p>
     <p>{{$article->created_at}}</p>
     <p>{{$article->title}}</p>
-    <p>{{$article->contents}}</p>
 
 @endforeach
 <div class="mb-4">
