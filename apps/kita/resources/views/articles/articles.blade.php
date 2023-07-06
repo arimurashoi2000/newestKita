@@ -11,6 +11,17 @@
 
 </head>
 <body>
+
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
 {{ Form::open(['route' => 'articles.search', 'method' => 'get']) }}
 {{Form::label('search', '検索')}}
 {{Form::text('keyword', null, ['class'=>'search'])}}

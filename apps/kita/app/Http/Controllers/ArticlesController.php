@@ -14,7 +14,14 @@ class ArticlesController extends Controller
         return view('articles.articles', compact('articles'));
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
     public function search(Request $request) {
+        $request->validate([
+            'keyword' => ['regex:/^[^%#]+$/'],
+        ]);
         $keyword = $request->input('keyword');
         $articles = Article::where('title', 'like', "%$keyword%")->orWhere('contents', 'like', "%$keyword%")->paginate(10);
 
