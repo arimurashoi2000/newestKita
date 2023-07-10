@@ -11,6 +11,8 @@
 
 </head>
 <body>
+@include('articles.header')
+
 @foreach ($articles as $article)
    <p>{{$article->member->name}}</p>
     <p>{{$article->created_at}}</p>
