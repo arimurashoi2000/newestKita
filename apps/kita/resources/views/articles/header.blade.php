@@ -4,9 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>articlesヘッダー</title>
-    <!-- Fonts -->
-    <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
+
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    <script src="{{ asset('js/app.js') }}" defer></script>
+
 </head>
 <body>
 <div id="app">
@@ -15,14 +16,17 @@
             <nav class="navbar navbar-expand-lg navbar-light">
                 <div class="container">
                     <a href="/articles" class="btn btn-success rounded-circle me-3" style="font-size: 2rem; padding: 0.5rem 2rem;">Kita</a>
-                    <form class="d-flex">
+
+                    {{ Form::open(['route' => 'articles.search', 'method' => 'get', 'class' => 'd-flex']) }}
                         <div class="col-md-9">
-                            <input class="form-control form-control-lg me-2 border border-success" type="search" placeholder="Search for something" aria-label="Search">
+                            {{ Form::text('keyword', null, ['class' => 'form-control form-control-lg me-2 border border-success search', 'placeholder' => 'Search for something', 'aria-label' => 'Search']) }}
                         </div>
                         <div class="col-auto">
-                            <button class="btn btn-success btn-lg mr-2" type="submit">検索</button>
+                            {{Form::submit('検索', ['class'=>'btn btn-success btn-lg mr-2 search_button'])}}
                         </div>
-                    </form>
+                    {{Form::close()}}
+
+
                     <div class="ml-2">
                         <div class="col-auto">
                             <button class="btn btn-outline-success btn-lg pl-2"><span style="color: black;">記事を作成する</span></button>
@@ -43,5 +47,17 @@
         </div>
     </div>
 </div>
+
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
+
 </body>
 </html>
