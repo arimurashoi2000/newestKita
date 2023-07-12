@@ -19,4 +19,11 @@ class Article extends Model
     {
         return $this->belongsTo(Member::class);
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function comments() {
+        return $this->hasMany(Article_comment::class);
+    }
 }

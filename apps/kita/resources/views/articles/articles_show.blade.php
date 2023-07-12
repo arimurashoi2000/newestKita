@@ -10,21 +10,23 @@
     <script src="{{ asset('js/app.js') }}" defer></script>
 </head>
 
+<body>
 <div class="container py-5">
-    <div class="d-flex align-items-center justify-content-center bg-secondary" style="--bs-bg-opacity: .1 height: 100vh;">
-        <div class="col-md-7 col-10 bg-white text-dark">
-            <div class="card" style="height: 800px;">
-                <div class="card-body px-5 py-3">
-                    <!--削除、編集用のボタン-->
-                    <div class="row d-flex justify-content-end">
-                        <div class="col-md-2 text-end">
-                            <a href="#" class="btn btn-danger rounded-pill">削除する</a>
-                        </div>
+    <div class="d-flex align-items-center justify-content-center" style="height: 100vh;">
+        <div class="col-md-7 col-10 text-dark">
+            <div>
+                <div class="card" style="height: 700px;">
+                    <div class="card-body px-5 py-3">
+                        <!--削除、編集用のボタン-->
+                        <div class="row d-flex justify-content-end">
+                            <div class="col-md-2 text-end">
+                                <a href="#" class="btn btn-danger rounded-pill">削除する</a>
+                            </div>
 
-                        <div class="col-md-2 text-end">
-                            <a href="{{ route('articles.edit', ['id' => $article->id]) }}" class="btn btn-success rounded-pill">編集する</a>
+                            <div class="col-md-2 text-end">
+                                <a href="{{ route('articles.edit', ['id' => $article->id]) }}" class="btn btn-success rounded-pill">編集する</a>
+                            </div>
                         </div>
-                    </div>
 
 
                         <!--タイトル-->
@@ -52,12 +54,45 @@
                                 <p>{!! nl2br($article->contents) !!}</p>
                             </div>
                         </div>
-
-                        <!--コメント機能実装後にコメント表示-->
+                    </div>
                 </div>
             </div>
+
+
+                <!--コメント一覧とコメント作成-->
+
+            <div class="mt-3">
+                <div class="card py-3">
+                    <div class="card-body px-5 py-3">
+                        <div class="row">
+                            <div class="col-md-12 col-12 border-bottom border-dark py-1">
+                                <h3>コメント</h3>
+                            </div>
+                        </div>
+                        <!--コメント機能実装後にコメント表示-->
+                        @foreach ($comments as $comment)
+                            <!--ユーザー名＋created_at-->
+                            <div class="row mt-1">
+                                <div class="col-md-12 col-12">
+                                    <p>{{$comment->member->name}}が{{ $comment->created_at->format('Y年m月d日') }}に投稿</p>
+                                </div>
+                            </div>
+
+                            <!--コメント-->
+                            <div class="row">
+                                <div class="col-md-12 col-12 border-bottom border-dark py-1">
+                                    <p>{{$comment->contents}}</p>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+
+            </div>
+
         </div>
+
     </div>
-    </body>
-</html>
+</div>
 </body>
+</html>
