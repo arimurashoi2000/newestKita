@@ -14,7 +14,6 @@
 </head>
 <body>
 @include('articles.header')
-
     <div class="container py-5">
         <div class="d-flex align-items-center justify-content-center bg-secondary" style="--bs-bg-opacity: .1 height: 80vh;">
         <div class="col-md-7 col-10 bg-white text-dark">
@@ -42,9 +41,7 @@
                         <p>{{ $articles->links('pagination::bootstrap-4') }}</p>
                     </div>
                 </div>
-
             </div>
-
         </div>
     </div>
 </body>
