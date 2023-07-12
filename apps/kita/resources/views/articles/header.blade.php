@@ -7,7 +7,6 @@
 
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <script src="{{ asset('js/app.js') }}" defer></script>
-
 </head>
 <body>
 <div id="app">
@@ -26,12 +25,12 @@
                         </div>
                     {{Form::close()}}
 
-
                     <div class="ml-2">
                         <div class="col-auto">
                             <button class="btn btn-outline-success btn-lg pl-2"><span style="color: black;">記事を作成する</span></button>
                         </div>
                     </div>
+
                     <div class>
                         <div class="col-10 float-end">
                             <button class="btn btn-success btn-lg dropdown-toggle dropdown-toggle-no-caret" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
@@ -47,17 +46,5 @@
         </div>
     </div>
 </div>
-
-@if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
-
-
 </body>
 </html>

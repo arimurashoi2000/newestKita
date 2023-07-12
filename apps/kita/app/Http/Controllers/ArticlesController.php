@@ -24,11 +24,7 @@ class ArticlesController extends Controller
         ]);
         $keyword = $request->input('keyword');
         $articles = Article::where('title', 'like', "%$keyword%")->orWhere('contents', 'like', "%$keyword%")->paginate(10);
-
         $articles->appends(['keyword' => $keyword]); // クエリ文字列を追加
         return view('articles.articles', compact('articles'));
     }
-
-
-
 }
