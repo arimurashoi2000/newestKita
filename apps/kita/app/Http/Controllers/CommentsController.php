@@ -6,18 +6,23 @@ use App\Models\Article;
 use App\Models\Member;
 use Illuminate\Http\Request;
 use App\Models\Article_comment;
+use Illuminate\Support\Facades\Auth;
 
 class CommentsController extends Controller
 {
     //
-    /**
-     * @param $id
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
-     */
-    public function index($id) {
-        $article = Article::findOrFail($id);
-        $comments = $article->Comment::with('article', 'member')->paginate(10);
-        return view('articles.show', compact('comments', 'article'));
+    public function store(Request $request) {
+        $validated = $request->validate([
+            'contents' => 'string|required|max:100',
+            'article_id' => 'required',
+        ]);
+        $comment = new Article_comment();
+        $comment->contents = $validated['contents'];
+        $comment->member_id = Auth::id();
+        $comment->article_id = $validated['article_id'];
+        $comment->save();
+        return redirect()->route('articles.show', $comment->article_id);
     }
+
 
 }

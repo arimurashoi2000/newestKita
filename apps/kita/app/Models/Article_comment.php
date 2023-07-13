@@ -20,14 +20,14 @@ class Article_comment extends Model
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function member() {
-        return $this->belongsTo(Member::class, 'id');
+        return $this->belongsTo(Member::class, 'member_id');
     }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function article() {
-        return $this->belongsTo(Article::class, 'id');
+        return $this->belongsTo(Article::class, 'article_id');
     }
 
 }

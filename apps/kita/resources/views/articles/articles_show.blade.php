@@ -85,6 +85,20 @@
                                 </div>
                             </div>
                         @endforeach
+
+                        <!--コメント投稿フォーム-->
+                        <div class="row px-3">
+                            {{ Form::open(['route' => ['comments.store', $article->id], 'class' => 'd-flex align-items-end px-0']) }}
+                            @csrf
+                            {{ Form::hidden('article_id', $article->id) }}
+                            <div class="col-md-10 col-10">
+                                {{ Form::textarea('contents', null, ['class'=>'contents form-control border border-success mt-2 rounded　bg bg-white', 'placeholder' => 'コメントを入力', 'style' => 'height: 150px;']) }}
+                            </div>
+                            <div class="col-md-2 col-2 d-flex justify-content-end">
+                                {{ Form::submit('コメント', ['class'=>'btn btn-outline-success rounded-pill']) }}
+                            </div>
+                            {{ Form::close() }}
+                        </div>
                     </div>
                 </div>
 
