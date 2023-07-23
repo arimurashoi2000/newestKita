@@ -3,13 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>articlesヘッダー</title>
-
+    <title>ユーザー画面</title>
 
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <script src="{{ asset('js/app.js') }}" defer></script>
-
-
 </head>
 
 <body>
@@ -18,7 +15,7 @@
         <div class="container d-flex justify-content-center align-items-center" style="height: 120px;">
             <nav class="navbar navbar-expand-lg navbar-light">
                 <div class="container">
-                    <a href="/articles" class="btn btn-success rounded-circle me-3" style="font-size: 2rem; padding: 0.5rem 2rem;">Kita</a>
+                    <a href="{{route('articles.index')}}" class="btn btn-success rounded-circle me-3" style="font-size: 2rem; padding: 0.5rem 2rem;">Kita</a>
 
                     <form class="d-flex">
                         <div class="col-md-9">
@@ -45,6 +42,10 @@
                                 </svg>
                             </button>
                         </div>
+                    </div>
+
+                    <div class="main">
+                        @yield('content')
                     </div>
                 </div>
             </nav>

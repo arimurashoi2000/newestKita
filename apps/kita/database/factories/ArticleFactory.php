@@ -19,7 +19,7 @@ class ArticleFactory extends Factory
         return [
             //
             'title' => $this->faker->realText(15),
-            'contents' => $this->faker->realText(50),
+            'contents' => $this->faker->realText(500),
             'created_at' => now(),
             'updated_at' => now(),
             'member_id' => random_int(1, 5),
