@@ -15,16 +15,15 @@
         <div class="container d-flex justify-content-center align-items-center" style="height: 120px;">
             <nav class="navbar navbar-expand-lg navbar-light">
                 <div class="container">
-                    <a href="{{route('articles.index')}}" class="btn btn-success rounded-circle me-3" style="font-size: 2rem; padding: 0.5rem 2rem;">Kita</a>
+                    <a href="{{route('index')}}" class="btn btn-success rounded-circle me-3" style="font-size: 2rem; padding: 0.5rem 2rem;">Kita</a>
 
-                    <form class="d-flex">
-                        <div class="col-md-9">
+                    <form class="d-flex my-0">
+                        <div class="col">
                             <input class="form-control form-control-lg me-2 border border-success" type="search" placeholder="Search for something" aria-label="Search">
                         </div>
                         <div class="col-auto">
-                            <button class="btn btn-success btn-lg mr-2" type="submit">検索</button>
+                            <button class="btn btn-success btn-lg me-2" type="submit">検索</button>
                         </div>
-
                     </form>
 
                     <div class="ml-2">
@@ -43,15 +42,13 @@
                             </button>
                         </div>
                     </div>
-
-                    <div class="main">
-                        @yield('content')
-                    </div>
                 </div>
             </nav>
         </div>
     </div>
-
+</div>
+<div class="main">
+    @yield('content')
 </div>
 </body>
 </html>
