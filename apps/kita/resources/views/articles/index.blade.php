@@ -18,7 +18,11 @@
 
                             <div class="row">
                                 <div class="col-md-12 col-12">
-                                    <h3 class="font-weight-bold">{{$article->title}}</h3>
+                                    <h3 class="font-weight-bold">
+                                        <a href="{{ route('articles.show', ['id' => $article->id]) }}" class="text-dark text-decoration-none">
+                                            {{$article->title}}
+                                        </a>
+                                    </h3>
                                 </div>
                             </div>
                             <!--タグ一覧-->

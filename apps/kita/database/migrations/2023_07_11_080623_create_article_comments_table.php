@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('article_comments', function (Blueprint $table) {
-            $table->unsignedBigInteger('id')->autoIncrement();
+            $table->unsignedInteger('id')->autoIncrement();
             $table->text('contents');
             $table->foreignId('member_id');
             $table->foreignId('article_id');

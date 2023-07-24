@@ -40,3 +40,5 @@ Route::post('/articles/{id}', [ArticlesController::class, 'update'])->name('upda
 Route::get('/articles/{id}', [ArticlesController::class, 'show'])->name('articles.show');
 //コメント投稿機能
 Route::post('/articles/{id}', [CommentsController::class, 'store'])->name('comments.store');
+//記事削除機能
+Route::delete('/artilces/{id}', [ArticlesController::class, 'delete'])->name('articles.delete');

@@ -13,7 +13,7 @@ class ArticlesController extends Controller
      */
     public function index() {
         $articles = Article::with('member')->orderBy('created_at', 'desc')->paginate(10);
-        return view('articles.articles', compact('articles'));
+        return view('articles.index', compact('articles'));
     }
     public function search(Request $request) {
         $keyword = $request->input('keyword');
@@ -65,6 +65,16 @@ class ArticlesController extends Controller
         $article = Article::findOrFail($id);
         $comments = $article->comments()->with('article', 'member')->get();
         return view('articles.articles_show', compact('article', 'comments',));
+    }
+
+    public function delete($id) {
+        $article = Article::findOrFail($id);
+        if (Auth::id() === $article->member->id) {
+            $article->delete();
+            return redirect()->route('index')->with('success', '記事が削除されました');
+        } else {
+            return view('index')->with('message', '投稿した本人ではありません');
+        }
     }
 }
 ?>

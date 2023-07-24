@@ -12,22 +12,25 @@
 
 <body>
 <div class="container py-5">
-    <div class="d-flex align-items-center justify-content-center" style="height: 100vh;">
+    <div class="d-flex align-items-center justify-content-center">
         <div class="col-md-7 col-10 text-dark">
             <div>
-                <div class="card" style="height: 700px;">
+                <div class="card">
                     <div class="card-body px-5 py-3">
                         <!--削除、編集用のボタン-->
                         <div class="row d-flex justify-content-end">
                             <div class="col-md-2 text-end">
-                                <a href="#" class="btn btn-danger rounded-pill">削除する</a>
+                                {{Form::open(['route' => ['articles.delete', $article->id], 'files' => true])}}
+                                @csrf
+                                @method('delete')
+                                {{Form::submit('削除する', ['class' => 'btn btn-danger rounded-pill', 'onclick' => 'return confirmDelete()'])}}
+                                {{Form::close()}}
                             </div>
 
                             <div class="col-md-2 text-end">
                                 <a href="{{ route('articles.edit', ['id' => $article->id]) }}" class="btn btn-success rounded-pill">編集する</a>
                             </div>
                         </div>
-
 
                         <!--タイトル-->
                         <div class="row">
