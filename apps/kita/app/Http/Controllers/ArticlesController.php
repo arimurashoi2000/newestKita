@@ -15,16 +15,16 @@ class ArticlesController extends Controller
     }
 
     /**
+     * タイトルや内容で検索をします。
      * @param Request $request
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function search(Request $request) {
-        $request->validate([
-            'keyword' => ['regex:/^[^%#]+$/'],
-        ]);
-        $keyword = $request->input('keyword');
-        $articles = Article::where('title', 'like', "%$keyword%")->orWhere('contents', 'like', "%$keyword%")->paginate(10);
-        $articles->appends(['keyword' => $keyword]); // クエリ文字列を追加
+        $search = $request->input('search');
+        $escapedSearch = '%' . addcslashes($search, '%_\\') . '%';
+        $articles_num = 10;
+        $articles = Article::where('title', 'like', $escapedSearch)->orWhere('contents', 'like', $escapedSearch)->paginate($articles_num);
+        $articles->appends(['search' => $search]); // クエリ文字列を追加
         return view('articles.articles', compact('articles'));
     }
 }

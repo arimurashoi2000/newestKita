@@ -18,7 +18,7 @@
 
                     {{ Form::open(['route' => 'articles.search', 'method' => 'get', 'class' => 'd-flex']) }}
                         <div class="col-md-9">
-                            {{ Form::text('keyword', null, ['class' => 'form-control form-control-lg me-2 border border-success search', 'placeholder' => 'Search for something', 'aria-label' => 'Search']) }}
+                            {{ Form::text('search', null, ['class' => 'form-control form-control-lg me-2 border border-success search', 'placeholder' => 'Search for something', 'aria-label' => 'Search']) }}
                         </div>
                         <div class="col-auto">
                             {{Form::submit('検索', ['class'=>'btn btn-success btn-lg mr-2 search_button'])}}
