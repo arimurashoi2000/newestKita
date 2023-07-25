@@ -32,7 +32,6 @@
                         </div>
                     </div>
 
-
                     <div class>
                         <div class="col-10 float-end">
                             <button class="btn btn-success btn-lg dropdown-toggle dropdown-toggle-no-caret" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
