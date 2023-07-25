@@ -6,7 +6,6 @@ use App\Models\Member;
 use Illuminate\Http\Request;
 class ArticlesController extends Controller
 {
-    //
     public function index() {
         $member_id = auth()->id();
         $articles = Article::with('member')->paginate(10);
@@ -18,13 +17,24 @@ class ArticlesController extends Controller
         $articles->appends(['keyword' => $keyword]); // クエリ文字列を追加
         return view('articles.articles', compact('articles'));
     }
+
+    /**
+     * 記事投稿画面へ移動
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
     public function showCreatePage() {
         return view('articles.articles_create');
     }
+
+    /**
+     * 記事を作成しデータベースに挿入
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function store(Request $request) {
         $validated = $request->validate([
-            'title' => 'required|max:20',
-            'contents' => 'required|max:400',
+            'title' => 'required|max:255',
+            'contents' => 'required|max:10000',
         ]);
         $article = new Article();
         $article->title = $validated['title'];

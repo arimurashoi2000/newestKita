@@ -16,22 +16,17 @@
     <div class="d-flex align-items-center justify-content-center bg-secondary" style="--bs-bg-opacity: .1 height: 100vh;">
         <div class="col-md-8 col-10 bg-white text-dark">
             <div class="card">
-                <div class="container">
-
-                </div>
                 <div class="card-body px-5 py-3">
                     {{ Form::open(['route' => 'store']) }}
                     @csrf
                         <!--タイトル-->
                         <div class="row pt-3">
-                                {{Form::label('title', 'タイトル', ['class' => 'col-md-12 col-12 px-0'])}}
+                            {{Form::label('title', 'タイトル', ['class' => 'col-md-12 col-12 px-0'])}}
                         </div>
 
                         <div class="row pt-3">
                             {{Form::text('title', null, ['class'=>'title col-md-12 col-12 border border-success mt-2 rounded'])}}
                         </div>
-
-
 
                         <!--タグ-->
                         <div class="row">
@@ -40,13 +35,12 @@
 
                         <!--記事内容-->
                         <div class="row pt-3">
-                                {{Form::label('contents', '記事内容', ['class'=>'col-md-12 col-12 px-0 '])}}
+                            {{Form::label('contents', '記事内容', ['class'=>'col-md-12 col-12 px-0 '])}}
                         </div>
 
                         <div class="row">
-                                {{Form::textarea('contents', null, ['class'=>'contents col-md-12 col-12 border border-success mt-2 rounded', 'style' => 'height: 400px;'])}}
+                            {{Form::textarea('contents', null, ['class'=>'contents col-md-12 col-12 border border-success mt-2 rounded', 'style' => 'height: 400px;'])}}
                         </div>
-
 
                         <!--投稿ボタン-->
                         <div class="row">
@@ -54,15 +48,10 @@
                                 {{Form::submit('投稿する', ['class'=>'submit_button btn btn-success my-3 rounded'])}}
                             </div>
                         </div>
-
-
-
+                    {{ Form::close() }}
                 </div>
             </div>
         </div>
     </div>
-    </body>
-
-
-
+</body>
 </html>
