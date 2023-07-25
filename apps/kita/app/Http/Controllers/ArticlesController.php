@@ -34,11 +34,22 @@ class ArticlesController extends Controller
         return redirect()->route('index');
     }
 
+    /**
+     * 編集ページへ遷移
+     * @param $id
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
     public function showEditPage($id) {
         $article = Article::findOrFail($id);
         return view('articles.articles_edit', compact('article'));
     }
 
+    /**
+     * 編集した記事をデータベースに上書き
+     * @param Request $request
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function update(Request $request, $id) {
         $validated = $request->validate([
             'title' => 'required|max:20',
