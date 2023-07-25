@@ -44,6 +44,6 @@ Route::post('/articles/{id}', [CommentsController::class, 'store'])->name('comme
 //記事削除機能
 Route::delete('/artilces/{id}', [ArticlesController::class, 'delete'])->name('articles.delete');
 //プロフィール編集ページに遷移
-Route::get('/profile', [ProfileController::class, 'showEditProfilePage'])->name('profile.edit');
+Route::get('/profile', [ProfileController::class, 'showEditProfilePage'])->name('profile.edit')->middleware('auth');
 //プロフィール編集機能
-Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update');
+Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update')->middleware('auth');
