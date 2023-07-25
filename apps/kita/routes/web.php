@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\ArticlesController;
 use App\Http\Controllers\CommentsController;
+use App\Http\Controllers\ProfileController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -42,3 +43,7 @@ Route::get('/articles/{id}', [ArticlesController::class, 'show'])->name('article
 Route::post('/articles/{id}', [CommentsController::class, 'store'])->name('comments.store');
 //記事削除機能
 Route::delete('/artilces/{id}', [ArticlesController::class, 'delete'])->name('articles.delete');
+//プロフィール編集ページに遷移
+Route::get('/profile', [ProfileController::class, 'showEditProfilePage'])->name('profile.edit');
+//プロフィール編集機能
+Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update');
