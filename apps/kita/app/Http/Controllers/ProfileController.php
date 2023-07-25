@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Member;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 class ProfileController extends Controller
 {
     /**
@@ -16,15 +17,32 @@ class ProfileController extends Controller
         return view('articles.profile');
     }
 
+    /**
+     * 編集したプロフィールを保存
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function update(Request $request) {
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-        ]);
         $id = Auth::id();
         $member = Member::findOrFail($id);
-        $member->name = $validated['name'];
-        $member->email = $validated['email'];
+
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:255',
+            'email' => [
+                'required',
+                'string',
+                'email',
+                'max:255',
+                Rule::unique('members')->ignore($member->id),
+            ],
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->route('profile.edit')->withErrors($validator)->withInput();
+        }
+
+        $member->name = $request->input('name');
+        $member->email = $request->input('email');
         $member->save();
 
         return redirect()->route('profile.edit')->with('message', 'プロフィールを編集しました。');
