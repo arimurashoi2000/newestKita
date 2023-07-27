@@ -15,9 +15,10 @@ return new class extends Migration
             $table->unsignedInteger('id')->autoIncrement();
             $table->string('title', 255);
             $table->mediumText('contents');
-            $table->foreignId('member_id');
+            $table->unsignedInteger('member_id');
             $table->timestamps();
             $table->softDeletes()->nullable();
+            $table->foreign('member_id')->references('id')->on('members');
         });
     }
     /**
