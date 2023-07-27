@@ -5,6 +5,8 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\ArticlesController;
 use App\Http\Controllers\CommentsController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\PasswordController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -36,7 +38,7 @@ Route::get('/articles/create', [ArticlesController::class, 'showCreatePage'])->n
 Route::post('/articles', [ArticlesController::class, 'store'])->name('store');
 //記事編集機能
 Route::get('/articles/{id}/edit', [ArticlesController::class, 'showEditPage'])->name('articles.edit');
-Route::post('/articles/{id}', [ArticlesController::class, 'update'])->name('update');
+Route::put('/articles/{id}', [ArticlesController::class, 'update'])->name('update');
 //記事詳細表示機能
 Route::get('/articles/{id}', [ArticlesController::class, 'show'])->name('articles.show');
 //コメント投稿機能
@@ -46,4 +48,6 @@ Route::delete('/artilces/{id}', [ArticlesController::class, 'delete'])->name('ar
 //プロフィール編集ページに遷移
 Route::get('/profile', [ProfileController::class, 'showEditProfilePage'])->name('profile.edit')->middleware('auth');
 //プロフィール編集機能
-Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update')->middleware('auth');
+Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update')->middleware('auth');
+// パスワード変更機能
+Route::put('/password_change', [PasswordController::class, 'changePassword'])->name('password.update')->middleware('auth');
