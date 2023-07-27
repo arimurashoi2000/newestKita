@@ -46,4 +46,4 @@ Route::delete('/artilces/{id}', [ArticlesController::class, 'delete'])->name('ar
 //プロフィール編集ページに遷移
 Route::get('/profile', [ProfileController::class, 'showEditProfilePage'])->name('profile.edit')->middleware('auth');
 //プロフィール編集機能
-Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update')->middleware('auth');
+Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update')->middleware('auth');

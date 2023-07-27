@@ -5,7 +5,7 @@
 @extends('articles.header')
 @section('content')
     <div class="container py-5">
-        <div class="d-flex align-items-center justify-content-center bg-secondary" style="--bs-bg-opacity: .1 height: 100vh;">
+        <div class="d-flex align-items-center justify-content-center" style="--bs-bg-opacity: .1;">
             <div class="col-md-8 col-10 bg-white text-dark">
                 @if (session('message'))
                     <div class="alert alert-success">
@@ -19,6 +19,7 @@
                         </div>
                         {{ Form::open(['route' => 'profile.update']) }}
                         @csrf
+                        @method('put')
                         <!--タイトル-->
                         <div class="row pt-3">
                             {{Form::label('name', 'ユーザー名', ['class' => 'col-md-12 col-12 px-0'])}}
