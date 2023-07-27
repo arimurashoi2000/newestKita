@@ -34,4 +34,4 @@ Route::get('/articles/create', [ArticlesController::class, 'showCreatePage'])->n
 Route::post('/articles', [ArticlesController::class, 'store'])->name('store');
 //記事編集機能
 Route::get('/articles/{id}/edit', [ArticlesController::class, 'showEditPage'])->name('articles.edit')->middleware('auth');
-Route::post('/articles/{id}', [ArticlesController::class, 'update'])->name('update')->middleware('auth');
+Route::put('/articles/{id}', [ArticlesController::class, 'update'])->name('update')->middleware('auth');

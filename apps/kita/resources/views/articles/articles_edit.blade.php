@@ -22,6 +22,7 @@
                     @endif
                     {{ Form::open(['route' => ['update', $article->id]]) }}
                     @csrf
+                    @method('put')
                     <!--タイトル-->
                     <div class="row pt-3">
                         {{Form::label('title', 'タイトル', ['class' => 'col-md-12 col-12 px-0'])}}
