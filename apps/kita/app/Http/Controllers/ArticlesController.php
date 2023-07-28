@@ -22,7 +22,7 @@ class ArticlesController extends Controller
      * 記事投稿画面へ移動
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function showCreatePage() {
+    public function create() {
         return view('articles.articles_create');
     }
 

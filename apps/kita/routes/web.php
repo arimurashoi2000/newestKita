@@ -30,5 +30,8 @@ Route::get('/articles', [ArticlesController::class, 'index'])->name('index');
 //記事検索機能
 Route::get('/articles/search', [ArticlesController::class, 'search'])->name('articles.search');
 //記事作成機能
-Route::get('/articles/create', [ArticlesController::class, 'showCreatePage'])->name('articles.create')->middleware('auth');
-Route::post('/articles', [ArticlesController::class, 'store'])->name('store')->middleware('auth');
+Route::middleware('auth')->resource('articles', ArticlesController::class)->only(['create', 'store'])
+    ->names([
+        'create' => 'articles.create',
+        'store' => 'store',
+    ]);
