@@ -1,5 +1,7 @@
-@extends('layouts.app')
-
+@extends('layouts.admin_nav')
+@section('title')
+    <title>管理者登録画面</title>
+@endsection
 @section('content')
     <div class="container">
         <div class="row pt-5">
