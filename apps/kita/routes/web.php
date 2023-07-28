@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\ArticlesController;
 use App\Http\Controllers\CommentsController;
 use App\Http\Controllers\ProfileController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -47,3 +48,11 @@ Route::delete('/artilces/{id}', [ArticlesController::class, 'delete'])->name('ar
 Route::get('/profile', [ProfileController::class, 'showEditProfilePage'])->name('profile.edit')->middleware('auth');
 //プロフィール編集機能
 Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update')->middleware('auth');
+
+//管理者の認証機能
+Route::get('/admin/login', [App\Http\Controllers\Admin\LoginController::class, 'showLoginForm']);
+Route::post('/admin/login', [App\Http\Controllers\Admin\LoginController::class, 'login'])->name('admin.login');
+Route::post('/admin/logout', [App\Http\Controllers\Admin\LoginController::class,'logout'])->name('admin/logout');
+Route::get('/admin/admin_users/create', [App\Http\Controllers\Admin\RegisterController::class, 'showRegistrationForm']);
+Route::post('/admin/admin_users', [App\Http\Controllers\Admin\RegisterController::class, 'register'])->name('admin.register');
+Route::view('/admin/home', 'admin/home')->middleware('auth:admin_users');
