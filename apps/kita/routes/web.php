@@ -52,7 +52,7 @@ Route::post('/profile', [ProfileController::class, 'update'])->name('profile.upd
 //管理者の認証機能
 Route::get('/admin/login', [App\Http\Controllers\Admin\LoginController::class, 'showLoginForm']);
 Route::post('/admin/login', [App\Http\Controllers\Admin\LoginController::class, 'login'])->name('admin.login');
-Route::post('/admin/logout', [App\Http\Controllers\Admin\LoginController::class,'logout'])->name('admin/logout');
+Route::post('/admin/logout', [App\Http\Controllers\Admin\LoginController::class,'logout'])->name('admin.logout');
 Route::get('/admin/admin_users/create', [App\Http\Controllers\Admin\RegisterController::class, 'showRegistrationForm']);
 Route::post('/admin/admin_users', [App\Http\Controllers\Admin\RegisterController::class, 'register'])->name('admin.register');
 Route::view('/admin/home', 'admin/home')->middleware('auth:admin_users');

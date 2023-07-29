@@ -1,6 +1,8 @@
 <?php
+
 namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
+use App\Providers\RouteServiceProvider;
 use App\Models\Admin_user;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
@@ -77,4 +79,5 @@ class RegisterController extends Controller
     {
         return view('admin.register');
     }
+
 }
