@@ -7,7 +7,7 @@
                     <!--kita-->
                     <a class="nav-link active fs-4 text-white" aria-current="page" href="#">Kita</a>
                     <!--管理者管理-->
-                    <a class="nav-link active fs-4 text-white" href="#">管理者管理</a>
+                    <a class="nav-link active fs-4 text-white" href="{{route('admin.index')}}">管理者管理</a>
                     <!--会員管理-->
                     <a class="nav-link active fs-4 text-white" href="#">会員管理</a>
                     <!--タグ管理-->

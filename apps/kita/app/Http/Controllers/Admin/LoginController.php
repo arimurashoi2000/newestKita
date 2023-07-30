@@ -25,12 +25,12 @@ class LoginController extends Controller
     }
 
     /**
-     * Where to redirect users after login.
-     *
-     * @var string
+     * ログイン後は管理者一覧画面に遷移
+     * @return string
      */
-
-    protected $redirectTo = RouteServiceProvider::HOME;//修正が必要?
+    protected function redirectTo() {
+        return route('admin.index');
+    }
 
     /**
      * Create a new controller instance.

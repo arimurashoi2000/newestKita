@@ -15,7 +15,7 @@
 
                 <div class="card">
                     <div class="card-body px-5 py-4">
-                        {{ Form::open(['route'=>'login', 'files'=>true]) }}
+                        {{ Form::open(['route'=>'admin.login', 'files'=>true]) }}
                         @csrf
                             <div class="row mb-1">
                                 {{ Form::label('email', 'メールアドレス', ['class' => 'col-md col-form-label text-md-start']) }}
