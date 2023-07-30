@@ -5,7 +5,7 @@
         @section('content')
             <div class="container py-5">
                 <div class="d-flex align-items-center justify-content-center" style="--bs-bg-opacity: .1;">
-                    <div class="col-md-7 col-10 bg-white text-dark">
+                    <div class="col-md-10 col-10 bg-white text-dark">
                         <div class="card">
                             <div class="card-body px-5 py-3">
                                 @foreach ($articles as $article)
@@ -30,20 +30,6 @@
                                     <p>{{ $articles->links() }}</p>
                                 </div>
                             </div>
-
-                            <div class="row">
-                                <div class="col-md-12 col-12">
-                                    <h3 class="font-weight-bold">{{$article->title}}</h3>
-                                </div>
-                            </div>
-                            <!--タグ一覧-->
-                            <div class="row">
-                                <div class="col-md-12 col-12 border-bottom border-dark py-2"></div>
-                            </div>
-                        @endforeach
-
-                        <div class="d-flex align-items-center justify-content-center mb-1 mt-3">
-                            <p>{{ $articles->links() }}</p>
                         </div>
                     </div>
                 </div>

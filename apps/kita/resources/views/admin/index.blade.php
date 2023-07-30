@@ -3,17 +3,55 @@
     <title>管理者画面</title>
 @endsection
 @section('content')
-    <div class="container py-5">
-            <div class="d-flex align-items-center justify-content-center" style="--bs-bg-opacity: .1;">
-                <!--ページング-->
-                <div class="col-md-7 col-10 text-dark"><div class="d-flex align-items-center justify-content-center mb-1 mt-3">
-                        <p>{{ $admin_users->links() }}</p>
-                </div>
-
+    <div class="container mt-0">
+        <h2 class="mt-3">管理者管理</h2>
+            <div class="justify-content-center" style="--bs-bg-opacity: .1;">
                  <!--検索-->
+                <div class="card col-md-12 mt-5">
+                    <div class="card-body px-4 py-3">
+                        {{ Form::open(['route' => 'admin.search']) }}
+                        @csrf
+                            <div class="d-flex">
+                                <!--姓-->
+                                <div class="col-md-4">
+                                    <div class="row pt-3">
+                                        {{Form::label('last_name', '姓', ['class' => 'col-md-10 col-12 px-0'])}}
+                                    </div>
+                                    <div class="row pt-1">
+                                        {{Form::text('last_name', null, ['class'=>'title col-md-10 col-12 border border-success mt-2 rounded'])}}
+                                    </div>
+                                </div>
+                                <!--名-->
+                                <div class="col-md-4">
+                                    <div class="row pt-3">
+                                        {{Form::label('first_name', '名', ['class' => 'col-md-10 col-12 px-0'])}}
+                                    </div>
+                                    <div class="row pt-1">
+                                        {{Form::text('first_name', null, ['class'=>'title col-md-10 col-12 border border-success mt-2 rounded'])}}
+                                    </div>
+                                </div>
+                                <!--メールアドレス-->
+                                <div class="col-md-4">
+                                    <div class="row pt-3">
+                                        {{Form::label('email', 'メールアドレス', ['class' => 'col-md-10 col-12 px-0'])}}
+                                    </div>
+                                    <div class="row pt-1">
+                                        {{Form::text('email', null, ['class'=>'title col-md-10 col-12 border border-success mt-2 rounded'])}}
+                                    </div>
+                                </div>
+                            </div>
 
+                            <!--投稿ボタン-->
+                            <div class="row">
+                                <div class="d-flex justify-content-center col-md-12 col-12 px-0 ">
+                                    {{Form::submit('検索', ['class'=>'submit_button btn btn-primary text-white my-3 rounded btn-lg'])}}
+                                </div>
+                            </div>
+                        {{ Form::close() }}
+                    </div>
+                </div>
                 <!--一覧-->
-                <div class="card">
+                <div class="card mt-5">
                     <div class="card-body px-5 py-3">
                         <!--新規登録-->
 

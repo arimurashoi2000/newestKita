@@ -2,7 +2,7 @@
 @section('header')
 <div id="app">
     <div class="bg-white">
-        <div class="container d-flex justify-content-center align-items-center">
+        <div class="container d-flex justify-content-center align-items-center　mt-0">
             @yield('nav')
         </div>
     </div>

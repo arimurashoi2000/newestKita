@@ -60,3 +60,4 @@ Route::view('/admin/home', 'admin/home')->middleware('auth:admin_users');
 Route::resource('/admin/admin_users', AdminUserController::class)->only(['index'])->names([
     'index' => 'admin.index'
 ]);
+Route::post('/admin/admin_users', [AdminUserController::class, 'index'])->name('admin.search');
