@@ -74,7 +74,7 @@
                                         <td>{{$admin_user->updated_at}}</td>
                                         <td>{{$admin_user->created_at}}</td>
                                         <td>
-                                            <a href="#" class="btn btn-primary text-white">編集</a>
+                                            <a href="{{route('admin.edit', $admin_user->id)}}" class="btn btn-primary text-white">編集</a>
                                         </td>
                                     </tr>
                                 @endforeach

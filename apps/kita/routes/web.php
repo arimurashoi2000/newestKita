@@ -57,7 +57,9 @@ Route::get('/admin/admin_users/create', [App\Http\Controllers\Admin\RegisterCont
 Route::post('/admin/admin_users', [App\Http\Controllers\Admin\RegisterController::class, 'register'])->name('admin.register');
 Route::view('/admin/home', 'admin/home')->middleware('auth:admin_users');
 //管理者画面の基本的なCRUD操作
-Route::resource('/admin/admin_users', AdminUserController::class)->only(['index'])->names([
-    'index' => 'admin.index'
+Route::resource('/admin/admin_users', AdminUserController::class)->only(['index', 'edit', 'update'])->names([
+    'index' => 'admin.index',
+    'edit' => 'admin.edit',
+    'update' => 'admin.update'
 ]);
 Route::post('/admin/admin_users', [AdminUserController::class, 'index'])->name('admin.search');
