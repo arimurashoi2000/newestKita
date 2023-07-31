@@ -7,6 +7,7 @@ use App\Models\Admin_user;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Auth;
 
 class AdminUserController extends Controller
 {
@@ -62,5 +63,11 @@ class AdminUserController extends Controller
         $admin_users->fill($request->all())->save();
 
         return redirect()->route('admin.edit', ['admin_user' => $id])->with('message', '更新処理が完了しました。');
+        }
+
+        public function destroy($id) {
+            $admin_users = Admin_user::findOrFail($id);
+                $admin_users->delete();
+                return redirect()->route('admin.index')->with('success', '記事が削除されました');
         }
 }

@@ -54,12 +54,13 @@ Route::get('/admin/login', [App\Http\Controllers\Admin\LoginController::class, '
 Route::post('/admin/login', [App\Http\Controllers\Admin\LoginController::class, 'login'])->name('admin.login');
 Route::post('/admin/logout', [App\Http\Controllers\Admin\LoginController::class,'logout'])->name('admin.logout');
 Route::get('/admin/admin_users/create', [App\Http\Controllers\Admin\RegisterController::class, 'showRegistrationForm']);
-Route::post('/admin/admin_users', [App\Http\Controllers\Admin\RegisterController::class, 'register'])->name('admin.register');
+Route::post('/admin/admin_users', [App\Http\Controllers\Admin\RegisterController::class, 'register'])->name('admin.create');
 Route::view('/admin/home', 'admin/home')->middleware('auth:admin_users');
 //管理者画面の基本的なCRUD操作
-Route::resource('/admin/admin_users', AdminUserController::class)->only(['index', 'edit', 'update'])->names([
+Route::resource('/admin/admin_users', AdminUserController::class)->only(['index', 'edit', 'update', 'destroy'])->names([
     'index' => 'admin.index',
     'edit' => 'admin.edit',
-    'update' => 'admin.update'
+    'update' => 'admin.update',
+    'destroy' => 'admin.delete'
 ]);
 Route::post('/admin/admin_users', [AdminUserController::class, 'index'])->name('admin.search');

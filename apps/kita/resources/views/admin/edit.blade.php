@@ -16,6 +16,12 @@
             </div>
         @endif
 
+        @if (session('fail'))
+            <div class="alert alert-danger">
+                {{ session('fail') }}
+            </div>
+        @endif
+
         @if($errors->any())
             <div class="alert alert-danger">
                 <ul>
@@ -92,14 +98,17 @@
                     <div class="col-md-12 col-12 text-center py-2">
                         {{ Form::submit('更新する', ['class' => 'btn btn-primary col-12']) }}
                     </div>
-
+        {{ Form::close() }}
                     <!--削除ボタン-->
                     <div class="col-md-12 col-12 text-center py-2">
-                        <a href="#" class="btn btn-danger col-12">削除する</a>
+                        {{ Form::open(['route' => ['admin.delete', $admin_users->id], 'style' => 'display: inline-block;']) }}
+                        @csrf
+                        @method('delete')
+                        {{ Form::button('削除する', ['type' => 'submit', 'class' => 'btn btn-danger col-12', 'onclick' => "return confirm('一度削除すると元に戻せません\n削除してもよろしいですか？')"]) }}
+                        {{ Form::close() }}
                     </div>
                 </div>
             </div>
         </div>
-        {{ Form::close() }}
     </div>
 @endsection
