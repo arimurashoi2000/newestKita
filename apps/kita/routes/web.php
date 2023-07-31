@@ -6,6 +6,7 @@ use App\Http\Controllers\ArticlesController;
 use App\Http\Controllers\CommentsController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\AdminUserController;
+use App\Http\Controllers\Admin\UserController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -63,4 +64,4 @@ Route::resource('/admin/admin_users', AdminUserController::class)->only(['index'
     'update' => 'admin.update',
     'destroy' => 'admin.delete'
 ]);
-Route::post('/admin/admin_users', [AdminUserController::class, 'index'])->name('admin.search');
+Route::get('/admin/users',  [UserController::class, 'index'])->name('user.index');
