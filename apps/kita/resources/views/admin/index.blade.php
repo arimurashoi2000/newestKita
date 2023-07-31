@@ -9,7 +9,7 @@
                  <!--検索-->
                 <div class="card col-md-12 mt-5">
                     <div class="card-body px-4 py-3">
-                        {{ Form::open(['route' => 'admin.search']) }}
+                        {{ Form::open(['route' => 'admin.index']) }}
                         @csrf
                             <div class="d-flex">
                                 <!--姓-->
@@ -54,7 +54,7 @@
                 <div class="card mt-5">
                     <div class="card-body px-5 py-3">
                         <!--新規登録-->
-
+                        <a href="{{route('admin.create')}}" class="btn btn-primary text-white">新規登録</a>
                         <!--管理者一覧-->
                         <table class="table">
                             <thead>

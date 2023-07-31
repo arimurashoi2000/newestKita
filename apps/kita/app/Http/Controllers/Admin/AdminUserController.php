@@ -5,6 +5,7 @@ namespace app\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Admin_user;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class AdminUserController extends Controller
 {
@@ -32,5 +33,25 @@ class AdminUserController extends Controller
 
         $admin_users = $admin_users->paginate(5);
         return view('admin.index', compact('admin_users'));
+        }
+
+        public function create() {
+        return view('admin.create');
+        }
+
+        public function store(Request $request) {
+        $validated = $request->validate([
+            'last_name' => 'required|string|max:255',
+            'first_name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:admin_users',
+            'password' => 'required|string|min:8|confirmed',
+        ]);
+
+        // パスワードをハッシュ化
+        $validated['password'] = Hash::make($validated['password']);
+        $admin_users = new Admin_user();
+        $admin_users->fill($validated)->save();
+        //編集ページ作成後に編集ページにリダイレクトするよう修正
+        return redirect()->route('admin.index')->with('message', '登録処理が完了しました。');
         }
 }

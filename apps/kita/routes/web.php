@@ -43,7 +43,7 @@ Route::get('/articles/{id}', [ArticlesController::class, 'show'])->name('article
 //コメント投稿機能
 Route::post('/articles/{id}', [CommentsController::class, 'store'])->name('comments.store');
 //記事削除機能
-Route::delete('/artilces/{id}', [ArticlesController::class, 'delete'])->name('articles.delete');
+Route::delete('/articles/{id}', [ArticlesController::class, 'delete'])->name('articles.delete');
 //プロフィール編集ページに遷移
 Route::get('/profile', [ProfileController::class, 'showEditProfilePage'])->name('profile.edit')->middleware('auth');
 //プロフィール編集機能
@@ -53,11 +53,9 @@ Route::post('/profile', [ProfileController::class, 'update'])->name('profile.upd
 Route::get('/admin/login', [App\Http\Controllers\Admin\LoginController::class, 'showLoginForm']);
 Route::post('/admin/login', [App\Http\Controllers\Admin\LoginController::class, 'login'])->name('admin.login');
 Route::post('/admin/logout', [App\Http\Controllers\Admin\LoginController::class,'logout'])->name('admin.logout');
-Route::get('/admin/admin_users/create', [App\Http\Controllers\Admin\RegisterController::class, 'showRegistrationForm']);
-Route::post('/admin/admin_users', [App\Http\Controllers\Admin\RegisterController::class, 'register'])->name('admin.register');
-Route::view('/admin/home', 'admin/home')->middleware('auth:admin_users');
 //管理者画面の基本的なCRUD操作
-Route::resource('/admin/admin_users', AdminUserController::class)->only(['index'])->names([
-    'index' => 'admin.index'
+Route::resource('/admin/admin_users', AdminUserController::class)->only(['index', 'create', 'store'])->names([
+    'index' => 'admin.index',
+    'create' => 'admin.create',
+    'store' => 'admin.store',
 ]);
-Route::post('/admin/admin_users', [AdminUserController::class, 'index'])->name('admin.search');
