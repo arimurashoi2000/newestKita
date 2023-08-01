@@ -39,7 +39,7 @@ class ArticlesController extends Controller
      * @param $id
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function showEditPage($id) {
+    public function edit($id) {
         $article = Article::findOrFail($id);
         return view('articles.articles_edit', compact('article'));
     }
@@ -57,11 +57,8 @@ class ArticlesController extends Controller
         ]);
 
         $article = Article::findOrFail($id);
-        $article->title = $validated['title'];
-        $article->contents = $validated['contents'];
-        $article->save();
+        $article->fill($validated)->save();
 
-        return redirect()->route('articles.edit', ['id' => $article->id])->with('message', '編集しました。');;
+        return redirect()->route('articles.edit', $article->id)->with('message', '記事編集が完了しました。');
     }
 }
-?>
