@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('articles', function (Blueprint $table) {
             $table->unsignedInteger('id')->autoIncrement();
-            $table->string('title', 255);
+            $table->string('title');
             $table->mediumText('contents');
             $table->unsignedInteger('member_id');
             $table->timestamps();

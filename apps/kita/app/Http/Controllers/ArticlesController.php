@@ -3,6 +3,7 @@ namespace app\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\Article;
 use App\Models\Member;
+use App\Consts\CommonConst;
 
 class ArticlesController extends Controller
 {
@@ -11,8 +12,8 @@ class ArticlesController extends Controller
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function index(){
-        $article_num = 10;
-        $articles = Article::with('member')->orderBy('created_at', 'desc')->paginate($article_num);
+        $paginationLimit = CommonConst::PAGINATION_ARTICLE;
+        $articles = Article::with('member')->orderBy('created_at', 'desc')->paginate($paginationLimit);
         return view('articles.index', compact('articles'));
     }
 
