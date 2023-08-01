@@ -10,6 +10,13 @@
     <div class="container py-5">
         <div class="d-flex align-items-center justify-content-center" style="--bs-bg-opacity: .1">
             <div class="col-md-8 col-10 bg-white text-dark">
+                <!--記事作成機能完成後はこの記述を編集画面へ移動させる-->
+                @if (session('success'))
+                    <div class="alert alert-success">
+                        {{ session('success') }}
+                    </div>
+                @endif
+
                 <div class="card">
                     <div class="card-body px-5 py-3">
                         {{ Form::open(['route' => 'store']) }}

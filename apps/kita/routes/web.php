@@ -26,7 +26,10 @@ Route::post('login', [LoginController::class, 'login']);
 // ログアウトルート
 Route::post('logout', [LoginController::class, 'logout'])->name('logout');
 //記事一覧機能
-Route::get('/articles', [ArticlesController::class, 'index'])->name('index');
+Route::resource('articles', ArticlesController::class)->only(['index'])
+    ->names([
+        'index' => 'articles.index'
+    ]);
 //記事検索機能
 Route::get('/articles/search', [ArticlesController::class, 'search'])->name('articles.search');
 //記事作成機能

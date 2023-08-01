@@ -32,16 +32,16 @@ class ArticlesController extends Controller
      * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request) {
+        $request->merge(['member_id' => auth()->id()]);
         $validated = $request->validate([
             'title' => 'required|max:255',
             'contents' => 'required|max:10000',
+            'member_id' => 'required',
         ]);
         $article = new Article();
-        $article->title = $validated['title'];
-        $article->contents = $validated['contents'];
-        $article->member_id = auth()->id();
-        $article->save();
-        return redirect()->route('index');
+        $article->fill($validated)->save();
+        //編集機能作成後にリダイレクト先を変更
+        return redirect()->route('articles.create')->with('success', '記事投稿が完了しました。');
     }
 }
 ?>
