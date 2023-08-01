@@ -7,6 +7,7 @@ use App\Http\Controllers\CommentsController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\ArticlesTagController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -65,3 +66,7 @@ Route::resource('/admin/admin_users', AdminUserController::class)->only(['index'
     'destroy' => 'admin.delete'
 ]);
 Route::get('/admin/users',  [UserController::class, 'index'])->name('user.index');
+//基本的なタグ機能のCRUD操作
+Route::resource('/admin/article_tags', ArticlesTagController::class)->only(['index'])->names([
+    'index' => 'tag.index',
+]);
