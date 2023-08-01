@@ -25,15 +25,19 @@ Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('login', [LoginController::class, 'login']);
 // ログアウトルート
 Route::post('logout', [LoginController::class, 'logout'])->name('logout');
-//記事一覧機能
-Route::get('/articles', [ArticlesController::class, 'index'])->name('index');
+//ミドルウェアが必要ないarticlesのCRUD操作
+Route::resource('articles', ArticlesController::class)->only(['index', 'show'])
+    ->names([
+        'index' => 'articles.index',
+        'show' => 'articles.show',
+    ]);
 //記事検索機能
 Route::get('/articles/search', [ArticlesController::class, 'search'])->name('articles.search');
-//記事作成機能
-Route::get('/articles/create', [ArticlesController::class, 'showCreatePage'])->name('articles.create');
-Route::post('/articles', [ArticlesController::class, 'store'])->name('store');
-//記事編集機能
-Route::get('/articles/{id}/edit', [ArticlesController::class, 'showEditPage'])->name('articles.edit');
-Route::post('/articles/{id}', [ArticlesController::class, 'update'])->name('update');
-//記事詳細表示機能
-Route::get('/articles/{id}', [ArticlesController::class, 'show'])->name('articles.show');
+//articlesのミドルウェアが必要なCRUD操作
+Route::middleware('auth')->resource('articles', ArticlesController::class)->only(['create', 'store', 'edit', 'update'])
+    ->names([
+        'create' => 'articles.create',
+        'store' => 'store',
+        'edit' => 'articles.edit',
+        'update' => 'update',
+    ]);

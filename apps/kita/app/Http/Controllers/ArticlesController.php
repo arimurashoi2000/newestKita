@@ -34,7 +34,7 @@ class ArticlesController extends Controller
         return redirect()->route('index');
     }
 
-    public function showEditPage($id) {
+    public function edit($id) {
         $article = Article::findOrFail($id);
         return view('articles.articles_edit', compact('article'));
     }
@@ -50,7 +50,7 @@ class ArticlesController extends Controller
         $article->contents = $validated['contents'];
         $article->save();
 
-        return redirect()->route('articles.edit', ['id' => $article->id])->with('message', '編集しました。');;
+        return redirect()->route('articles.edit', $article->id)->with('message', '編集しました。');;
     }
 
     /**

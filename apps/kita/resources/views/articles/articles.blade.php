@@ -25,7 +25,7 @@
 @foreach ($articles as $article)
    <p>{{$article->member->name}}</p>
     <p>{{$article->created_at}}</p>
-    <a href="{{ route('articles.show', ['id' => $article->id]) }}"><p>{{$article->title}}</p></a>
+   <a href="{{ route('articles.show', $article->id) }}"><p>{{$article->title}}</p></a>
     <p>{{$article->contents}}</p>
 
 @endforeach

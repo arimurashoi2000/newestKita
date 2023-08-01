@@ -18,7 +18,7 @@
                             </div>
 
                             <div class="col-md-2 text-end">
-                                <a href="{{ route('articles.edit', ['id' => $article->id]) }}" class="btn btn-success rounded-pill">編集する</a>
+                                <a href="{{ route('articles.edit', $article->id) }}" class="btn btn-success rounded-pill">編集する</a>
                             </div>
                         </div>
 
