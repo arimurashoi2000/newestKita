@@ -41,9 +41,7 @@ class ProfileController extends Controller
             return redirect()->route('profile.edit')->withErrors($validator)->withInput();
         }
 
-        $member->name = $request->input('name');
-        $member->email = $request->input('email');
-        $member->save();
+        $member->fill($request->all())->save();
 
         return redirect()->route('profile.edit')->with('message', 'プロフィールを編集しました。');
     }
