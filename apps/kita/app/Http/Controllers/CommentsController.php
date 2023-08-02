@@ -12,15 +12,13 @@ class CommentsController extends Controller
 {
     //
     public function store(Request $request) {
+        $comment = new Article_comment();
+        $comment->member_id = Auth::id();
         $validated = $request->validate([
             'contents' => 'string|required|max:100',
             'article_id' => 'required',
         ]);
-        $comment = new Article_comment();
-        $comment->contents = $validated['contents'];
-        $comment->member_id = Auth::id();
-        $comment->article_id = $validated['article_id'];
-        $comment->save();
+        $comment->fill($validated)->save();
         return redirect()->route('articles.show', $comment->article_id)->with('success', 'コメント投稿しました');
     }
 
