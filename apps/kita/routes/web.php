@@ -39,4 +39,4 @@ Route::post('/articles/{id}', [ArticlesController::class, 'update'])->name('upda
 //記事詳細表示機能
 Route::get('/articles/{id}', [ArticlesController::class, 'show'])->name('articles.show');
 //コメント投稿機能
-Route::post('/articles/{id}', [CommentsController::class, 'store'])->name('comments.store');
+Route::post('/articles/{id}', [CommentsController::class, 'store'])->name('comments.store')->middleware('auth');

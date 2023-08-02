@@ -21,7 +21,7 @@ class CommentsController extends Controller
         $comment->member_id = Auth::id();
         $comment->article_id = $validated['article_id'];
         $comment->save();
-        return redirect()->route('articles.show', $comment->article_id);
+        return redirect()->route('articles.show', $comment->article_id)->with('success', 'コメント投稿しました');
     }
 
 

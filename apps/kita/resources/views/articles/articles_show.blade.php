@@ -12,10 +12,15 @@
 
 <body>
 <div class="container py-5">
-    <div class="d-flex align-items-center justify-content-center" style="height: 100vh;">
+    <div class="d-flex align-items-center justify-content-center">
         <div class="col-md-7 col-10 text-dark">
+            @if(session('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                </div>
+            @endif
             <div>
-                <div class="card" style="height: 700px;">
+                <div class="card">
                     <div class="card-body px-5 py-3">
                         <!--削除、編集用のボタン-->
                         <div class="row d-flex justify-content-end">
@@ -27,7 +32,6 @@
                                 <a href="{{ route('articles.edit', ['id' => $article->id]) }}" class="btn btn-success rounded-pill">編集する</a>
                             </div>
                         </div>
-
 
                         <!--タイトル-->
                         <div class="row">
@@ -58,9 +62,7 @@
                 </div>
             </div>
 
-
-                <!--コメント一覧とコメント作成-->
-
+            <!--コメント一覧とコメント作成-->
             <div class="mt-3">
                 <div class="card py-3">
                     <div class="card-body px-5 py-3">
@@ -101,11 +103,8 @@
                         </div>
                     </div>
                 </div>
-
             </div>
-
         </div>
-
     </div>
 </div>
 </body>
