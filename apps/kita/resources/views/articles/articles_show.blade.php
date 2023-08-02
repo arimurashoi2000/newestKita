@@ -20,15 +20,15 @@
                         <!--削除、編集用のボタン-->
                         <div class="row d-flex justify-content-end">
                             <div class="col-md-2 text-end">
-                                {{Form::open(['route' => ['articles.delete', $article->id], 'files' => true])}}
+                                {{ Form::open(['route' => ['articles.delete', $article->id], 'onsubmit' => "return confirm('一度削除すると元に戻せません。よろしいですか？');"]) }}
                                 @csrf
                                 @method('delete')
-                                {{Form::submit('削除する', ['class' => 'btn btn-danger rounded-pill', 'onclick' => 'return confirmDelete()'])}}
+                                {{ Form::button('削除する', ['type' => 'submit', 'class' => 'btn btn-danger col-12 rounded-pill']) }}
                                 {{Form::close()}}
                             </div>
 
                             <div class="col-md-2 text-end">
-                                <a href="{{ route('articles.edit', ['id' => $article->id]) }}" class="btn btn-success rounded-pill">編集する</a>
+                                <a href="{{ route('articles.edit', $article->id) }}" class="btn btn-success rounded-pill">編集する</a>
                             </div>
                         </div>
 

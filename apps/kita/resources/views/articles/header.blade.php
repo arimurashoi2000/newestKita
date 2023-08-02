@@ -12,10 +12,10 @@
 <body>
 <div id="app">
     <div class="bg-white">
-        <div class="container d-flex justify-content-center align-items-center" style="height: 120px;">
+        <div class="container d-flex justify-content-center align-items-center">
             <nav class="navbar navbar-expand-lg navbar-light">
                 <div class="container">
-                    <a href="{{route('index')}}" class="btn btn-success rounded-circle me-3" style="font-size: 2rem; padding: 0.5rem 2rem;">Kita</a>
+                    <a href="{{route('articles.index')}}" class="btn btn-success rounded-circle me-3" style="font-size: 2rem; padding: 0.5rem 2rem;">Kita</a>
 
                     <form class="d-flex">
                         <div class="col-md-9">
@@ -43,15 +43,14 @@
                             </button>
                         </div>
                     </div>
-
-                    <div class="main">
-                        @yield('content')
-                    </div>
                 </div>
             </nav>
         </div>
     </div>
 
+</div>
+<div class="main">
+    @yield('content')
 </div>
 </body>
 </html>

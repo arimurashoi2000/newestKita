@@ -27,18 +27,22 @@ Route::post('login', [LoginController::class, 'login']);
 // ログアウトルート
 Route::post('logout', [LoginController::class, 'logout'])->name('logout');
 //記事一覧機能
-Route::get('/articles', [ArticlesController::class, 'index'])->name('index');
+Route::resource('articles', ArticlesController::class)->only(['index'])
+    ->names([
+        'index' => 'articles.index'
+    ]);
 //記事検索機能
 Route::get('/articles/search', [ArticlesController::class, 'search'])->name('articles.search');
 //記事作成機能
-Route::get('/articles/create', [ArticlesController::class, 'showCreatePage'])->name('articles.create');
-Route::post('/articles', [ArticlesController::class, 'store'])->name('store');
-//記事編集機能
-Route::get('/articles/{id}/edit', [ArticlesController::class, 'showEditPage'])->name('articles.edit');
-Route::post('/articles/{id}', [ArticlesController::class, 'update'])->name('update');
+Route::middleware('auth')->resource('articles', ArticlesController::class)->only(['create', 'store', 'edit', 'update', 'destroy'])
+    ->names([
+        'create' => 'articles.create',
+        'store' => 'store',
+        'edit' => 'articles.edit',
+        'update' => 'update',
+        'destroy' => 'articles.delete'
+    ]);
 //記事詳細表示機能
 Route::get('/articles/{id}', [ArticlesController::class, 'show'])->name('articles.show');
 //コメント投稿機能
 Route::post('/articles/{id}', [CommentsController::class, 'store'])->name('comments.store');
-//記事削除機能
-Route::delete('/artilces/{id}', [ArticlesController::class, 'delete'])->name('articles.delete');

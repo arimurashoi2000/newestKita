@@ -1,12 +1,19 @@
-<head>
-    <title>記事一覧ページ</title>
-</head>
-
 @extends('articles.header')
     @section('content')
         <div class="container py-5">
-            <div class="d-flex align-items-center justify-content-center bg-secondary" style="--bs-bg-opacity: .1; height: 80vh;">
+            <div class="d-flex align-items-center justify-content-center" style="--bs-bg-opacity: .1;">
             <div class="col-md-7 col-10 bg-white text-dark">
+                @if (session('message'))
+                    <div class="alert alert-success">
+                        {{ session('message') }}
+                    </div>
+                @endif
+
+                @if (session('success'))
+                    <div class="alert alert-success">
+                        {{ session('success') }}
+                    </div>
+                @endif
                 <div class="card">
                     <div class="card-body px-5 py-3">
                         @foreach ($articles as $article)
