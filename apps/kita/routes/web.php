@@ -45,7 +45,7 @@ Route::get('/articles/{id}', [ArticlesController::class, 'show'])->name('article
 //コメント投稿機能
 Route::post('/articles/{id}', [CommentsController::class, 'store'])->name('comments.store');
 //記事削除機能
-Route::delete('/artilces/{id}', [ArticlesController::class, 'delete'])->name('articles.delete');
+Route::delete('/articles/{id}', [ArticlesController::class, 'delete'])->name('articles.delete');
 //プロフィール編集ページに遷移
 Route::get('/profile', [ProfileController::class, 'showEditProfilePage'])->name('profile.edit')->middleware('auth');
 //プロフィール編集機能
@@ -67,6 +67,8 @@ Route::resource('/admin/admin_users', AdminUserController::class)->only(['index'
 ]);
 Route::get('/admin/users',  [UserController::class, 'index'])->name('user.index');
 //基本的なタグ機能のCRUD操作
-Route::resource('/admin/article_tags', ArticlesTagController::class)->only(['index'])->names([
+Route::resource('/admin/article_tags', ArticlesTagController::class)->only(['index', 'create', 'store'])->names([
     'index' => 'tag.index',
+    'create' => 'tag.create',
+    'store' => 'tag.store',
 ]);

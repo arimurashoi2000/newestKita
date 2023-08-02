@@ -20,4 +20,12 @@ class Article_tag extends Model
      * @var string
      */
     protected $table = 'article_tags';
+
+    /**
+     * 記事モデルとのリレーション
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function articles() {
+        return $this->belongsToMany(Article::class);
+    }
 }

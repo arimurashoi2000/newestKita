@@ -27,4 +27,12 @@ class Article extends Model
     public function comments() {
         return $this->hasMany(Article_comment::class);
     }
+
+    /**
+     *タグモデルとのリレーション
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function tags() {
+        return $this->belongsToMany(Article_tag::class);
+    }
 }
