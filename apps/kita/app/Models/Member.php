@@ -48,12 +48,4 @@ class Member extends Authenticatable
     public function articles() {
         return $this->hasMany(Article::class);
     }
-
-    public function isAdmin()
-    {
-        // ここにユーザーが管理者かどうかを判定するロジックを記述
-        // 例えば、role カラムを持っている場合に、role が "admin" の場合を判定するとします
-        return $this->role === 'admin';
-    }
-
 }

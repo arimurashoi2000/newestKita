@@ -15,5 +15,4 @@ class ArticlesController extends Controller
         $articles = Article::with('member')->orderBy('created_at', 'desc')->paginate(CommonConst::PAGINATION_ARTICLE);
         return view('articles.index', compact('articles'));
     }
-
 }
