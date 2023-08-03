@@ -13,11 +13,11 @@ class ArticlesController extends Controller
      */
     public function index(Request $request) {
         $search = $request->input('search');
-
+        $escapedSearch = '%' . addcslashes($search, '%_\\') . '%';
         $articles = Article::with('member')->orderBy('created_at', 'desc');
 
-        if (!empty($search)) {
-            $articles->where('title', 'like', "%$search%")->OrWhere('contents', 'like', "%$search%");
+        if (!empty($escapedSearch)) {
+            $articles->where('title', 'like', "%$escapedSearch%")->OrWhere('contents', 'like', "%$escapedSearch%");
         }
 
         $articles = $articles->paginate(10);
