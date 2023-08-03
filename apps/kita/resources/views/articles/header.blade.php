@@ -14,9 +14,9 @@
         <div class="container d-flex justify-content-center align-items-center" style="height: 120px;">
             <nav class="navbar navbar-expand-lg navbar-light">
                 <div class="container">
-                    <a href="/articles" class="btn btn-success rounded-circle me-3" style="font-size: 2rem; padding: 0.5rem 2rem;">Kita</a>
+                    <a href="{{route('index')}}" class="btn btn-success rounded-circle me-3" style="font-size: 2rem; padding: 0.5rem 2rem;">Kita</a>
 
-                    {{ Form::open(['route' => 'articles.search', 'method' => 'get', 'class' => 'd-flex']) }}
+                    {{ Form::open(['route' => 'index', 'method' => 'get', 'class' => 'd-flex']) }}
                         <div class="col-md-9">
                             {{ Form::text('search', null, ['class' => 'form-control form-control-lg me-2 border border-success search', 'placeholder' => 'Search for something', 'aria-label' => 'Search']) }}
                         </div>

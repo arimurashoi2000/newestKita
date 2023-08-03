@@ -16,7 +16,6 @@
 <div class="container py-5">
     <div class="d-flex align-items-center justify-content-center bg-secondary" style="--bs-bg-opacity: .1 height: 80vh;">
         <div class="col-md-7 col-10 bg-white text-dark">
-
             <div class="card">
                 <div class="card-body px-5 py-3">
                     @foreach ($articles as $article)
