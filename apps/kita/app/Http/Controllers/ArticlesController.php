@@ -12,8 +12,7 @@ class ArticlesController extends Controller
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function index(){
-        $paginationLimit = CommonConst::PAGINATION_ARTICLE;
-        $articles = Article::with('member')->orderBy('created_at', 'desc')->paginate($paginationLimit);
+        $articles = Article::with('member')->orderBy('created_at', 'desc')->paginate(CommonConst::PAGINATION_ARTICLE);
         return view('articles.index', compact('articles'));
     }
 

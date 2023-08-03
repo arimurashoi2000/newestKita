@@ -1,4 +1,4 @@
-@extends('layouts.nav')
+@extends('layouts.app')
     @section('title')
         <title>記事一覧</title>
     @endsection
@@ -20,7 +20,7 @@
                                             <h3 class="font-weight-bold">{{$article->title}}</h3>
                                         </div>
                                     </div>
-                                    <!--タグ一覧-->
+                                    <!--タグ一覧実装後にここに書く-->
                                     <div class="row">
                                         <div class="col-md-12 col-12 border-bottom border-dark py-2"></div>
                                     </div>
