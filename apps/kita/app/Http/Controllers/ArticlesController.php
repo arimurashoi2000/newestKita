@@ -4,6 +4,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Article;
 use App\Models\Member;
 use Illuminate\Http\Request;
+use App\Consts\CommonConst;
 class ArticlesController extends Controller
 {
     /**
@@ -20,7 +21,7 @@ class ArticlesController extends Controller
             $articles->where('title', 'like', "%$escapedSearch%")->OrWhere('contents', 'like', "%$escapedSearch%");
         }
 
-        $articles = $articles->paginate(10);
-        return view('articles.articles', compact('articles'));
+        $articles = $articles->paginate(CommonConst::PAGINATION_ARTICLE);
+        return view('articles.index', compact('articles'));
     }
 }
