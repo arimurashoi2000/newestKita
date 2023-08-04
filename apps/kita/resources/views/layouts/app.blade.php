@@ -8,12 +8,12 @@
     <script src="{{ asset('js/app.js') }}" defer></script>
 </head>
 <body>
-@if(auth()->guard('admin_users')->check())
-    @include('common.admin_header')
-@else
-    @include('common.header')
-@endif
+    @if(auth()->guard('admin_users')->check())
+        @include('common.admin_header')
+    @else
+        @include('common.header')
+    @endif
 
-@yield('content')
+    @yield('content')
 </body>
 </html>
