@@ -11,12 +11,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('members', function (Blueprint $table) {
+        Schema::create('articles', function (Blueprint $table) {
             $table->unsignedInteger('id')->autoIncrement();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->string('password');
+            $table->string('title');
+            $table->mediumText('contents');
+            $table->unsignedInteger('member_id');
             $table->timestamps();
+            $table->softDeletes()->nullable();
+            $table->foreign('member_id')->references('id')->on('members');
         });
     }
     /**
@@ -26,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('members');
+        Schema::dropIfExists('articles');
     }
 };

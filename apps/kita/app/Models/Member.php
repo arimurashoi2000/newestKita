@@ -32,4 +32,11 @@ class Member extends Authenticatable
      * @var string
      */
     protected $table = 'members';
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function articles() {
+        return $this->hasMany(Article::class);
+    }
 }
