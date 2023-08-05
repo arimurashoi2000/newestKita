@@ -10,9 +10,9 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 class ArticleFactory extends Factory
 {
     /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
+     * 一括挿入するデータの設定
+     * @return array|mixed[]
+     * @throws \Exception
      */
     public function definition()
     {
