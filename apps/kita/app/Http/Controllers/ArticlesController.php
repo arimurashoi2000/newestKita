@@ -4,6 +4,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Article;
 use App\Models\Member;
 use Illuminate\Http\Request;
+use App\Validators\ArticleValidator;
 class ArticlesController extends Controller
 {
     //
@@ -22,13 +23,12 @@ class ArticlesController extends Controller
         return view('articles.articles_create');
     }
     public function store(Request $request) {
-        $validated = $request->validate([
-            'title' => 'required|max:20',
-            'contents' => 'required|max:400',
-        ]);
+        $validator = new ArticleValidator();
+        $validatedData = $validator->validate($request->all());
+
         $article = new Article();
-        $article->title = $validated['title'];
-        $article->contents = $validated['contents'];
+        $article->title = $validatedData['title'];
+        $article->contents = $validatedData['contents'];
         $article->member_id = auth()->id();
         $article->save();
         return redirect()->route('index');
@@ -39,8 +39,7 @@ class ArticlesController extends Controller
      * @param $id
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function edit($id) {
-        $article = Article::findOrFail($id);
+    public function edit(Article $article) {
         return view('articles.articles_edit', compact('article'));
     }
 
@@ -50,15 +49,17 @@ class ArticlesController extends Controller
      * @param $id
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, $id) {
-        $validated = $request->validate([
-            'title' => 'required|max:20',
-            'contents' => 'required|max:400',
-        ]);
+    public function update(Request $request, $article) {
+        $validator = new ArticleValidator();
+        $validatedData = $validator->validate($request->all());
 
-        $article = Article::findOrFail($id);
-        $article->fill($validated)->save();
+        if ($validatedData->fails()) {
+            return redirect()->route("article.edit")->withErrors($validatedData->messages());
+        }
 
-        return redirect()->route('articles.edit', $article->id)->with('message', '記事編集が完了しました。');
+        $articleModel = Article::findOrFail($article);
+        $articleModel->fill($validatedData)->save();
+
+        return redirect()->route('articles.edit', $articleModel->id)->with('message', '記事編集が完了しました。');
     }
 }
