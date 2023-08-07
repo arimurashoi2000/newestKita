@@ -5,7 +5,8 @@ namespace app\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Article_tag;
 use Illuminate\Http\Request;
-
+use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Validator;
 class ArticlesTagController extends Controller
 {
     //
@@ -39,5 +40,30 @@ class ArticlesTagController extends Controller
         $article_tag->save();
         //タグ編集機能を実装後にリダイレクト先を変更
         return redirect()->route('tag.create')->with('message', '登録処理が完了しました');
+    }
+
+    /**
+     * タグ編集ページへ遷移
+     * @param Article_tag $article_tag
+     * @param $article_tags
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
+    public function edit(Article_tag $article_tag) {
+        return view('admin.tag_edit', compact('article_tag'));
+    }
+
+    public function update(Request $request, Article_tag $article_tag) {
+
+        $validator = Validator::make($request->all(), [
+            'name' => [
+                'required',
+                'max:20',
+                Rule::unique('article_tags')->ignore($article_tag->id),
+        ]]);
+
+        $validated = $validator->validated();
+        $article_tag->fill($validated)->save();
+
+        return redirect()->route('tag.edit', compact('article_tag') )->with('message', '編集処理が完了しました');
     }
 }

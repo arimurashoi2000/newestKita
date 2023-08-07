@@ -67,8 +67,10 @@ Route::resource('/admin/admin_users', AdminUserController::class)->only(['index'
 ]);
 Route::get('/admin/users',  [UserController::class, 'index'])->name('user.index');
 //基本的なタグ機能のCRUD操作
-Route::resource('/admin/article_tags', ArticlesTagController::class)->only(['index', 'create', 'store'])->names([
+Route::resource('/admin/article_tags', ArticlesTagController::class)->only(['index', 'create', 'store', 'edit', 'update'])->names([
     'index' => 'tag.index',
     'create' => 'tag.create',
     'store' => 'tag.store',
+    'edit' => 'tag.edit',
+    'update' => 'tag.update'
 ]);

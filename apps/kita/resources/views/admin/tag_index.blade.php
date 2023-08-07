@@ -58,7 +58,7 @@
                                 <td>{{$article_tag->name}}</td>
                                 <td>{{$article_tag->created_at}}</td>
                                 <td>
-                                    <a href="#" class="btn btn-primary text-white">編集</a>
+                                    <a href="{{route('tag.edit', $article_tag)}}" class="btn btn-primary text-white">編集</a>
                                 </td>
                             </tr>
                         @endforeach
