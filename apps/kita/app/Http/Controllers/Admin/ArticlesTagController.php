@@ -66,4 +66,10 @@ class ArticlesTagController extends Controller
 
         return redirect()->route('tag.edit', compact('article_tag') )->with('message', '編集処理が完了しました');
     }
+
+    public function destroy(Article_tag $article_tag) {
+        $article_tag->detach();
+        $article_tag->delete();
+        return redirect()->route('tag.index')->with('success', '削除処理が完了しました');
+    }
 }

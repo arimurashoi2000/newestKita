@@ -78,8 +78,12 @@
                         {{ Form::submit('更新する', ['class' => 'btn btn-primary col-12']) }}
                     </div>
                     {{ Form::close() }}
-                    <!--Todo 削除ボタン　タグ削除機能実装時-->
-
+                    <!--削除ボタン-->
+                    {{ Form::open(['route' => ['tag.destroy', $article_tag], 'onsubmit' => "return confirm('一度削除すると元に戻せません。よろしいですか？');"]) }}
+                    @csrf
+                    @method('delete')
+                    {{ Form::button('削除する', ['type' => 'submit', 'class' => 'btn btn-danger col-12 rounded']) }}
+                    {{Form::close()}}
                 </div>
             </div>
         </div>
