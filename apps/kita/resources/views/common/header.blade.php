@@ -20,9 +20,9 @@
 
             <div class="ml-2">
                 <div class="col-auto">
-                    {{ Form::open(['route' => 'articles.create', 'method' => 'get']) }}
-                    {{ Form::button('<span style="color: black;">記事を作成する</span>', ['class' => 'search_button btn btn-outline-success btn-lg pl-2', 'type' => 'submit']) }}
-                    {{Form::close()}}
+                    <a href="{{ route('articles.create') }}" class="search_button btn btn-outline-success btn-lg pl-2">
+                        <span style="color: black;">記事を作成する</span>
+                    </a>
                 </div>
             </div>
 
