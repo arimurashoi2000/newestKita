@@ -4,14 +4,19 @@ use App\Http\Controllers\Controller;
 use App\Models\Article;
 use App\Models\Member;
 use Illuminate\Http\Request;
+use App\Consts\CommonConst;
+
 class ArticlesController extends Controller
 {
-    //
-    public function index() {
-        $member_id = auth()->id();
-        $articles = Article::with('member')->paginate(10);
-        return view('articles.articles', compact('articles'));
+    /**
+     * 記事の一覧表示
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
+    public function index(){
+        $articles = Article::with('member')->orderBy('created_at', 'desc')->paginate(CommonConst::PAGINATION_ARTICLE);
+        return view('articles.index', compact('articles'));
     }
+
     public function search(Request $request) {
         $keyword = $request->input('keyword');
         $articles = Article::where('title', 'like', "%$keyword%")->orWhere('contents', 'like', "%$keyword%")->paginate(10);
@@ -58,9 +63,7 @@ class ArticlesController extends Controller
      * @param $id
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function show($id) {
-        $article = Article::findOrFail($id);
+    public function show(Article $article) {
         return view('articles.articles_show', compact('article'));
     }
 }
-?>

@@ -17,7 +17,7 @@
     </div>
 @endif
 
-{{ Form::open(['route' => ['update', $article->id]]) }}
+{{ Form::open(['route' => ['articles.update', $article->id]]) }}
 @csrf
 {{Form::label('title', 'タイトル')}}
 {{Form::text('title', $article->title, ['class'=>'title'])}}

@@ -3,6 +3,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\ArticlesController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -25,19 +26,7 @@ Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('login', [LoginController::class, 'login']);
 // ログアウトルート
 Route::post('logout', [LoginController::class, 'logout'])->name('logout');
-//ミドルウェアが必要ないarticlesのCRUD操作
-Route::resource('articles', ArticlesController::class)->only(['index', 'show'])
-    ->names([
-        'index' => 'articles.index',
-        'show' => 'articles.show',
-    ]);
 //記事検索機能
 Route::get('/articles/search', [ArticlesController::class, 'search'])->name('articles.search');
 //articlesのミドルウェアが必要なCRUD操作
-Route::middleware('auth')->resource('articles', ArticlesController::class)->only(['create', 'store', 'edit', 'update'])
-    ->names([
-        'create' => 'articles.create',
-        'store' => 'store',
-        'edit' => 'articles.edit',
-        'update' => 'update',
-    ]);
+Route::resource('articles', ArticlesController::class)->only(['index','create', 'store', 'edit', 'update', 'show']);
