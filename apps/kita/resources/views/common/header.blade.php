@@ -3,20 +3,16 @@
         <nav class="navbar navbar-expand-sm navbar-light">
             <a href="{{route('index')}}" class="btn btn-success rounded-circle me-3" style="font-size: 2rem; padding: 0.5rem 2rem;">Kita</a>
 
-            <button class="navbar-toggler my-2 bg-success" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="justify-content-end collapse navbar-collapse" id="navbarSupportedContent">
-
-            <form class="d-flex my-0">
-                <div class="col">
-                    <input class="form-control form-control-lg me-2 border border-success" type="search" placeholder="Search for something" aria-label="Search">
+            <div class="justify-content-end collapse navbar-collapse me-2" id="navbarSupportedContent">
+                {{ Form::open(['route' => 'index', 'method' => 'get', 'class' => 'd-flex']) }}
+                <div class="col-md-9">
+                    {{ Form::text('search', null, ['class' => 'form-control form-control-lg me-2 border border-success search', 'placeholder' => 'Search for something', 'aria-label' => 'Search']) }}
                 </div>
                 <div class="col-auto">
-                    <button class="btn btn-success btn-lg me-2" type="submit">検索</button>
+                    {{Form::submit('検索', ['class'=>'btn btn-success btn-lg mx-2 search_button'])}}
                 </div>
-            </form>
+                {{Form::close()}}
+            </div>
 
             <div class="ml-2">
                 <div class="col-auto">
