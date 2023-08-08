@@ -13,7 +13,14 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // Article_commentデータの生成と挿入
+        // \App\Models\User::factory(10)->create();
+
+        $this->call([MemberSeeder::class]);
+        $this->call([ArticleSeeder::class]);
         $this->call([ArticleCommentSeeder::class]);
+        // \App\Models\User::factory()->create([
+        //     'name' => 'Test User',
+        //     'email' => 'test@example.com',
+        // ]);
     }
 }

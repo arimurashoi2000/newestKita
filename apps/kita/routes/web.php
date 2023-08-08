@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\ArticlesController;
 use App\Http\Controllers\CommentsController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -26,10 +27,8 @@ Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('login', [LoginController::class, 'login']);
 // ログアウトルート
 Route::post('logout', [LoginController::class, 'logout'])->name('logout');
-//記事一覧機能
+//記事一覧機能・検索
 Route::get('/articles', [ArticlesController::class, 'index'])->name('index');
-//記事検索機能
-Route::get('/articles/search', [ArticlesController::class, 'search'])->name('articles.search');
 //記事作成機能
 Route::get('/articles/create', [ArticlesController::class, 'showCreatePage'])->name('articles.create');
 Route::post('/articles', [ArticlesController::class, 'store'])->name('store');
