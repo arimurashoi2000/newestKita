@@ -31,7 +31,7 @@
                         </div>
                     @endif
 
-                    {{ Form::open(['route' => ['update', $article->id]]) }}
+                    {{ Form::open(['route' => ['articles.update', $article]]) }}
                     @csrf
                     @method('put')
                         <!--タイトル-->

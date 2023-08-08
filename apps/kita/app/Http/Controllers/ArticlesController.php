@@ -5,14 +5,19 @@ use App\Models\Article;
 use App\Models\Member;
 use Illuminate\Http\Request;
 use App\Validators\ArticleValidator;
+use App\Consts\CommonConst;
+
 class ArticlesController extends Controller
 {
-    //
-    public function index() {
-        $member_id = auth()->id();
-        $articles = Article::with('member')->paginate(10);
-        return view('articles.articles', compact('articles'));
+    /**
+     * 記事の一覧表示
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
+    public function index(){
+        $articles = Article::with('member')->orderBy('created_at', 'desc')->paginate(CommonConst::PAGINATION_ARTICLE);
+        return view('articles.index', compact('articles'));
     }
+
     public function search(Request $request) {
         $keyword = $request->input('keyword');
         $articles = Article::where('title', 'like', "%$keyword%")->orWhere('contents', 'like', "%$keyword%")->paginate(10);
@@ -23,6 +28,7 @@ class ArticlesController extends Controller
         return view('articles.articles_create');
     }
     public function store(Request $request) {
+        //TODO 記事作成機能をpull後に修正
         $validator = new ArticleValidator();
         $validatedData = $validator->validate($request->all());
 
@@ -49,17 +55,12 @@ class ArticlesController extends Controller
      * @param $id
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, $article) {
+    public function update(Request $request, Article $article) {
         $validator = new ArticleValidator();
         $validatedData = $validator->validate($request->all());
 
-        if ($validatedData->fails()) {
-            return redirect()->route("article.edit")->withErrors($validatedData->messages());
-        }
+        $article->fill($validatedData)->save();
 
-        $articleModel = Article::findOrFail($article);
-        $articleModel->fill($validatedData)->save();
-
-        return redirect()->route('articles.edit', $articleModel->id)->with('message', '記事編集が完了しました。');
+        return redirect()->route('articles.edit', $article)->with('message', '記事編集が完了しました。');
     }
 }
