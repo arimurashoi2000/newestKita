@@ -12,13 +12,22 @@ class ArticlesController extends Controller
     public function __construct() {
         $this->middleware('auth:members')->except(['index', 'show']);
     }
+
     /**
-     * 記事の一覧表示
+     * 一覧表示と検索
+     * @param Request $request
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function index()
-    {
-        $articles = Article::with('member')->orderBy('created_at', 'desc')->paginate(CommonConst::PAGINATION_ARTICLE);
+    public function index(Request $request) {
+        $search = $request->input('search');
+        $escapedSearch = '%' . addcslashes($search, '%_\\') . '%';
+        $articles = Article::with('member')->orderBy('created_at', 'desc');
+
+        if (!empty($escapedSearch)) {
+            $articles->where('title', 'like', "%$escapedSearch%")->OrWhere('contents', 'like', "%$escapedSearch%");
+        }
+
+        $articles = $articles->paginate(CommonConst::PAGINATION_ARTICLE);
         return view('articles.index', compact('articles'));
     }
 

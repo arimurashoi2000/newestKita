@@ -9,10 +9,10 @@ use Illuminate\Database\Eloquent\Factories\Factory;
  */
 class ArticleFactory extends Factory
 {
+
     /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
+     * 記事データの設定
+     * @return array|mixed[]
      */
     public function definition()
     {
@@ -22,7 +22,7 @@ class ArticleFactory extends Factory
             'contents' => $this->faker->realText(500),
             'created_at' => now(),
             'updated_at' => now(),
-            'member_id' => random_int(1, 5),
+            'member_id' => $this->faker->numberBetween(1,10),
         ];
     }
 }
