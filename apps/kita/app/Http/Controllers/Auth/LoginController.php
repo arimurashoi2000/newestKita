@@ -40,4 +40,10 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
+
+    public function showLoginForm()
+    {
+        $includeCommonHeader = false;
+        return view('auth.login', compact('includeCommonHeader'));
+    }
 }

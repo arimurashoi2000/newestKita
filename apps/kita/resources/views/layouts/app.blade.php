@@ -8,8 +8,10 @@
     <script src="{{ asset('js/app.js') }}" defer></script>
 </head>
 <body>
-@if(auth()->guard('admin_users')->check())
+@if((auth()->guard('admin_users')->check() && !Request::is('admin/login')))
     @include('common.admin_header')
+@elseif ((Request::is('login') || Request::is('admin/login')))
+
 @else
     @include('common.header')
 @endif

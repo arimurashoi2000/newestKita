@@ -22,7 +22,7 @@ class ArticleFactory extends Factory
             'contents' => $this->faker->realText(500),
             'created_at' => now(),
             'updated_at' => now(),
-            'member_id' => random_int(1, 5),
+            'member_id' => $this->faker->numberBetween(1,10),
         ];
     }
 }

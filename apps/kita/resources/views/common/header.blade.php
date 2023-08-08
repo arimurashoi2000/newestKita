@@ -3,26 +3,16 @@
         <nav class="navbar navbar-expand-sm navbar-light">
             <a href="{{route('index')}}" class="btn btn-success rounded-circle me-3" style="font-size: 2rem; padding: 0.5rem 2rem;">Kita</a>
 
-            {{ Form::open(['route' => 'index', 'method' => 'get', 'class' => 'd-flex']) }}
-            @csrf
+            <div class="justify-content-end collapse navbar-collapse" id="navbarSupportedContent">
+                {{ Form::open(['route' => 'index', 'method' => 'get', 'class' => 'd-flex']) }}
                 <div class="col-md-9">
                     {{ Form::text('search', null, ['class' => 'form-control form-control-lg me-2 border border-success search', 'placeholder' => 'Search for something', 'aria-label' => 'Search']) }}
                 </div>
                 <div class="col-auto">
                     {{Form::submit('検索', ['class'=>'btn btn-success btn-lg mr-2 search_button'])}}
                 </div>
-            {{Form::close()}}
-
-            <div class="justify-content-end collapse navbar-collapse" id="navbarSupportedContent">
-
-                <form class="d-flex my-0">
-                    <div class="col">
-                        <input class="form-control form-control-lg me-2 border border-success" type="search" placeholder="Search for something" aria-label="Search">
-                    </div>
-                    <div class="col-auto">
-                        <button class="btn btn-success btn-lg me-2" type="submit">検索</button>
-                    </div>
-                </form>
+                {{Form::close()}}
+            </div>
 
             <div class="ml-2">
                 <div class="col-auto">
@@ -38,6 +28,10 @@
                             <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"></path>
                         </svg>
                     </button>
+                    <form action="{{route('logout')}}" method="post">
+                        @csrf
+                        <button type="submit">ログアウト</button>
+                    </form>
                 </div>
             </div>
         </nav>
