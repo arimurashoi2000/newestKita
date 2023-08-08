@@ -20,12 +20,12 @@
                                             <h3 class="font-weight-bold">{{$article->title}}</h3>
                                         </div>
                                     </div>
+                                    <!--仮の編集ボタン-->
+                                    <a href="{{ route('articles.edit', $article) }}">編集</a>
                                     <!--タグ一覧実装後にここに書く-->
                                     <div class="row">
                                         <div class="col-md-12 col-12 border-bottom border-dark py-2"></div>
                                     </div>
-                                    <!--仮の編集ボタン-->
-                                    <a href="{{ route('articles.edit', $article) }}">編集</a>
                                 @endforeach
 
                                 <div class="d-flex align-items-center justify-content-center mb-1 mt-3">

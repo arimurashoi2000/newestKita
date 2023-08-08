@@ -42,8 +42,18 @@
                             {{Form::text('title', $article->title, ['class'=>'title col-md-12 col-12 border border-success mt-2 rounded'])}}
                         </div>
                         <!--タグ-->
-                        <div class="row">
-                            <div class="col-md-12 col-12"></div>
+                        <div class="row pt-3">
+                            {{Form::label('tags', 'タグ', ['class' => 'col-md-12 col-12 px-0'])}}
+                        </div>
+
+                        <div class="row pt-2">
+                            <div class="col-md-12 col-12">
+                                <select class="form-select border-success" size="3" aria-label="size 3 select example" name="tag_id[]" multiple>
+                                    @foreach ($tags as $tag)
+                                        <option value="{{$tag->id}}">{{$tag->name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
                         </div>
                         <!--記事内容-->
                         <div class="row pt-3">

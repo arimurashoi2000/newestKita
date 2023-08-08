@@ -6,38 +6,49 @@ use App\Models\Member;
 use Illuminate\Http\Request;
 use App\Validators\ArticleValidator;
 use App\Consts\CommonConst;
+use App\Models\Article_tag;
 
 class ArticlesController extends Controller
 {
-    /**
-     * 記事の一覧表示
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
-     */
-    public function index(){
-        $articles = Article::with('member')->orderBy('created_at', 'desc')->paginate(CommonConst::PAGINATION_ARTICLE);
-        return view('articles.index', compact('articles'));
+    public function __construct() {
+        $this->middleware('auth:members')->except(['index', 'show']);
     }
 
-    public function search(Request $request) {
-        $keyword = $request->input('keyword');
-        $articles = Article::where('title', 'like', "%$keyword%")->orWhere('contents', 'like', "%$keyword%")->paginate(10);
-        $articles->appends(['keyword' => $keyword]); // クエリ文字列を追加
-        return view('articles.articles', compact('articles'));
+    /**
+     * 一覧表示と検索
+     * @param Request $request
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
+    public function index(Request $request) {
+        $search = $request->input('search');
+        $escapedSearch = '%' . addcslashes($search, '%_\\') . '%';
+        $articles = Article::with('member')->orderBy('created_at', 'desc');
+
+        if (!empty($escapedSearch)) {
+            $articles->where('title', 'like', "%$escapedSearch%")->OrWhere('contents', 'like', "%$escapedSearch%");
+        }
+
+        $articles = $articles->paginate(CommonConst::PAGINATION_ARTICLE);
+        return view('articles.index', compact('articles'));
     }
-    public function showCreatePage() {
-        return view('articles.articles_create');
+    public function create() {
+        $tags = Article_tag::orderBy('created_at', 'desc')->get();
+        return view('articles.articles_create', compact('tags'));
     }
     public function store(Request $request) {
-        //TODO 記事作成機能をpull後に修正
+        $request->merge(['member_id' => auth()->id()]);
         $validator = new ArticleValidator();
         $validatedData = $validator->validate($request->all());
 
         $article = new Article();
-        $article->title = $validatedData['title'];
-        $article->contents = $validatedData['contents'];
-        $article->member_id = auth()->id();
-        $article->save();
-        return redirect()->route('index');
+        $article->fill($validatedData)->save();
+
+        // 選択されたタグのIDを中間テーブルに関連付ける
+        if ($request->has('tag_id')) {
+            $selectedTags = $request->input('tag_id');
+            $article->tags()->attach($selectedTags);
+        }
+        return redirect()->route('articles.edit', compact('article'))->with('message', '記事登録が完了しました。');
     }
 
     /**
@@ -46,7 +57,8 @@ class ArticlesController extends Controller
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function edit(Article $article) {
-        return view('articles.articles_edit', compact('article'));
+        $tags = Article_tag::orderBy('created_at', 'desc')->get();
+        return view('articles.articles_edit', compact('article', 'tags'));
     }
 
     /**
@@ -60,6 +72,12 @@ class ArticlesController extends Controller
         $validatedData = $validator->validate($request->all());
 
         $article->fill($validatedData)->save();
+
+        // 選択されたタグのIDを中間テーブルに関連付ける
+        if ($request->has('tag_id')) {
+            $selectedTags = $request->input('tag_id');
+            $article->tags()->sync($selectedTags);
+        }
 
         return redirect()->route('articles.edit', $article)->with('message', '記事編集が完了しました。');
     }
