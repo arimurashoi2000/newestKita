@@ -3,6 +3,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\ArticlesController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -25,16 +26,7 @@ Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('login', [LoginController::class, 'login']);
 // ログアウトルート
 Route::post('logout', [LoginController::class, 'logout'])->name('logout');
-//記事一覧機能
-Route::resource('articles', ArticlesController::class)->only(['index'])
-    ->names([
-        'index' => 'articles.index'
-    ]);
-//記事検索機能
+//記事一覧の基本的なCRUD操作
+Route::resource('articles', ArticlesController::class)->only(['index', 'create', 'store']);
+//TODO 記事検索機能をプルした後に削除
 Route::get('/articles/search', [ArticlesController::class, 'search'])->name('articles.search');
-//記事作成機能
-Route::middleware('auth')->resource('articles', ArticlesController::class)->only(['create', 'store'])
-    ->names([
-        'create' => 'articles.create',
-        'store' => 'store',
-    ]);

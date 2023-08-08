@@ -15,8 +15,16 @@ class Article extends Model
         'contents',
         'member_id',
     ];
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function member()
     {
         return $this->belongsTo(Member::class);
+    }
+
+    public function tags() {
+        return $this->belongsToMany(Article_tag::class);
     }
 }
