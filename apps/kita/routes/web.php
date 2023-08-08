@@ -28,5 +28,5 @@ Route::post('login', [LoginController::class, 'login']);
 Route::post('logout', [LoginController::class, 'logout'])->name('logout');
 //TODO 記事検索機能pull後に削除
 Route::get('/articles/search', [ArticlesController::class, 'search'])->name('articles.search');
-//articlesのミドルウェアが必要なCRUD操作
+//articles基本的なCRUD操作
 Route::resource('articles', ArticlesController::class)->only(['index', 'create', 'store', 'edit', 'update']);

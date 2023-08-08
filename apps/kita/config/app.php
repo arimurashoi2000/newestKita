@@ -82,7 +82,6 @@ return [
     |
     */
 
-    'locale' => 'en',
     'locale' => 'ja',
 
     /*
@@ -108,7 +107,7 @@ return [
     | localized telephone numbers, street address information and more.
     |
     */
-    
+
     'faker_locale' => 'ja_JP',
 
     /*
