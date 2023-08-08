@@ -68,17 +68,22 @@ class ArticlesController extends Controller
      * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Request $request, Article $article) {
-        $validator = new ArticleValidator();
-        $validatedData = $validator->validate($request->all());
+            if ($article->member_id !== auth()->user()->id) {
+                //TODO 記事詳細機能作成時にリダイレクト先を変更
+                return redirect()->back()->with('error', '他人の記事は編集できません。');
+            }
 
-        $article->fill($validatedData)->save();
+            $validator = new ArticleValidator();
+            $validatedData = $validator->validate($request->all());
 
-        // 選択されたタグのIDを中間テーブルに関連付ける
-        if ($request->has('tag_id')) {
-            $selectedTags = $request->input('tag_id');
-            $article->tags()->sync($selectedTags);
+            $article->fill($validatedData)->save();
+
+            // 選択されたタグのIDを中間テーブルに関連付ける
+            if ($request->has('tag_id')) {
+                $selectedTags = $request->input('tag_id');
+                $article->tags()->sync($selectedTags);
+            }
+
+            return redirect()->route('articles.edit', $article)->with('message', '記事編集が完了しました。');
         }
-
-        return redirect()->route('articles.edit', $article)->with('message', '記事編集が完了しました。');
-    }
 }
