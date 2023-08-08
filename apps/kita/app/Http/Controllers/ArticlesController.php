@@ -45,7 +45,7 @@ class ArticlesController extends Controller
             'title' => 'required|max:255',
             'contents' => 'required|max:10000',
             'member_id' => 'required',
-            'tag_id' => 'array',
+            'tag_id' => 'array|max:5',
         ]);
         $article = new Article();
         $article->fill($validated)->save();
