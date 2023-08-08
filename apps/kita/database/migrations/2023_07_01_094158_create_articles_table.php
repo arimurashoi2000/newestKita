@@ -13,11 +13,12 @@ return new class extends Migration
     {
         Schema::create('articles', function (Blueprint $table) {
             $table->unsignedInteger('id')->autoIncrement();
-            $table->string('title', 255);
+            $table->string('title');
             $table->mediumText('contents');
-            $table->foreignId('member_id');
+            $table->unsignedInteger('member_id');
             $table->timestamps();
             $table->softDeletes()->nullable();
+            $table->foreign('member_id')->references('id')->on('members');
         });
     }
     /**

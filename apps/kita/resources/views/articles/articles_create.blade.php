@@ -11,7 +11,7 @@
 
 </head>
 <body>
-{{ Form::open(['route' => 'store']) }}
+{{ Form::open(['route' => 'articles.store']) }}
 @csrf
 {{Form::label('title', 'タイトル')}}
 {{Form::text('title', null, ['class'=>'title'])}}

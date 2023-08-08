@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\ArticlesController;
 use App\Http\Controllers\CommentsController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -26,23 +27,8 @@ Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('login', [LoginController::class, 'login']);
 // ログアウトルート
 Route::post('logout', [LoginController::class, 'logout'])->name('logout');
-//記事一覧機能
-Route::resource('articles', ArticlesController::class)->only(['index'])
-    ->names([
-        'index' => 'articles.index'
-    ]);
-//記事検索機能
-Route::get('/articles/search', [ArticlesController::class, 'search'])->name('articles.search');
 //記事作成機能
-Route::middleware('auth')->resource('articles', ArticlesController::class)->only(['create', 'store', 'edit', 'update', 'destroy'])
-    ->names([
-        'create' => 'articles.create',
-        'store' => 'store',
-        'edit' => 'articles.edit',
-        'update' => 'update',
-        'destroy' => 'articles.delete'
-    ]);
-//記事詳細表示機能
-Route::get('/articles/{id}', [ArticlesController::class, 'show'])->name('articles.show');
+Route::resource('articles', ArticlesController::class)->only(['index', 'create', 'store', 'edit', 'update', 'destroy', 'show']);
+
 //コメント投稿機能
 Route::post('/articles/{id}', [CommentsController::class, 'store'])->name('comments.store');
