@@ -46,21 +46,9 @@ Route::post('/admin/login', [App\Http\Controllers\Admin\LoginController::class, 
 Route::post('/admin/logout', [App\Http\Controllers\Admin\LoginController::class,'logout'])->name('admin.logout');
 Route::get('/admin/admin_users/create', [App\Http\Controllers\Admin\RegisterController::class, 'showRegistrationForm']);
 Route::post('/admin/admin_users', [App\Http\Controllers\Admin\RegisterController::class, 'register'])->name('admin.create');
-Route::view('/admin/home', 'admin/home')->middleware('auth:admin_users');
 //管理者画面の基本的なCRUD操作
-Route::resource('/admin/admin_users', AdminUserController::class)->only(['index', 'edit', 'update', 'destroy'])->names([
-    'index' => 'admin.index',
-    'edit' => 'admin.edit',
-    'update' => 'admin.update',
-    'destroy' => 'admin.delete'
-]);
+Route::resource('/admin/admin_users', AdminUserController::class)->only(['index', 'edit', 'update', 'destroy']);
+//会員管理
 Route::get('/admin/users',  [UserController::class, 'index'])->name('user.index');
 //基本的なタグ機能のCRUD操作
-Route::resource('/admin/article_tags', ArticlesTagController::class)->only(['index', 'create', 'store', 'edit', 'update', 'destroy'])->names([
-    'index' => 'tag.index',
-    'create' => 'tag.create',
-    'store' => 'tag.store',
-    'edit' => 'tag.edit',
-    'update' => 'tag.update',
-    'destroy' => 'tag.destroy',
-]);
+Route::resource('/admin/article_tags', ArticlesTagController::class)->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);

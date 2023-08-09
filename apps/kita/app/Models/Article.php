@@ -37,10 +37,6 @@ class Article extends Model
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function tags() {
-        return $this->belongsToMany(Article_tag::class);
-    }
-
-    public function tags() {
         return $this->belongsToMany(Article_tag::class)->withTimestamps();
     }
 }

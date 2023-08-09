@@ -1,11 +1,11 @@
-@extends('layouts.admin_nav')
+@extends('layouts.app')
 @section('title')
     <title>管理者登録画面</title>
 @endsection
 
 @section('content')
     <div class="container">
-        <div class="row d-flex justify-content-center align-items-center">
+        <div class="row d-flex justify-content-center align-items-center" style="height: 100vh;">
             <div class="col-md-5 col-12">
                 <div class="row">
                     <div class="col-md-12 d-flex justify-content-center">
