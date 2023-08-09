@@ -1,10 +1,14 @@
 <div class="bg-white">
     <div class="container d-flex justify-content-center align-items-center bg-white">
         <nav class="navbar navbar-expand-sm navbar-light">
-            <a href="{{route('index')}}" class="btn btn-success rounded-circle me-3" style="font-size: 2rem; padding: 0.5rem 2rem;">Kita</a>
+            <a href="{{route('articles.index')}}" class="btn btn-success rounded-circle me-3" style="font-size: 2rem; padding: 0.5rem 2rem;">Kita</a>
+
+            <button class="navbar-toggler my-2 bg-success" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
             <div class="justify-content-end collapse navbar-collapse me-2" id="navbarSupportedContent">
-                {{ Form::open(['route' => 'index', 'method' => 'get', 'class' => 'd-flex']) }}
+                {{ Form::open(['route' => 'articles.index', 'method' => 'get', 'class' => 'd-flex']) }}
                 <div class="col-md-9">
                     {{ Form::text('search', null, ['class' => 'form-control form-control-lg me-2 border border-success search', 'placeholder' => 'Search for something', 'aria-label' => 'Search']) }}
                 </div>
@@ -16,7 +20,9 @@
 
             <div class="ml-2">
                 <div class="col-auto">
-                    <button class="btn btn-outline-success btn-lg pl-2"><span style="color: black;">記事を作成する</span></button>
+                    <a href="{{ route('articles.create') }}" class="search_button btn btn-outline-success btn-lg pl-2">
+                        <span style="color: black;">記事を作成する</span>
+                    </a>
                 </div>
             </div>
 
@@ -33,4 +39,3 @@
         </nav>
     </div>
 </div>
-

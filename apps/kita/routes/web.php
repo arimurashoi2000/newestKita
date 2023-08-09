@@ -26,5 +26,5 @@ Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('login', [LoginController::class, 'login']);
 // ログアウトルート
 Route::post('logout', [LoginController::class, 'logout'])->name('logout');
-//記事一覧機能・検索
-Route::get('/articles', [ArticlesController::class, 'index'])->name('index');
+//記事一覧の基本的なCRUD操作
+Route::resource('articles', ArticlesController::class)->only(['index', 'create', 'store']);

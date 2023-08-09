@@ -28,7 +28,7 @@ class LoginController extends Controller
      * @var string
      */
     protected function redirectTo() {
-        return route('index');
+        return route('articles.index');
     }
 
     /**
@@ -43,7 +43,6 @@ class LoginController extends Controller
 
     public function showLoginForm()
     {
-        $includeCommonHeader = false;
-        return view('auth.login', compact('includeCommonHeader'));
+        return view('auth.login');
     }
 }
