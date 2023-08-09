@@ -4,6 +4,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Article;
 use App\Models\Member;
 use Illuminate\Http\Request;
+use App\Validators\ArticleValidator;
 use App\Consts\CommonConst;
 use App\Models\Article_tag;
 
@@ -42,22 +43,17 @@ class ArticlesController extends Controller
     }
 
     /**
-     * 記事を作成しデータベースに挿入
+     *
      * @param Request $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
-    {
-        $request->merge(['member_id' => auth()->id()]);
-        //TODO 記事編集機能でvalidatorで切り出し済み
-        $validated = $request->validate([
-            'title' => 'required|max:255',
-            'contents' => 'required|max:10000',
-            'member_id' => 'required',
-            'tag_id' => 'array|max:5',
-        ]);
+    public function store(Request $request) {
+        $validator = new ArticleValidator();
+        $validatedData = $validator->validate($request->all());
+        $validatedData['member_id'] = auth()->id();
+
         $article = new Article();
-        $article->fill($validated)->save();
+        $article->fill($validatedData)->save();
 
         // 選択されたタグのIDを中間テーブルに関連付ける
         if ($request->has('tag_id')) {
@@ -65,7 +61,41 @@ class ArticlesController extends Controller
             $article->tags()->attach($selectedTags);
         }
 
-        //TODO 編集機能作成後にリダイレクト先を変更
-        return redirect()->route('articles.create')->with('success', '記事投稿が完了しました。');
+        return redirect()->route('articles.edit', compact('article'))->with('message', '記事登録が完了しました。');
     }
+
+    /**
+     * 編集ページへ遷移
+     * @param $id
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
+    public function edit(Article $article) {
+        $tags = Article_tag::orderBy('created_at', 'desc')->get();
+        return view('articles.articles_edit', compact('article', 'tags'));
+    }
+
+    /**
+     * 編集した記事をデータベースに上書き
+     * @param Request $request
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function update(Request $request, Article $article) {
+            if ($article->member_id !== auth()->user()->id) {
+                //TODO 記事詳細機能作成時にリダイレクト先を変更
+                return redirect()->back()->with('error', '他人の記事は編集できません。');
+            }
+
+            $validator = new ArticleValidator();
+            $validatedData = $validator->validate($request->all());
+            $article->fill($validatedData)->save();
+
+            // 選択されたタグのIDを中間テーブルに関連付ける
+            if ($request->has('tag_id')) {
+                $selectedTags = $request->input('tag_id');
+                $article->tags()->sync($selectedTags);
+            }
+
+            return redirect()->route('articles.edit', $article)->with('message', '記事編集が完了しました。');
+        }
 }

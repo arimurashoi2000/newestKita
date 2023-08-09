@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use App\Models\Article;
 use App\Models\Article_tag;
+
 class ArticleSeeder extends Seeder
 {
     /**
