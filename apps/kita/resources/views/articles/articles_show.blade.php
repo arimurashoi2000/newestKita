@@ -1,10 +1,7 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <title>記事詳細ページ</title>
-</head>
-
-@extends('articles.header')
+@extends('layouts.app')
+@section('title')
+    <title>記事詳細</title>
+@endsection
 @section('content')
     <div class="container py-5">
         <div class="d-flex align-items-center justify-content-center" style="--bs-bg-opacity: .1">
@@ -12,15 +9,17 @@
                 <div class="card">
                     <div class="card-body px-5 py-3">
                         <!--削除、編集用のボタン-->
-                        <div class="row d-flex justify-content-end">
-                            <div class="col-md-2 text-end">
-                                <a href="#" class="btn btn-danger rounded-pill">削除する</a>
-                            </div>
+                        @if(auth()->guard('members')->check() && auth()->id() == $article->member_id)
+                            <div class="row d-flex justify-content-end">
+                                <div class="col-md-2 text-end">
+                                    <a href="#" class="btn btn-danger rounded-pill">削除する</a>
+                                </div>
 
-                            <div class="col-md-2 text-end">
-                                <a href="{{ route('articles.edit', $article->id) }}" class="btn btn-success rounded-pill">編集する</a>
+                                <div class="col-md-2 text-end">
+                                    <a href="{{ route('articles.edit', $article) }}" class="btn btn-success rounded-pill">編集する</a>
+                                </div>
                             </div>
-                        </div>
+                        @endif
 
                         <!--タイトル-->
                         <div class="row">
@@ -47,8 +46,7 @@
                                 <p>{!! nl2br($article->contents) !!}</p>
                             </div>
                         </div>
-
-                        <!--コメント機能実装後にコメント表示-->
+                        <!--TODO コメント機能実装後にコメント表示-->
                     </div>
                 </div>
             </div>
