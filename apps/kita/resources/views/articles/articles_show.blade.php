@@ -6,8 +6,9 @@
     <div class="container py-5">
         <div class="d-flex align-items-center justify-content-center" style="--bs-bg-opacity: .1">
             <div class="col-md-7 col-10 bg-white text-dark">
+                @include('common.flash_message')
                 <div class="card">
-                    <div class="card-body px-5 py-3">
+                    <div class="card-body ps-4 px-5 py-3">
                         <!--削除、編集用のボタン-->
                         @if(auth()->guard('members')->check() && auth()->id() == $article->member_id)
                             <div class="row d-flex justify-content-end">
@@ -22,7 +23,7 @@
                         @endif
 
                         <!--タイトル-->
-                        <div class="row">
+                        <div class="row pt-4">
                             <div class="col-md-12 col-12">
                                 <h3>{{$article->title}}</h3>
                             </div>
@@ -37,7 +38,13 @@
 
                         <!--タグ一覧-->
                         <div class="row">
-                            <div class="col-md-12 col-12"></div>
+                            <div class="col-md-auto">
+                                <ul class="list-inline">
+                                    @foreach($tags as $tag)
+                                        <li class="list-inline-item bg-primary text-white fw-bold rounded px-2 py-1 mb-2">{{$tag->name}}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
                         </div>
 
                         <!--記事の本文-->

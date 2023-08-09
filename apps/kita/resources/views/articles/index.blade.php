@@ -20,9 +20,15 @@
                                     <h3 class="font-weight-bold"><a href="{{ route('articles.show', $article) }}" style="color: black; text-decoration: none;">{{ $article->title }}</a></h3>
                                 </div>
                             </div>
-                            <!--タグ一覧実装後にここに書く-->
+
                             <div class="row">
-                                <div class="col-md-12 col-12 border-bottom border-dark py-2"></div>
+                                <div class="col-md-auto">
+                                    <ul class="list-inline">
+                                        @foreach($article->tags as $tag)
+                                            <li class="list-inline-item bg-primary text-white fw-bold rounded px-2 py-1 mb-1">{{$tag->name}}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
                             </div>
                         @endforeach
 
