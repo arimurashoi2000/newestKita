@@ -81,8 +81,7 @@ class ArticlesController extends Controller
      */
     public function update(Request $request, Article $article) {
             if ($article->member_id !== auth()->user()->id) {
-                //TODO 記事詳細機能作成時にリダイレクト先を変更
-                return redirect()->back()->with('error', '他人の記事は編集できません。');
+                return redirect()->route('articles.show')->with('error', '他人の記事は編集できません。');
             }
 
             $validator = new ArticleValidator();
