@@ -1,8 +1,7 @@
-<head>
-    <title>記事一覧ページ</title>
-</head>
-
-@extends('articles.header')
+@extends('layouts.app')
+@section('title')
+    <title>記事一覧</title>
+@endsection
 @section('content')
     <div class="container py-5">
         <div class="d-flex align-items-center justify-content-center" style="--bs-bg-opacity: .1;">
@@ -21,7 +20,7 @@
                                     <h3 class="font-weight-bold">{{$article->title}}</h3>
                                 </div>
                             </div>
-                            <!--タグ一覧-->
+                            <!--タグ一覧実装後にここに書く-->
                             <div class="row">
                                 <div class="col-md-12 col-12 border-bottom border-dark py-2"></div>
                             </div>
