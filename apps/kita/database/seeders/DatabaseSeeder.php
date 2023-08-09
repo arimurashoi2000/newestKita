@@ -15,9 +15,14 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // Article_commentデータの生成と挿入
-        Article_comment::factory()->count(30)->create();
-        //Article_tagデータの生成と挿入
-        $this->call(Article_tagSeeder::class);
+        // \App\Models\User::factory(10)->create();
+
+        $this->call([MemberSeeder::class]);
+        $this->call([Article_tagSeeder::class]);
+        $this->call([ArticleSeeder::class]);
+        // \App\Models\User::factory()->create([
+        //     'name' => 'Test User',
+        //     'email' => 'test@example.com',
+        // ]);
     }
 }

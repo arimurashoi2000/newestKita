@@ -4,57 +4,101 @@ use App\Http\Controllers\Controller;
 use App\Models\Article;
 use App\Models\Member;
 use Illuminate\Http\Request;
+use App\Validators\ArticleValidator;
+use App\Consts\CommonConst;
+use App\Models\Article_tag;
 
 class ArticlesController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:members')->except(['index', 'show']);
+    }
 
     /**
+     * 一覧表示と検索
+     * @param Request $request
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function index() {
-        $articles = Article::with('member')->orderBy('created_at', 'desc')->paginate(10);
+    public function index(Request $request) {
+        $search = $request->input('search');
+        $escapedSearch = '%' . addcslashes($search, '%_\\') . '%';
+        $articles = Article::with('member')->orderBy('created_at', 'desc');
+
+        if (!empty($escapedSearch)) {
+            $articles->where('title', 'like', "%$escapedSearch%")->OrWhere('contents', 'like', "%$escapedSearch%");
+        }
+
+        $articles = $articles->paginate(CommonConst::PAGINATION_ARTICLE);
         return view('articles.index', compact('articles'));
     }
-    public function search(Request $request) {
-        $keyword = $request->input('keyword');
-        $articles = Article::where('title', 'like', "%$keyword%")->orWhere('contents', 'like', "%$keyword%")->paginate(10);
-        $articles->appends(['keyword' => $keyword]); // クエリ文字列を追加
-        return view('articles.articles', compact('articles'));
+
+    /**
+     * 記事投稿画面へ移動
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
+    public function create()
+    {
+        $tags = Article_tag::orderBy('created_at', 'desc')->get();
+        return view('articles.articles_create', compact('tags'));
     }
-    public function showCreatePage() {
-        return view('articles.articles_create');
-    }
+
+    /**
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function store(Request $request) {
-        $validated = $request->validate([
-            'title' => 'required|max:20',
-            'contents' => 'required|max:400',
-        ]);
+        $validator = new ArticleValidator();
+        $validatedData = $validator->validate($request->all());
+        $validatedData['member_id'] = auth()->id();
+
         $article = new Article();
-        $article->title = $validated['title'];
-        $article->contents = $validated['contents'];
-        $article->member_id = auth()->id();
-        $article->save();
-        return redirect()->route('index');
+        $article->fill($validatedData)->save();
+
+        // 選択されたタグのIDを中間テーブルに関連付ける
+        if ($request->has('tag_id')) {
+            $selectedTags = $request->input('tag_id');
+            $article->tags()->attach($selectedTags);
+        }
+
+        return redirect()->route('articles.edit', compact('article'))->with('message', '記事登録が完了しました。');
     }
 
-    public function showEditPage($id) {
-        $article = Article::findOrFail($id);
-        return view('articles.articles_edit', compact('article'));
+    /**
+     * 編集ページへ遷移
+     * @param $id
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
+    public function edit(Article $article) {
+        $tags = Article_tag::orderBy('created_at', 'desc')->get();
+        return view('articles.articles_edit', compact('article', 'tags'));
     }
 
-    public function update(Request $request, $id) {
-        $validated = $request->validate([
-            'title' => 'required|max:20',
-            'contents' => 'required|max:400',
-        ]);
+    /**
+     * 編集した記事をデータベースに上書き
+     * @param Request $request
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function update(Request $request, Article $article) {
+            if ($article->member_id !== auth()->user()->id) {
+                //TODO 記事詳細機能作成時にリダイレクト先を変更
+                return redirect()->back()->with('error', '他人の記事は編集できません。');
+            }
 
-        $article = Article::findOrFail($id);
-        $article->title = $validated['title'];
-        $article->contents = $validated['contents'];
-        $article->save();
+            $validator = new ArticleValidator();
+            $validatedData = $validator->validate($request->all());
+            $article->fill($validatedData)->save();
 
-        return redirect()->route('articles.edit', ['id' => $article->id])->with('message', '編集しました。');;
-    }
+            // 選択されたタグのIDを中間テーブルに関連付ける
+            if ($request->has('tag_id')) {
+                $selectedTags = $request->input('tag_id');
+                $article->tags()->sync($selectedTags);
+            }
+
+            return redirect()->route('articles.edit', $article)->with('message', '記事編集が完了しました。');
+        }
 
     /**
      * @param $id
@@ -77,4 +121,3 @@ class ArticlesController extends Controller
         }
     }
 }
-?>

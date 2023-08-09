@@ -1,7 +1,9 @@
 <?php
+
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+
 return new class extends Migration
 {
     /**
@@ -11,16 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('articles', function (Blueprint $table) {
+        Schema::create('article_tags', function (Blueprint $table) {
             $table->unsignedInteger('id')->autoIncrement();
-            $table->string('title');
-            $table->mediumText('contents');
-            $table->unsignedInteger('member_id');
+            $table->string('name');
             $table->timestamps();
-            $table->softDeletes()->nullable();
-            $table->foreign('member_id')->references('id')->on('members');
         });
     }
+
     /**
      * Reverse the migrations.
      *
@@ -28,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('articles');
+        Schema::dropIfExists('article_tags');
     }
 };

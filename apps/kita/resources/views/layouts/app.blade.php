@@ -5,10 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     @yield('title')
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
     <script src="{{ asset('js/app.js') }}" defer></script>
 </head>
 <body>
-    @yield('header')
+
+@if((auth()->guard('admin_users')->check() && !Request::is('admin/login')))
+    @include('common.admin_header')
+@elseif ((Request::is('login') || Request::is('admin/login')) || Request::is('member_registration'))
+
+@else
+    @include('common.header')
+@endif
+
+@yield('content')
 </body>
 </html>
