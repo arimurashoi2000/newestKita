@@ -20,9 +20,9 @@
 
             <div class="ml-2">
                 <div class="col-auto">
-                    {{ Form::open(['route' => 'articles.create', 'method' => 'get']) }}
-                    {{ Form::button('<span style="color: black;">記事を作成する</span>', ['class' => 'search_button btn btn-outline-success btn-lg pl-2', 'type' => 'submit']) }}
-                    {{Form::close()}}
+                    <a href="{{ route('articles.create') }}" class="search_button btn btn-outline-success btn-lg pl-2">
+                        <span style="color: black;">記事を作成する</span>
+                    </a>
                 </div>
             </div>
 
@@ -34,9 +34,16 @@
                             <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"></path>
                         </svg>
                     </button>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
+                        <li>
+                            {{ Form::open(['route' => 'logout', 'method' => 'post']) }}
+                                @csrf
+                            {{Form::submit('ログアウト', ['class'=>'dropdown-item'])}}
+                            {{ Form::close() }}
+                        </li>
+                    </ul>
                 </div>
             </div>
         </nav>
     </div>
 </div>
-

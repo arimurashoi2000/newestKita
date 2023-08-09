@@ -31,14 +31,26 @@ class ArticlesController extends Controller
         $articles = $articles->paginate(CommonConst::PAGINATION_ARTICLE);
         return view('articles.index', compact('articles'));
     }
-    public function create() {
+
+    /**
+     * 記事投稿画面へ移動
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
+    public function create()
+    {
         $tags = Article_tag::orderBy('created_at', 'desc')->get();
         return view('articles.articles_create', compact('tags'));
     }
+
+    /**
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function store(Request $request) {
-        $request->merge(['member_id' => auth()->id()]);
         $validator = new ArticleValidator();
         $validatedData = $validator->validate($request->all());
+        $validatedData['member_id'] = auth()->id();
 
         $article = new Article();
         $article->fill($validatedData)->save();
@@ -48,6 +60,7 @@ class ArticlesController extends Controller
             $selectedTags = $request->input('tag_id');
             $article->tags()->attach($selectedTags);
         }
+
         return redirect()->route('articles.edit', compact('article'))->with('message', '記事登録が完了しました。');
     }
 
@@ -75,7 +88,6 @@ class ArticlesController extends Controller
 
             $validator = new ArticleValidator();
             $validatedData = $validator->validate($request->all());
-
             $article->fill($validatedData)->save();
 
             // 選択されたタグのIDを中間テーブルに関連付ける

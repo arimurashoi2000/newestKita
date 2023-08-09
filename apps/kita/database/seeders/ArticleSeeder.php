@@ -9,9 +9,7 @@ use App\Models\Article_tag;
 class ArticleSeeder extends Seeder
 {
     /**
-     * 記事シーダーを実行
-     * Run the database seeds.
-     *
+     *データベースに記事と関連するタグを挿入
      * @return void
      */
     public function run()

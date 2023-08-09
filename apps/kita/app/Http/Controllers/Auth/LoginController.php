@@ -42,7 +42,6 @@ class LoginController extends Controller
 
     public function showLoginForm()
     {
-        $includeCommonHeader = false;
-        return view('auth.login', compact('includeCommonHeader'));
+        return view('auth.login');
     }
 }

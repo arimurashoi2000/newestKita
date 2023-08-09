@@ -6,27 +6,7 @@
     <div class="container py-5">
         <div class="d-flex align-items-center justify-content-center" style="--bs-bg-opacity: .1">
             <div class="col-md-8 col-10 bg-white text-dark">
-                @if (session('message'))
-                    <div class="alert alert-success">
-                        {{ session('message') }}
-                    </div>
-                @endif
-
-                @if($errors->any())
-                    <div class="alert alert-danger">
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif
-
-                @if(session('error'))
-                    <div class="alert alert-danger">
-                        {{ session('error') }}
-                    </div>
-                @endif
+                @include('common.flash_message')
 
                 <div class="card">
                     <div class="card-body px-5 py-3">
@@ -49,7 +29,9 @@
                                 <div class="col-md-12 col-12 px-0">
                                     <select class="form-select border-success" size="3" aria-label="size 3 select example" name="tag_id[]" multiple>
                                         @foreach ($tags as $tag)
-                                            <option value="{{$tag->id}}">{{$tag->name}}</option>
+                                            <option value="{{ $tag->id }}" {{ in_array($tag->id, $article->tags->pluck('id')->toArray()) ? 'selected' : '' }}>
+                                                {{ $tag->name }}
+                                            </option>
                                         @endforeach
                                     </select>
                                 </div>
