@@ -29,7 +29,7 @@ class LoginController extends Controller
      * @return string
      */
     protected function redirectTo() {
-        return route('admin.index');
+        return route('admin_users.index');
     }
 
     /**

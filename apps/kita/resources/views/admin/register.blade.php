@@ -1,4 +1,4 @@
-@extends('layouts.admin_nav')
+@extends('layouts.app')
 @section('title')
     <title>管理者登録画面</title>
 @endsection
@@ -10,17 +10,9 @@
             </div>
         </div>
 
-        @if($errors->any())
-            <div class="alert alert-danger">
-                <ul>
-                    @foreach($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
+        @include('common.flash_message')
 
-        {{ Form::open(['route' => 'admin.register', 'method' => 'POST']) }}
+        {{ Form::open(['route' => 'admin.create', 'method' => 'POST']) }}
         <div class="row">
             <div class="col-md-9 col-12">
                 <div class="border rounded bg-white py-3">
@@ -50,7 +42,7 @@
                             {{ Form::label('password','パスワード', ['class' => 'col-md-auto col-form-label text-md-start']) }}
                             <p class="mb-2 col-auto rounded bg-danger text-white">必須</p>
                         </div>
-                        {{ Form::password('password_confirm', ['class' => 'form-control', 'id' => 'password']) }}
+                        {{ Form::password('password', ['class' => 'form-control', 'id' => 'password']) }}
                     </div>
                     <div class="col px-4 my-4">
                         <div class="row">

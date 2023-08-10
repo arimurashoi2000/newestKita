@@ -9,7 +9,7 @@
 </head>
 <body>
 
-@if((auth()->guard('admin_users')->check() && !Request::is('admin/login')))
+@if((auth()->guard('admin_users')->check() && !Request::is('admin/login') || Request::is('admin/admin_users/create')))
     @include('common.admin_header')
 @elseif ((Request::is('login') || Request::is('admin/login')) || Request::is('member_registration'))
 

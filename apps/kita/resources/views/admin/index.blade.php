@@ -1,4 +1,4 @@
-@extends('layouts.admin_nav')
+@extends('layouts.app')
 @section('title')
     <title>管理者画面</title>
 @endsection
@@ -9,7 +9,7 @@
                  <!--検索-->
                 <div class="card col-md-12 mt-5">
                     <div class="card-body px-4 py-3">
-                        {{ Form::open(['route' => 'admin.search']) }}
+                        {{ Form::open(['route' => 'admin_users.index', 'method' => 'get']) }}
                         @csrf
                             <div class="d-flex">
                                 <!--姓-->
@@ -53,7 +53,7 @@
                 <!--一覧-->
                 <div class="card mt-5">
                     <div class="card-body px-5 py-3">
-                        <!--新規登録-->
+                        <!--TODO　新規登録ボタン-->
 
                         <!--管理者一覧-->
                         <table class="table">
@@ -74,7 +74,7 @@
                                         <td>{{$admin_user->updated_at}}</td>
                                         <td>{{$admin_user->created_at}}</td>
                                         <td>
-                                            <a href="{{route('admin.edit', $admin_user->id)}}" class="btn btn-primary text-white">編集</a>
+                                            <a href="{{route('admin_users.edit', $admin_user->id)}}" class="btn btn-primary text-white">編集</a>
                                         </td>
                                     </tr>
                                 @endforeach

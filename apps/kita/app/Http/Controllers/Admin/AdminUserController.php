@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
+use App\Consts\CommonConst;
 
 class AdminUserController extends Controller
 {
@@ -21,6 +22,13 @@ class AdminUserController extends Controller
         $first_name = $request->input('first_name');
         $email = $request->input('email');
 
+        //$escapedKeywords = [];
+        //foreach ($keywords as $field => $keyword) {
+            //$escapedKeywords[$field] = '%' . addcslashes($keyword, '%_\\') . '%';
+        //}
+        //return $escapedKeywords;
+
+        //TODO エスケープ処理
         $admin_users = Admin_user::orderBy('created_at', 'desc');
         if (!empty($last_name)) {
             $admin_users->where('last_name', 'like', "%$last_name%");
@@ -34,13 +42,12 @@ class AdminUserController extends Controller
             $admin_users->where('email', 'like', "%$email%");
         }
 
-        $admin_users = $admin_users->paginate(5);
+        $admin_users = $admin_users->paginate(CommonConst::PAGINATION_ADMIN);
         return view('admin.index', compact('admin_users'));
         }
 
-        public function edit($id) {
-        $admin_users = Admin_user::findOrFail($id);
-        return view('admin.edit', compact('admin_users'));
+        public function edit(Admin_user $admin_user) {
+        return view('admin.edit', compact('admin_user'));
         }
 
         public function update(Request $request, $id) {
@@ -65,8 +72,7 @@ class AdminUserController extends Controller
         return redirect()->route('admin.edit', ['admin_user' => $id])->with('message', '更新処理が完了しました。');
         }
 
-        public function destroy($id) {
-            $admin_users = Admin_user::findOrFail($id);
+        public function destroy(Admin_user $admin_user) {
                 $admin_users->delete();
                 return redirect()->route('admin.index')->with('success', '記事が削除されました');
         }

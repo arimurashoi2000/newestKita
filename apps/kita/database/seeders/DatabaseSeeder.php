@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
         $this->call([MemberSeeder::class]);
         $this->call([Article_tagSeeder::class]);
         $this->call([ArticleSeeder::class]);
+        $this->call([Admin_userSeeder::class]);
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
