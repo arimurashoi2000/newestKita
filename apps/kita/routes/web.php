@@ -27,15 +27,7 @@ Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('login', [LoginController::class, 'login']);
 // ログアウトルート
 Route::post('logout', [LoginController::class, 'logout'])->name('logout');
-//記事一覧機能・検索
-Route::get('/articles', [ArticlesController::class, 'index'])->name('index');
-//記事作成機能
-Route::get('/articles/create', [ArticlesController::class, 'showCreatePage'])->name('articles.create');
-Route::post('/articles', [ArticlesController::class, 'store'])->name('store');
-//記事編集機能
-Route::get('/articles/{id}/edit', [ArticlesController::class, 'showEditPage'])->name('articles.edit');
-Route::post('/articles/{id}', [ArticlesController::class, 'update'])->name('update');
-//記事詳細表示機能
-Route::get('/articles/{id}', [ArticlesController::class, 'show'])->name('articles.show');
+//articles基本的なCRUD操作
+Route::resource('articles', ArticlesController::class)->only(['index', 'create', 'store', 'edit', 'update', 'show']);
 //コメント投稿機能
-Route::post('/articles/{id}', [CommentsController::class, 'store'])->name('comments.store')->middleware('auth');
+Route::post('/comments', [CommentsController::class, 'store'])->name('comments.store')->middleware('auth');
