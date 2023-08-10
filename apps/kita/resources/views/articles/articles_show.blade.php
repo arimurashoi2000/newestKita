@@ -13,6 +13,7 @@
                         @if(auth()->guard('members')->check() && auth()->id() == $article->member_id)
                             <div class="row d-flex justify-content-end">
                                 <div class="col-md-2 text-end">
+                                    <!-- TODO 削除機能時にルートを設定-->
                                     <a href="#" class="btn btn-danger rounded-pill">削除する</a>
                                 </div>
 
@@ -41,7 +42,7 @@
                             <div class="col-md-auto">
                                 <ul class="list-inline">
                                     @foreach($tags as $tag)
-                                        <li class="list-inline-item bg-primary text-white fw-bold rounded px-2 py-1 mb-2">{{$tag->name}}</li>
+                                        <li class="badge list-inline-item bg-primary text-white fw-bold rounded px-2 py-1 mb-2">{{$tag->name}}</li>
                                     @endforeach
                                 </ul>
                             </div>
