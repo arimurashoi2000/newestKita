@@ -3,7 +3,6 @@
     <title>記事詳細</title>
 @endsection
 @section('content')
-A
 <body>
 <div class="container py-5">
     <div class="d-flex align-items-center justify-content-center">
