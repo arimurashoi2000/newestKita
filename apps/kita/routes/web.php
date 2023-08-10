@@ -27,4 +27,4 @@ Route::post('login', [LoginController::class, 'login']);
 // ログアウトルート
 Route::post('logout', [LoginController::class, 'logout'])->name('logout');
 //articles基本的なCRUD操作
-Route::resource('articles', ArticlesController::class)->only(['index', 'create', 'store', 'edit', 'update']);
+Route::resource('articles', ArticlesController::class)->only(['index', 'create', 'store', 'edit', 'update', 'show']);
