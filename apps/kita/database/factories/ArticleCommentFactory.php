@@ -8,12 +8,12 @@ use App\Models\Article_comment;
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Article_comment>
  */
-class Article_commentFactory extends Factory
+class ArticleCommentFactory extends Factory
 {
     /**
      * @var string
      */
-    protected $model = Article_comment::class;
+    protected $model = ArticleComment::class;
 
     /**
      * @return array|mixed[]

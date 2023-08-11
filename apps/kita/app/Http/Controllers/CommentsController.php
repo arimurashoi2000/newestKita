@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Article_comment;
+use App\Models\ArticleComment;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Article;
 
@@ -15,10 +15,10 @@ class CommentsController extends Controller
      * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request) {
-        $comments = new Article_comment();
+        $comments = new ArticleComment();
         $comments->member_id = Auth::id();
         $validated = $request->validate([
-            'contents' => 'string|required|max:100',
+            'contents' => 'string|required|max:1000',
             'article_id' => 'required',
         ]);
         $comments->fill($validated)->save();

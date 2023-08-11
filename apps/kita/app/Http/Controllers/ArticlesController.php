@@ -6,8 +6,8 @@ use App\Models\Member;
 use Illuminate\Http\Request;
 use App\Validators\ArticleValidator;
 use App\Consts\CommonConst;
-use App\Models\Article_tag;
-use App\Models\Article_comment;
+use App\Models\ArticleTag;
+use App\Models\ArticleComment;
 class ArticlesController extends Controller
 {
     public function __construct()
@@ -71,7 +71,7 @@ class ArticlesController extends Controller
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function edit(Article $article) {
-        $tags = Article_tag::orderBy('created_at', 'desc')->get();
+        $tags = ArticleTag::orderBy('created_at', 'desc')->get();
         return view('articles.articles_edit', compact('article', 'tags'));
     }
 

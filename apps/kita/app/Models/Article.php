@@ -28,10 +28,10 @@ class Article extends Model
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function comments() {
-        return $this->hasMany(Article_comment::class);
+        return $this->hasMany(ArticleComment::class);
     }
 
     public function tags() {
-        return $this->belongsToMany(Article_tag::class)->withTimestamps();
+        return $this->belongsToMany(ArticleTag::class)->withTimestamps();
     }
 }

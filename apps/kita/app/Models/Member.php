@@ -44,6 +44,6 @@ class Member extends Authenticatable
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function comments() {
-        return $this->hasMany(Article_comment::class);
+        return $this->hasMany(ArticleComment::class);
     }
 }
