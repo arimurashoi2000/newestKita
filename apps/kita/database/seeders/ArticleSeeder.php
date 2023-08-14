@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use App\Models\Article;
-use App\Models\Article_tag;
+use App\Models\ArticleTag;
 
 class ArticleSeeder extends Seeder
 {
@@ -14,7 +14,7 @@ class ArticleSeeder extends Seeder
      */
     public function run()
     {
-        $tags = Article_tag::all();
+        $tags = ArticleTag::all();
         Article::factory()->count(40)
             ->create()
             ->each(function ($article) use ($tags) {

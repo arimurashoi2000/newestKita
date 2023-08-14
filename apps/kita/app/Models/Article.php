@@ -21,10 +21,17 @@ class Article extends Model
      */
     public function member()
     {
-        return $this->belongsTo(Member::class);
+        return $this->belongsTo(Member::class, 'member_id');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function comments() {
+        return $this->hasMany(ArticleComment::class);
     }
 
     public function tags() {
-        return $this->belongsToMany(Article_tag::class)->withTimestamps();
+        return $this->belongsToMany(ArticleTag::class)->withTimestamps();
     }
 }
