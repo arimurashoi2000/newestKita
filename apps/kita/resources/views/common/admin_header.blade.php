@@ -1,30 +1,31 @@
-<div class="bg-black">
-    <div class="container-fluid d-flex mt-0 mx-0 px-0 d-flex bg-black">
-        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+<header>
+    <div class ="container-fluid bg-dark sticky-top">
+        <nav class="navbar navbar-expand-lg navbar-dark">
             <div class="container-fluid">
-                <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                    <div class="navbar-nav">
-                        <!--kita-->
-                        <a class="nav-link active fs-4 text-white" aria-current="page" href="#">Kita</a>
-
-                        <button class="navbar-toggler my-2 bg-success" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                            <span class="navbar-toggler-icon"></span>
-                        </button>
-                        <!--管理者管理-->
-                        <a class="nav-link active fs-4 text-white" href="{{route('article_tags.index')}}">管理者管理</a>
-                        <!--会員管理-->
-                        <a class="nav-link active fs-4 text-white" href="#">会員管理</a>
-                        <!--タグ管理-->
-                        <a class="nav-link active fs-4 text-white" href="#">タグ管理</a>
-                        <!--ログアウトボタン-->
-                        {{ Form::open(['route' => 'logout', 'method' => 'post']) }}
-                        @csrf
-                        {{Form::submit('ログアウト', ['class'=>'btn btn-outline-light btn-dark btn-lg pl-2 text-end text-white'])}}
-                        {{ Form::close() }}
-                    </div>
+                <a class="navbar-brand text-light" href="{{route('admin_users.index')}}">Kita</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mx-4 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link text-light mx-3" href="{{ route('admin_users.index') }}">管理者管理</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-light mx-3" href="{{ route('user.index') }}">会員管理</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link text-light mx-3" href="{{ route('article_tags.index') }}">タグ管理</a>
+                        </li>
+                    </ul>
+                    <li class="d-flex ml-auto mx-3">
+                        <form method="POST" action="{{ route('admin.logout') }}">
+                            @csrf
+                            <button type="submit" class="btn btn-outline-light px-4">ログアウト</button>
+                        </form>
+                    </li>
                 </div>
             </div>
         </nav>
     </div>
-</div>
-
+</header>

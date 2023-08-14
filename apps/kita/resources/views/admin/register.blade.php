@@ -10,11 +10,11 @@
             </div>
         </div>
 
-        @include('common.flash_message')
-
-        {{ Form::open(['route' => 'admin.create', 'method' => 'POST']) }}
+        {{ Form::open(['route' => 'admin_users.store', 'method' => 'POST']) }}
+        @csrf
         <div class="row">
             <div class="col-md-9 col-12">
+                @include('common.flash_message')
                 <div class="border rounded bg-white py-3">
                     <div class="col px-4 my-4">
                         <div class="row">

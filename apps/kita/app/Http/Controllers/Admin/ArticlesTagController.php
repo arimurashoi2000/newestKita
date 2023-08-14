@@ -7,18 +7,23 @@ use App\Models\Article_tag;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Validator;
+use App\Consts\CommonConst;
 class ArticlesTagController extends Controller
 {
-    //
+    /**
+     * タグ一覧と検索
+     * @param Request $request
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
     public function index(Request $request)
     {
-        $search = $request->name;
-        $search = addcslashes($search, '%_\\');
-        if ($search === null) {
-            $article_tags = Article_tag::orderBy('created_at', 'desc')->paginate(5);
+        $search = $request->input('name');
+        $escapedSearch = addcslashes($search, '%_\\');
+        if (!empty($escapedSearch)) {
+            $article_tags = Article_tag::where('name', 'like', '%' . $escapedSearch . '%')->orderBy('created_at', 'desc')->paginate(CommonConst::PAGINATION_ADMIN);
             return view('admin.tag_index', compact('article_tags'));
         } else {
-            $article_tags = Article_tag::where('name', 'like', '%' . $search . '%')->orderBy('created_at', 'desc')->paginate(5);
+            $article_tags = Article_tag::orderBy('created_at', 'desc')->paginate(CommonConst::PAGINATION_ADMIN);
             return view('admin.tag_index', compact('article_tags'));
         }
     }
@@ -33,13 +38,12 @@ class ArticlesTagController extends Controller
 
     public function store(Request $request) {
         $validated = $request->validate([
-            'tag_name' => 'required|max:20|'
+            'name' => 'required|max:20|unique:article_tags',
         ]);
         $article_tag = new Article_tag;
-        $article_tag->name = $validated['tag_name'];
-        $article_tag->save();
-        //タグ編集機能を実装後にリダイレクト先を変更
-        return redirect()->route('tag.create')->with('message', '登録処理が完了しました');
+        $article_tag->fill($validated)->save();
+
+        return redirect()->route('article_tags.edit', $article_tag)->with('message', '登録処理が完了しました');
     }
 
     /**
@@ -56,20 +60,20 @@ class ArticlesTagController extends Controller
 
         $validator = Validator::make($request->all(), [
             'name' => [
-                'required',
-                'max:20',
-                Rule::unique('article_tags')->ignore($article_tag->id),
+            'required',
+            'max:20',
+            Rule::unique('article_tags')->ignore($article_tag->id),
         ]]);
 
         $validated = $validator->validated();
         $article_tag->fill($validated)->save();
 
-        return redirect()->route('tag.edit', compact('article_tag') )->with('message', '編集処理が完了しました');
+        return redirect()->route('article_tags.edit', compact('article_tag') )->with('message', '編集処理が完了しました');
     }
 
     public function destroy(Article_tag $article_tag) {
-        $article_tag->detach();
+        $article_tag->articles()->detach();
         $article_tag->delete();
-        return redirect()->route('tag.index')->with('success', '削除処理が完了しました');
+        return redirect()->route('article_tags.index')->with('message', '削除処理が完了しました');
     }
 }

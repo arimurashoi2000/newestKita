@@ -1,4 +1,4 @@
-@extends('layouts.admin_nav')
+@extends('layouts.app')
 @section('title')
     <title>タグ編集画面</title>
 @endsection
@@ -10,46 +10,25 @@
             </div>
         </div>
 
-        @if (session('message'))
-            <div class="alert alert-success">
-                {{ session('message') }}
-            </div>
-        @endif
-
-        @if (session('fail'))
-            <div class="alert alert-danger">
-                {{ session('fail') }}
-            </div>
-        @endif
-
-        @if($errors->any())
-            <div class="alert alert-danger">
-                <ul>
-                    @foreach($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
-
-        {{ Form::open(['route' => ['tag.update', $article_tag]]) }}
+        {{ Form::open(['route' => ['article_tags.update', $article_tag]]) }}
         @csrf
         @method('put')
         <div class="row">
             <div class="col-md-9 col-12">
+                @include('common.flash_message')
                 <div class="border rounded bg-white py-3">
                     <!--ID-->
                     <div class="col px-4 my-4">
                         <div class="row">
                             {{ Form::label('id','ID', ['class' => 'col-md-auto col-form-label text-md-start']) }}
                         </div>
-                        <p class="col-auto rounded bg-secondary text-black">{{$article_tag->id}}</p>
+                        {{ Form::text('id', $article_tag->id, ['class' => 'form-control', 'disabled', 'id' => 'tag_id']) }}
                     </div>
                     <!--タグ名-->
                     <div class="col px-4 my-4">
-                        <div class="row">
+                        <div class="row d-flex align-items-center">
                             {{ Form::label('name','タグ名', ['class' => 'col-md-auto col-form-label text-md-start']) }}
-                            <p class="mb-2 col-auto rounded bg-danger text-white">必須</p>
+                            <p class="badge mb-2 col-auto rounded bg-danger text-white">必須</p>
                         </div>
                         {{ Form::text('name', $article_tag->name, ['class' => 'form-control', 'id' => 'last_name']) }}
                     </div>
@@ -59,14 +38,14 @@
                         <div class="row">
                             {{ Form::label('updated_at','更新日時', ['class' => 'col-md-auto col-form-label text-md-start']) }}
                         </div>
-                        <p class="col-auto rounded bg-secondary text-black">{{$article_tag->updated_at}}</p>
+                        {{ Form::text('updated_at', $article_tag->updated_at, ['class' => 'form-control', 'disabled', 'id' => 'updated_at']) }}
                     </div>
                     <!--登録日時-->
                     <div class="col px-4 my-4">
                         <div class="row">
                             {{ Form::label('updated_at','登録日時', ['class' => 'col-md-auto col-form-label text-md-start']) }}
                         </div>
-                        <p class="col-auto rounded bg-secondary text-black">{{$article_tag->created_at}}</p>
+                        {{ Form::text('created_at', $article_tag->created_at, ['class' => 'form-control', 'disabled', 'id' => 'created_at']) }}
                     </div>
                 </div>
             </div>
@@ -79,7 +58,7 @@
                     </div>
                     {{ Form::close() }}
                     <!--削除ボタン-->
-                    {{ Form::open(['route' => ['tag.destroy', $article_tag], 'onsubmit' => "return confirm('一度削除すると元に戻せません。よろしいですか？');"]) }}
+                    {{ Form::open(['route' => ['article_tags.destroy', $article_tag], 'onsubmit' => "return confirm('一度削除すると元に戻せません。よろしいですか？');"]) }}
                     @csrf
                     @method('delete')
                     {{ Form::button('削除する', ['type' => 'submit', 'class' => 'btn btn-danger col-12 rounded']) }}

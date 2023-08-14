@@ -41,13 +41,12 @@ Route::get('/profile', [ProfileController::class, 'showEditProfilePage'])->name(
 Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update')->middleware('auth');
 
 //管理者の認証機能
-Route::get('/admin/login', [App\Http\Controllers\Admin\LoginController::class, 'showLoginForm']);
+Route::get('/admin/login', [App\Http\Controllers\Admin\LoginController::class, 'showLoginForm'])->name('showLoginForm');
 Route::post('/admin/login', [App\Http\Controllers\Admin\LoginController::class, 'login'])->name('admin.login');
 Route::post('/admin/logout', [App\Http\Controllers\Admin\LoginController::class,'logout'])->name('admin.logout');
-Route::get('/admin/admin_users/create', [App\Http\Controllers\Admin\RegisterController::class, 'showRegistrationForm']);
-Route::post('/admin/admin_users', [App\Http\Controllers\Admin\RegisterController::class, 'register'])->name('admin.create');
+
 //管理者画面の基本的なCRUD操作
-Route::middleware('auth:admin_users')->resource('/admin/admin_users', AdminUserController::class)->only(['index', 'edit', 'update', 'destroy']);
+Route::middleware('auth:admin_users')->resource('/admin/admin_users', AdminUserController::class)->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);
 //会員管理
 Route::get('/admin/users',  [UserController::class, 'index'])->name('user.index');
 //基本的なタグ機能のCRUD操作

@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use App\Models\Article_comment;
 use App\Models\Article_tag;
+use App\Models\AdminUser;
 
 class DatabaseSeeder extends Seeder
 {

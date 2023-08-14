@@ -5,7 +5,7 @@ namespace app\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Member;
 use Illuminate\Http\Request;
-
+use App\Consts\CommonConst;
 
 class UserController extends Controller
 {
@@ -18,15 +18,18 @@ class UserController extends Controller
         $name = $request->input('name');
         $email = $request->input('email');
 
+        $escapedName = '%' . addcslashes($name, '%_\\') . '%';
+        $escapedEmail = '%' . addcslashes($email, '%_\\') . '%';
+
         $users = Member::orderBy('created_at', 'desc');
-        if (!empty($name)) {
-            $users->where('name', 'like', "%$name%");
+        if (!empty($escapedName)) {
+            $users->where('name', 'like', "%$escapedName%");
         }
-        if (!empty($email)) {
-            $users->where('email', 'like', "%$email%");
+        if (!empty($escapedEmail)) {
+            $users->where('email', 'like', "%$escapedEmail%");
         }
 
-        $users = $users->paginate(5);
+        $users = $users->paginate(CommonConst::PAGINATION_ADMIN);
         return view('admin.user_index', compact('users'));
     }
 }

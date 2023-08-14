@@ -1,69 +1,72 @@
-@extends('layouts.admin_nav')
+@extends('layouts.app')
 @section('title')
-    <title>管理者画面</title>
+    <title>タグ管理</title>
 @endsection
 @section('content')
     <div class="container mt-0">
-        <h2 class="mt-3">管理者管理</h2>
+        <h2 class="mt-3">タグ管理</h2>
+        @include('common.flash_message')
         <div class="justify-content-center" style="--bs-bg-opacity: .1;">
             <!--検索-->
             <div class="card col-md-12 mt-5">
-                <div class="card-body px-4 py-3">
-                    {{ Form::open(['route' => 'tag.index']) }}
-                    @csrf
-                    <div class="d-flex">
+                {{ Form::open(['route' => 'article_tags.index', 'method' => 'get']) }}
+                    <div class="card-body col-md-12 px-4 py-3">
                         <!--タグ名-->
-                        <div class="col-md-4">
+                        <div class="col-md-12 col-12">
                             <div class="row pt-3">
-                                {{Form::label('name', 'タグ名', ['class' => 'col-md-10 col-12 px-0'])}}
+                                {{Form::label('name', 'タグ名', ['class' => 'col-md-11 col-12 px-0 ms-3'])}}
                             </div>
-                            <div class="row pt-1">
-                                {{Form::text('name', null, ['class'=>'title col-md-10 col-12 border border-success mt-2 rounded'])}}
+                            <div class="col-md-12 col-12">
+                                <div class="row pt-1 col-md-12 d-flex justify-content-center align-items-center">
+                                    {{Form::text('name', null, ['class'=>'border border-secondary title col-md-12 col-12 mt-2 rounded text-center ms-3'])}}
+                                </div>
                             </div>
                         </div>
                     </div>
 
-                    <!--検索ボタン-->
                     <div class="row">
-                        <div class="d-flex justify-content-center col-md-12 col-12 px-0 ">
-                            {{Form::submit('検索', ['class'=>'submit_button btn btn-primary text-white my-3 rounded btn-lg'])}}
+                        <div class="col-md-12 col-12 justify-content-center">
+                            <div class="border rounded p-3 text-center custom-bg-lightgray">
+                                {{ Form::submit('検索', ['class' => 'btn btn-primary']) }}
+                            </div>
                         </div>
                     </div>
-                    {{ Form::close() }}
-                </div>
+                {{ Form::close() }}
             </div>
             <!--ページネーション-->
             <div class="text-start mb-1 mt-3">
-                <p>{{ $article_tags->links() }}</p>
+                <p>{{ $article_tags->links('common.pagination') }}</p>
             </div>
             <!--一覧-->
             <div class="card mt-5">
                 <div class="card-body px-5 py-3">
-                    <!--新規登録(仮)-->
-                    <a href="{{route('tag.index')}}" class="btn btn-primary text-white">新規登録</a>
+                    <!--新規登録-->
+                    <a href="{{route('article_tags.create')}}" class="btn btn-primary text-white">新規登録</a>
                     <!--管理者一覧-->
-                    <table class="table">
-                        <thead>
-                        <tr>
-                            <th scope="col">ID</th>
-                            <th scope="col">タグ名</th>
-                            <th scope="col">登録日時</th>
-                            <th scope="col">レコード操作</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        @foreach ($article_tags as $article_tag)
+                    <div class="table-responsive mt-3">
+                        <table class="table table-bordered">
+                            <thead>
                             <tr>
-                                <th scope="row">{{$article_tag->id}}</th>
-                                <td>{{$article_tag->name}}</td>
-                                <td>{{$article_tag->created_at}}</td>
-                                <td>
-                                    <a href="{{route('tag.edit', $article_tag)}}" class="btn btn-primary text-white">編集</a>
-                                </td>
+                                <th scope="col">ID</th>
+                                <th scope="col">タグ名</th>
+                                <th scope="col" class="text-end">登録日時</th>
+                                <th scope="col" class="text-center">レコード操作</th>
                             </tr>
-                        @endforeach
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                            @foreach ($article_tags as $article_tag)
+                                <tr>
+                                    <th scope="row">{{$article_tag->id}}</th>
+                                    <td>{{$article_tag->name}}</td>
+                                    <td class="text-end">{{$article_tag->created_at}}</td>
+                                    <td class="text-center">
+                                        <a href="{{route('article_tags.edit', $article_tag)}}" class="btn btn-primary text-white">編集</a>
+                                    </td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
-use App\Models\Admin_user;
+use App\Models\AdminUser;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -26,7 +26,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/admin/admin_users';
+    protected $redirectTo = null;
     /**
      * Create a new controller instance.
      *
@@ -59,16 +59,18 @@ class RegisterController extends Controller
      * Create a new user instance after a valid registration.
      *
      * @param  array  $data
-     * @return \App\Models\Admin_user
+     * @return \App\Models\AdminUser
      */
     protected function create(array $data)
     {
-        return Admin_user::create([
+        return AdminUser::create([
             'first_name' => $data['first_name'],
             'last_name' => $data['last_name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+
+        return redirect()->route('admin_users.edit', $admin_user)->with('message', '登録処理が完了しました');
     }
 
     /**
