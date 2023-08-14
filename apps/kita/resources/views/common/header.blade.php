@@ -38,12 +38,17 @@
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
                             <li>
                                 {{ Form::open(['route' => 'logout', 'method' => 'post']) }}
-                                    @csrf
+                                @csrf
                                 {{Form::submit('ログアウト', ['class'=>'dropdown-item'])}}
                                 {{ Form::close() }}
                             </li>
                         </ul>
                     @else
+                        <ul class="dropdown-menu dropdown-menu-end px-2" aria-labelledby="dropdownMenuButton1">
+                            <li>
+                                <a href="{{route('login')}}" class="text-black text-decoration-none">ログイン</a>
+                            </li>
+                        </ul>
                     @endif
                 </div>
             </div>
