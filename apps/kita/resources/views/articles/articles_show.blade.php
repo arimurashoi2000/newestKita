@@ -80,7 +80,7 @@
                                 <!--コメント-->
                                 <div class="row">
                                     <div class="col-md-12 col-12 border-bottom border-dark py-1">
-                                        <p>{{$comment->contents}}</p>
+                                        <p>{!! nl2br(e($comment->contents)) !!}</p>
                                     </div>
                                 </div>
                             @endforeach

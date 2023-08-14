@@ -3,10 +3,10 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use App\Models\Article_comment;
+use App\Models\ArticleComment;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Article_comment>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\ArticleComment>
  */
 class ArticleCommentFactory extends Factory
 {
