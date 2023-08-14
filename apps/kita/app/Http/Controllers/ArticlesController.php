@@ -6,10 +6,12 @@ use App\Models\Member;
 use Illuminate\Http\Request;
 use App\Validators\ArticleValidator;
 use App\Consts\CommonConst;
-use App\Models\Article_tag;
+use App\Models\ArticleTag;
+use App\Models\ArticleComment;
 class ArticlesController extends Controller
 {
-    public function __construct() {
+    public function __construct()
+    {
         $this->middleware('auth:members')->except(['index', 'show']);
     }
 
@@ -21,7 +23,7 @@ class ArticlesController extends Controller
     public function index(Request $request) {
         $search = $request->input('search');
         $escapedSearch = '%' . addcslashes($search, '%_\\') . '%';
-        $articles = Article::with(['member', 'tags'])->orderBy('created_at', 'desc');
+        $articles = Article::with('member')->orderBy('created_at', 'desc');
 
         if (!empty($escapedSearch)) {
             $articles->where('title', 'like', "%$escapedSearch%")->OrWhere('contents', 'like', "%$escapedSearch%");
@@ -69,7 +71,7 @@ class ArticlesController extends Controller
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function edit(Article $article) {
-        $tags = Article_tag::orderBy('created_at', 'desc')->get();
+        $tags = ArticleTag::orderBy('created_at', 'desc')->get();
         return view('articles.articles_edit', compact('article', 'tags'));
     }
 
@@ -80,22 +82,22 @@ class ArticlesController extends Controller
      * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Request $request, Article $article) {
-            if (auth()->guard('members')->check() && auth()->id() == $article->member_id) {
-                $validator = new ArticleValidator();
-                $validatedData = $validator->validate($request->all());
-                $article->fill($validatedData)->save();
+        if (auth()->guard('members')->check() && auth()->id() == $article->member_id) {
+            $validator = new ArticleValidator();
+            $validatedData = $validator->validate($request->all());
+            $article->fill($validatedData)->save();
 
-                // 選択されたタグのIDを中間テーブルに関連付ける
-                if ($request->has('tag_id')) {
-                    $selectedTags = $request->input('tag_id');
-                    $article->tags()->sync($selectedTags);
-                }
-
-                return redirect()->route('articles.edit', $article)->with('message', '記事編集が完了しました。');
-            } else {
-                return redirect()->route('articles.show', $article)->with('error', '他人の記事は編集できません。');
+            // 選択されたタグのIDを中間テーブルに関連付ける
+            if ($request->has('tag_id')) {
+                $selectedTags = $request->input('tag_id');
+                $article->tags()->sync($selectedTags);
             }
+
+            return redirect()->route('articles.edit', $article)->with('message', '記事編集が完了しました。');
+        } else {
+            return redirect()->route('articles.show', $article)->with('error', '他人の記事は編集できません。');
         }
+    }
 
     /**
      * 記事詳細画面を表示する
@@ -104,6 +106,7 @@ class ArticlesController extends Controller
      */
     public function show(Article $article) {
         $tags = $article->tags;
-        return view('articles.articles_show', compact('article', 'tags'));
+        $comments = $article->comments;
+        return view('articles.articles_show',compact('article', 'tags', 'comments'));
     }
 }

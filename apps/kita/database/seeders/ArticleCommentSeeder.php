@@ -3,9 +3,9 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use App\Models\Article_tag;
+use App\Models\ArticleComment;
 
-class Article_tagSeeder extends Seeder
+class ArticleCommentSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,7 +14,7 @@ class Article_tagSeeder extends Seeder
      */
     public function run()
     {
-        //
-        Article_tag::factory()->count(40)->create();
+        // Article_commentデータの生成と挿入
+        ArticleComment::factory()->count(30)->create();
     }
 }
