@@ -6,8 +6,8 @@ use App\Models\Member;
 use Illuminate\Http\Request;
 use App\Validators\ArticleValidator;
 use App\Consts\CommonConst;
-use App\Models\Article_tag;
-
+use App\Models\ArticleTag;
+use App\Models\ArticleComment;
 class ArticlesController extends Controller
 {
     public function __construct()
@@ -71,7 +71,7 @@ class ArticlesController extends Controller
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function edit(Article $article) {
-        $tags = Article_tag::orderBy('created_at', 'desc')->get();
+        $tags = ArticleTag::orderBy('created_at', 'desc')->get();
         return view('articles.articles_edit', compact('article', 'tags'));
     }
 
@@ -82,10 +82,7 @@ class ArticlesController extends Controller
      * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Request $request, Article $article) {
-            if ($article->member_id !== auth()->user()->id) {
-                return redirect()->route('articles.show')->with('error', '他人の記事は編集できません。');
-            }
-
+        if (auth()->guard('members')->check() && auth()->id() == $article->member_id) {
             $validator = new ArticleValidator();
             $validatedData = $validator->validate($request->all());
             $article->fill($validatedData)->save();
@@ -95,28 +92,20 @@ class ArticlesController extends Controller
                 $selectedTags = $request->input('tag_id');
                 $article->tags()->sync($selectedTags);
             }
-
             return redirect()->route('articles.edit', $article)->with('message', '記事編集が完了しました。');
+        } else {
+            return redirect()->route('articles.show', $article)->with('error', '他人の記事は編集できません。');
         }
-
-    /**
-     * @param $id
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
-     *
-     */
-    public function show($id) {
-        $article = Article::findOrFail($id);
-        $comments = $article->comments()->with('article', 'member')->get();
-        return view('articles.articles_show', compact('article', 'comments',));
     }
 
-    public function delete($id) {
-        $article = Article::findOrFail($id);
-        if (Auth::id() === $article->member->id) {
-            $article->delete();
-            return redirect()->route('index')->with('success', '記事が削除されました');
-        } else {
-            return view('index')->with('message', '投稿した本人ではありません');
-        }
+    /**
+     * 記事詳細画面を表示する
+     * @param $id
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
+    public function show(Article $article) {
+        $tags = $article->tags;
+        $comments = $article->comments;
+        return view('articles.articles_show',compact('article', 'tags', 'comments'));
     }
 }

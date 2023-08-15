@@ -32,13 +32,15 @@ Route::post('login', [LoginController::class, 'login']);
 // ログアウトルート
 Route::post('logout', [LoginController::class, 'logout'])->name('logout');
 //articles基本的なCRUD操作
-Route::resource('articles', ArticlesController::class)->only(['index', 'create', 'store', 'edit', 'update']);
+Route::resource('articles', ArticlesController::class)->only(['index', 'create', 'store', 'edit', 'update', 'show']);
 //コメント投稿機能
 Route::post('/articles/{id}', [CommentsController::class, 'store'])->name('comments.store');
 //プロフィール編集ページに遷移
 Route::get('/profile', [ProfileController::class, 'showEditProfilePage'])->name('profile.edit')->middleware('auth');
 //プロフィール編集機能
 Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update')->middleware('auth');
+//コメント投稿機能
+Route::post('/comments', [CommentsController::class, 'store'])->name('comments.store')->middleware('auth:members');
 
 //管理者の認証機能
 Route::get('/admin/login', [App\Http\Controllers\Admin\LoginController::class, 'showLoginForm'])->name('showLoginForm');

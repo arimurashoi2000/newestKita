@@ -16,7 +16,8 @@ class Authenticate extends Middleware
     {
         if (! $request->expectsJson()|| Request::is('admin')) {
             return route('showLoginForm');
-        } else {
+        }
+        if (! $request->expectsJson()|| Request::is('/articles')) {
             return route('login');
         }
     }

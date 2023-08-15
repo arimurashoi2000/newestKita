@@ -3,9 +3,9 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use App\Models\Article_tag;
+use App\Models\ArticleTag;
 
-class Article_tagSeeder extends Seeder
+class ArticleTagSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,6 +15,6 @@ class Article_tagSeeder extends Seeder
     public function run()
     {
         //
-        Article_tag::factory()->count(40)->create();
+        ArticleTag::factory()->count(40)->create();
     }
 }

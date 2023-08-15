@@ -3,9 +3,9 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use App\Models\Admin_user;
+use App\Models\AdminUser;
 
-class Admin_userSeeder extends Seeder
+class AdminUserSeeder extends Seeder
 {
     /**
      *データベースに記事と関連するタグを挿入
@@ -13,6 +13,6 @@ class Admin_userSeeder extends Seeder
      */
     public function run()
     {
-        Admin_user::factory()->count(20)->create();
+        AdminUser::factory()->count(20)->create();
     }
 }

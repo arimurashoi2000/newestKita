@@ -3,9 +3,6 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use App\Models\Article_comment;
-use App\Models\Article_tag;
-use App\Models\AdminUser;
 
 class DatabaseSeeder extends Seeder
 {
@@ -19,9 +16,10 @@ class DatabaseSeeder extends Seeder
         // \App\Models\User::factory(10)->create();
 
         $this->call([MemberSeeder::class]);
-        $this->call([Article_tagSeeder::class]);
+        $this->call([ArticleTagSeeder::class]);
         $this->call([ArticleSeeder::class]);
-        $this->call([Admin_userSeeder::class]);
+        $this->call([AdminUserSeeder::class]);
+        $this->call([ArticleCommentSeeder::class]);
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
