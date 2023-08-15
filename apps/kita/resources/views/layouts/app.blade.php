@@ -9,7 +9,7 @@
 </head>
 <body>
 
-@if((Request::is('login') || Request::is('admin/login')) || Request::is('member_registration'))
+@if((Request::is('login') || Request::is('member_registration')))
 
 @else
     @include('common.header')
