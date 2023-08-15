@@ -1,11 +1,12 @@
 @extends('layouts.app')
 @section('title')
-<title>記事一覧</title>
+    <title>記事一覧</title>
 @endsection
 @section('content')
     <div class="container py-5">
-        <div class="d-flex align-items-center justify-content-center" style="--bs-bg-opacity: .1;">
-            <div class="col-md-7 col-10 bg-white text-dark">
+        <div class="d-flex justify-content-center" style="--bs-bg-opacity: .1;">
+            <div class="col-md-7 col-10text-dark">
+                @include('common.flash_message')
                 <div class="card">
                     <div class="card-body px-5 py-3">
                         @foreach ($articles as $article)

@@ -13,12 +13,15 @@
                             <!--削除、編集用のボタン-->
                             @if(auth()->guard('members')->check() && auth()->id() == $article->member_id)
                                 <div class="row d-flex justify-content-end">
-                                    <div class="col-md-2 text-end">
-                                        <!-- TODO 削除機能時にルートを設定-->
-                                        <a href="#" class="btn btn-danger rounded-pill">削除する</a>
+                                    <div class="col-auto text-end">
+                                        {{ Form::open(['route' => ['articles.destroy', $article], 'onsubmit' => "return confirm('一度削除すると元に戻せません。よろしいですか？');"]) }}
+                                        @csrf
+                                        @method('delete')
+                                        {{ Form::button('削除する', ['type' => 'submit', 'class' => 'btn btn-danger col-auto rounded-pill']) }}
+                                        {{Form::close()}}
                                     </div>
 
-                                    <div class="col-md-2 text-end">
+                                    <div class="col-auto text-end">
                                         <a href="{{ route('articles.edit', $article) }}" class="btn btn-success rounded-pill">編集する</a>
                                     </div>
                                 </div>
@@ -68,7 +71,7 @@
                                     <h3>コメント</h3>
                                 </div>
                             </div>
-                            <!--コメント機能実装後にコメント表示-->
+                            <!--コメント表示-->
                             @foreach ($comments as $comment)
                                 <!--ユーザー名＋created_at-->
                                 <div class="row mt-3">
@@ -80,7 +83,7 @@
                                 <!--コメント-->
                                 <div class="row">
                                     <div class="col-md-12 col-12 border-bottom border-dark py-1">
-                                        <p>{!! nl2br(e($comment->contents)) !!}</p>
+                                        <p>{!! nl2br(($comment->contents)) !!}</p>
                                     </div>
                                 </div>
                             @endforeach

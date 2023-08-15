@@ -30,7 +30,7 @@ Route::post('login', [LoginController::class, 'login']);
 // ログアウトルート
 Route::post('logout', [LoginController::class, 'logout'])->name('logout');
 //articles基本的なCRUD操作
-Route::resource('articles', ArticlesController::class)->only(['index', 'create', 'store', 'edit', 'update', 'show']);
+Route::resource('articles', ArticlesController::class);
 //コメント投稿機能
 Route::post('/comments', [CommentsController::class, 'store'])->name('comments.store')->middleware('auth:members');
 //プロフィール編集ページに遷移
