@@ -21,14 +21,14 @@
                                 {{Form::label('name', 'ユーザー名', ['class' => 'col-md-12 col-12 px-0'])}}
                             </div>
                             <div class="row pt-1">
-                                {{Form::text('name', null, ['class'=>'title col-md-12 col-12 border border-success mt-2 rounded'])}}
+                                {{Form::text('name', $member->name, ['class'=>'title col-md-12 col-12 border border-success mt-2 rounded'])}}
                             </div>
                             <!--メールアドレス-->
                             <div class="row pt-3">
                                 {{Form::label('email', 'メールアドレス', ['class' => 'col-md-12 col-12 px-0'])}}
                             </div>
                             <div class="row pt-1">
-                                {{Form::text('email', null, ['class'=>'title col-md-12 col-12 border border-success mt-2 rounded'])}}
+                                {{Form::text('email', $member->email, ['class'=>'title col-md-12 col-12 border border-success mt-2 rounded'])}}
                             </div>
                             <!--パスワード-->
                             <div class="row pt-3 ml-0">

@@ -13,8 +13,10 @@ class ProfileController extends Controller
      * マイページ編集ページへ遷移
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function showEditProfilePage() {
-        return view('articles.profile');
+    public function showEditProfilePage()
+    {
+        $member = \Auth::user();
+        return view('articles.profile', compact('member'));
     }
 
     /**
@@ -22,7 +24,8 @@ class ProfileController extends Controller
      * @param Request $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request) {
+    public function update(Request $request)
+    {
         $id = Auth::id();
         $member = Member::findOrFail($id);
 

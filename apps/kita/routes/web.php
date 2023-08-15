@@ -38,4 +38,4 @@ Route::get('/profile', [ProfileController::class, 'showEditProfilePage'])->name(
 //プロフィール編集機能
 Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update')->middleware('auth:members');
 // パスワード変更機能
-Route::put('/password_change', [PasswordController::class, 'changePassword'])->name('password.update')->middleware('auth');
+Route::put('/password_change', [PasswordController::class, 'changePassword'])->name('password.update')->middleware('auth:members');

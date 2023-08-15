@@ -14,7 +14,8 @@ class PasswordController extends Controller
      * @param Request $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function changePassword(Request $request) {
+    public function changePassword(Request $request)
+    {
         $member = Auth::user();
 
         $validator = Validator::make($request->all(), [
@@ -22,7 +23,7 @@ class PasswordController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return redirect()->route('profile.edit')->withErrors($validator)->withInput();
+            return redirect()->route('profile.edit')->withErrors($validator);
         }
 
         $member->password = Hash::make($request->input('password'));
