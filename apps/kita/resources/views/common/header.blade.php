@@ -40,6 +40,10 @@
                                     {{Form::submit('ログアウト', ['class'=>'dropdown-item'])}}
                                     {{ Form::close() }}
                                 </li>
+
+                                <li>
+                                    <a href="{{route('profile.edit')}}" class="text-black text-decoration-none px-3">プロフィール編集</a>
+                                </li>
                             @else
                                 <li>
                                     <a href="{{route('login')}}" class="text-black text-decoration-none px-2">ログイン</a>
