@@ -8,7 +8,6 @@ use App\Validators\ArticleValidator;
 use App\Consts\CommonConst;
 use App\Models\ArticleTag;
 use App\Models\ArticleComment;
-use Illuminate\Support\Facades\Auth;
 
 class ArticlesController extends Controller
 {
@@ -114,13 +113,13 @@ class ArticlesController extends Controller
     }
 
     /**
-     * 記事の削除機能
-     * @param $id
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\RedirectResponse
+     * 記事削除機能
+     * @param Article $article
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(Article $article)
     {
-        if (Auth::id() === $article->member->id) {
+        if (\Auth::id() === $article->member->id) {
             $article->delete();
             return redirect()->route('articles.index')->with('message', '記事が削除されました');
         } else {

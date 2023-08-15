@@ -13,15 +13,15 @@
                             <!--削除、編集用のボタン-->
                             @if(auth()->guard('members')->check() && auth()->id() == $article->member_id)
                                 <div class="row d-flex justify-content-end">
-                                    <div class="col-md-2 text-end">
+                                    <div class="col-auto text-end">
                                         {{ Form::open(['route' => ['articles.destroy', $article], 'onsubmit' => "return confirm('一度削除すると元に戻せません。よろしいですか？');"]) }}
                                         @csrf
                                         @method('delete')
-                                        {{ Form::button('削除する', ['type' => 'submit', 'class' => 'btn btn-danger col-12 rounded-pill']) }}
+                                        {{ Form::button('削除する', ['type' => 'submit', 'class' => 'btn btn-danger col-auto rounded-pill']) }}
                                         {{Form::close()}}
                                     </div>
 
-                                    <div class="col-md-2 text-end">
+                                    <div class="col-auto text-end">
                                         <a href="{{ route('articles.edit', $article) }}" class="btn btn-success rounded-pill">編集する</a>
                                     </div>
                                 </div>

@@ -16,34 +16,37 @@
                     {{Form::submit('検索', ['class'=>'btn btn-success btn-lg mx-2 search_button'])}}
                 </div>
                 {{Form::close()}}
-            </div>
 
-            <div class="ml-2">
-                <div class="col-auto">
-                    <a href="{{route('articles.create')}}" class="btn btn-outline-success btn-lg pl-2"><span style="color: black;">記事を作成する</span></a>
+
+                <div class="ml-2">
+                    <div class="col-auto">
+                        <a href="{{route('articles.create')}}" class="btn btn-outline-success btn-lg pl-2"><span style="color: black;">記事を作成する</span></a>
+                    </div>
                 </div>
-            </div>
 
-            <div>
-                <div class="col-10 float-end">
-                    <button class="btn btn-success btn-lg dropdown-toggle dropdown-toggle-no-caret" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
-                            <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"></path>
-                            <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"></path>
-                        </svg>
-                    </button>
-                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
-                        @if(auth()->guard('members')->check())
-                                {{ Form::open(['route' => 'logout', 'method' => 'post']) }}
-                                @csrf
-                                {{Form::submit('ログアウト', ['class'=>'dropdown-item'])}}
-                                {{ Form::close() }}
-                        @else
-                            <li>
-                                <a href="{{route('login')}}" class="text-black text-decoration-none px-2">ログイン</a>
-                            </li>
-                        @endif
-                    </ul>
+                <div>
+                    <div class="col-10 float-end">
+                        <button class="btn btn-success btn-lg dropdown-toggle dropdown-toggle-no-caret" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                                <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"></path>
+                                <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"></path>
+                            </svg>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
+                            @if(auth()->guard('members')->check())
+                                <li>
+                                    {{ Form::open(['route' => 'logout', 'method' => 'post']) }}
+                                    @csrf
+                                    {{Form::submit('ログアウト', ['class'=>'dropdown-item'])}}
+                                    {{ Form::close() }}
+                                </li>
+                            @else
+                                <li>
+                                    <a href="{{route('login')}}" class="text-black text-decoration-none px-2">ログイン</a>
+                                </li>
+                            @endif
+                        </ul>
+                    </div>
                 </div>
             </div>
         </nav>
