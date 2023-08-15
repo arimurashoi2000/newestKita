@@ -35,12 +35,18 @@
                         </svg>
                     </button>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
-                        <li>
-                            {{ Form::open(['route' => 'logout', 'method' => 'post']) }}
+                        @if(auth()->guard('members')->check())
+                            <li>
+                                {{ Form::open(['route' => 'logout', 'method' => 'post']) }}
                                 @csrf
-                            {{Form::submit('ログアウト', ['class'=>'dropdown-item'])}}
-                            {{ Form::close() }}
-                        </li>
+                                {{Form::submit('ログアウト', ['class'=>'dropdown-item'])}}
+                                {{ Form::close() }}
+                            </li>
+                        @else
+                            <li>
+                                <a href="{{route('login')}}" class="text-black text-decoration-none px-2">ログイン</a>
+                            </li>
+                        @endif
                     </ul>
                 </div>
             </div>
