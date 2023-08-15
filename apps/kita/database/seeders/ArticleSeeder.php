@@ -4,17 +4,21 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use App\Models\Article;
+use App\Models\ArticleTag;
 
 class ArticleSeeder extends Seeder
 {
     /**
-     * 記事シーダーを実行
-     * Run the database seeds.
-     *
+     *データベースに記事と関連するタグを挿入
      * @return void
      */
     public function run()
     {
-        Article::factory()->count(40)->create();
+        $tags = ArticleTag::all();
+        Article::factory()->count(40)
+            ->create()
+            ->each(function ($article) use ($tags) {
+                $article->tags()->attach($tags->random(3));
+            });
     }
 }

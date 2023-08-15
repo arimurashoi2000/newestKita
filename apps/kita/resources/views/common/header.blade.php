@@ -3,6 +3,10 @@
         <nav class="navbar navbar-expand-sm navbar-light">
             <a href="{{route('articles.index')}}" class="btn btn-success rounded-circle me-3" style="font-size: 2rem; padding: 0.5rem 2rem;">Kita</a>
 
+            <button class="navbar-toggler my-2 bg-success" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
             <div class="justify-content-end collapse navbar-collapse me-2" id="navbarSupportedContent">
                 {{ Form::open(['route' => 'articles.index', 'method' => 'get', 'class' => 'd-flex']) }}
                 <div class="col-md-9">
@@ -20,7 +24,7 @@
                 </div>
             </div>
 
-            <div class>
+            <div>
                 <div class="col-10 float-end">
                     <button class="btn btn-success btn-lg dropdown-toggle dropdown-toggle-no-caret" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
@@ -28,9 +32,16 @@
                             <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"></path>
                         </svg>
                     </button>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
+                        <li>
+                            {{ Form::open(['route' => 'logout', 'method' => 'post']) }}
+                                @csrf
+                            {{Form::submit('ログアウト', ['class'=>'dropdown-item'])}}
+                            {{ Form::close() }}
+                        </li>
+                    </ul>
                 </div>
             </div>
         </nav>
     </div>
 </div>
-

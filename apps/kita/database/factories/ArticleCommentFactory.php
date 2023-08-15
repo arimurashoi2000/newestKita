@@ -3,18 +3,17 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use App\Models\Article_comment;
-use Faker\Generator as Faker;
+use App\Models\ArticleComment;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Article_comment>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\ArticleComment>
  */
-class Article_commentFactory extends Factory
+class ArticleCommentFactory extends Factory
 {
     /**
      * @var string
      */
-    protected $model = Article_comment::class;
+    protected $model = ArticleComment::class;
 
     /**
      * @return array|mixed[]

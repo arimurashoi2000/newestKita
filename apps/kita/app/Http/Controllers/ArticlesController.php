@@ -4,11 +4,18 @@ use App\Http\Controllers\Controller;
 use App\Models\Article;
 use App\Models\Member;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use App\Validators\ArticleValidator;
 use App\Consts\CommonConst;
+use App\Models\ArticleTag;
+use App\Models\ArticleComment;
+use Illuminate\Support\Facades\Auth;
 
 class ArticlesController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:members')->except(['index', 'show']);
+    }
 
     /**
      * 一覧表示と検索
@@ -29,35 +36,36 @@ class ArticlesController extends Controller
         return view('articles.index', compact('articles'));
     }
 
+    /**
+     * 記事投稿画面へ移動
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
     public function create()
     {
-        return view('articles.articles_create');
-    }
-
-    public function store(Request $request)
-    {
-        $validated = $request->validate([
-            'title' => 'required|max:20',
-            'contents' => 'required|max:400',
-        ]);
-        $article = new Article();
-        $article->title = $validated['title'];
-        $article->contents = $validated['contents'];
-        $article->member_id = auth()->id();
-        $article->save();
-        return redirect()->route('articles.edit', $article)->with('message', '記事投稿が完了しました');
+        $tags = ArticleTag::orderBy('created_at', 'desc')->get();
+        return view('articles.articles_create', compact('tags'));
     }
 
     /**
-     * @param $id
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      *
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function show($id)
-    {
-        $article = Article::findOrFail($id);
-        $comments = $article->comments()->with('article', 'member')->get();
-        return view('articles.articles_show', compact('article', 'comments',));
+    public function store(Request $request) {
+        $validator = new ArticleValidator();
+        $validatedData = $validator->validate($request->all());
+        $validatedData['member_id'] = auth()->id();
+
+        $article = new Article();
+        $article->fill($validatedData)->save();
+
+        // 選択されたタグのIDを中間テーブルに関連付ける
+        if ($request->has('tag_id')) {
+            $selectedTags = $request->input('tag_id');
+            $article->tags()->attach($selectedTags);
+        }
+
+        return redirect()->route('articles.edit', compact('article'))->with('message', '記事登録が完了しました。');
     }
 
     /**
@@ -65,10 +73,9 @@ class ArticlesController extends Controller
      * @param $id
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function edit($id)
-    {
-        $article = Article::findOrFail($id);
-        return view('articles.articles_edit', compact('article'));
+    public function edit(Article $article) {
+        $tags = ArticleTag::orderBy('created_at', 'desc')->get();
+        return view('articles.articles_edit', compact('article', 'tags'));
     }
 
     /**
@@ -77,17 +84,33 @@ class ArticlesController extends Controller
      * @param $id
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, $id)
-    {
-        $validated = $request->validate([
-            'title' => 'required|max:20',
-            'contents' => 'required|max:400',
-        ]);
+    public function update(Request $request, Article $article) {
+        if (auth()->guard('members')->check() && auth()->id() == $article->member_id) {
+            $validator = new ArticleValidator();
+            $validatedData = $validator->validate($request->all());
+            $article->fill($validatedData)->save();
 
-        $article = Article::findOrFail($id);
-        $article->fill($validated)->save();
+            // 選択されたタグのIDを中間テーブルに関連付ける
+            if ($request->has('tag_id')) {
+                $selectedTags = $request->input('tag_id');
+                $article->tags()->sync($selectedTags);
+            }
 
-        return redirect()->route('articles.edit', $article->id)->with('message', '記事編集が完了しました。');
+            return redirect()->route('articles.edit', $article)->with('message', '記事編集が完了しました。');
+        } else {
+            return redirect()->route('articles.show', $article)->with('error', '他人の記事は編集できません。');
+        }
+    }
+
+    /**
+     * 記事詳細画面を表示する
+     * @param $id
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
+    public function show(Article $article) {
+        $tags = $article->tags;
+        $comments = $article->comments;
+        return view('articles.articles_show',compact('article', 'tags', 'comments'));
     }
 
     /**

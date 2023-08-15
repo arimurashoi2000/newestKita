@@ -11,7 +11,7 @@ return [
     |
     */
     'defaults' => [
-        'guard' => 'web',
+        'guard' => 'members',
         'passwords' => 'members',
     ],
     /*
@@ -67,7 +67,7 @@ return [
         ],
         'admin_users' => [
             'driver' => 'eloquent',
-            'model' => App\Models\Admin_user::class,
+            'model' => App\Models\AdminUser::class,
         ],
         // 'users' => [
         //     'driver' => 'database',

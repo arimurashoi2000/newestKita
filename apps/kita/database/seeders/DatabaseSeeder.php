@@ -3,9 +3,8 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use App\Models\Article_comment;
 
-class ArticleCommentSeeder extends Seeder
+class DatabaseSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -17,6 +16,7 @@ class ArticleCommentSeeder extends Seeder
         // \App\Models\User::factory(10)->create();
 
         $this->call([MemberSeeder::class]);
+        $this->call([ArticleTagSeeder::class]);
         $this->call([ArticleSeeder::class]);
         $this->call([ArticleCommentSeeder::class]);
         // \App\Models\User::factory()->create([
