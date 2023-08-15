@@ -22,7 +22,7 @@ class RedirectIfAuthenticated
         $guards = empty($guards) ? [null] : $guards;
         foreach ($guards as $guard) {
             //redirect destination for admins
-            if($guard == "admins" && Auth::guard($guard)->check()) {
+            if($guard == "admin_users" && Auth::guard($guard)->check()) {
                 return redirect('admin/admin_users');
             }
             //redirect destination for members
