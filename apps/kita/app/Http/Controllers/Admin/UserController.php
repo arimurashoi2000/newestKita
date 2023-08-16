@@ -14,7 +14,8 @@ class UserController extends Controller
      * @param Request $request
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function index(Request $request) {
+    public function index(Request $request)
+    {
         $name = $request->input('name');
         $email = $request->input('email');
 
@@ -23,10 +24,10 @@ class UserController extends Controller
 
         $users = Member::orderBy('created_at', 'desc');
         if (!empty($escapedName)) {
-            $users->where('name', 'like', "%$escapedName%");
+            $users->where('name', 'like', $escapedName);
         }
         if (!empty($escapedEmail)) {
-            $users->where('email', 'like', "%$escapedEmail%");
+            $users->where('email', 'like', $escapedEmail);
         }
 
         $users = $users->paginate(CommonConst::PAGINATION_ADMIN);

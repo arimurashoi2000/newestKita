@@ -19,10 +19,10 @@
                         </li>
                     </ul>
                     <li class="d-flex ml-auto mx-3">
-                        <form method="POST" action="{{ route('admin.logout') }}">
-                            @csrf
-                            <button type="submit" class="btn btn-outline-light px-4">ログアウト</button>
-                        </form>
+                        {{ Form::open(['route' => 'admin.logout', 'method' => 'post']) }}
+                        @csrf
+                        {{Form::submit('ログアウト', ['class'=>'btn btn-outline-light px-4'])}}
+                        {{ Form::close() }}
                     </li>
                 </div>
             </div>

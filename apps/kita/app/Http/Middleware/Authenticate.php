@@ -14,11 +14,14 @@ class Authenticate extends Middleware
      */
     protected function redirectTo($request)
     {
-        if (! $request->expectsJson()|| Request::is('admin')) {
-            return route('showLoginForm');
-        }
-        if (! $request->expectsJson()|| Request::is('/articles')) {
-            return route('login');
+        if (! $request->expectsJson()) {
+            if (\Auth::guard('members')->guest()) {
+                return route('login');
+            }
+
+            if (\Auth::guard('admin_users')->guest()) {
+                return route('showLoginForm');
+            }
         }
     }
 }

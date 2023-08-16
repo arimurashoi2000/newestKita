@@ -39,7 +39,7 @@ class ArticlesController extends Controller
      */
     public function create()
     {
-        $tags = Article_tag::orderBy('created_at', 'desc')->get();
+        $tags = ArticleTag::orderBy('created_at', 'desc')->get();
         return view('articles.articles_create', compact('tags'));
     }
 

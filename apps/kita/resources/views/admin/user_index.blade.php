@@ -45,7 +45,7 @@
             </div>
 
             <div class="mb-1 mt-3">
-                {{ $users->links('common.pagination') }}
+                {{ $users->appends(request()->query())->links('common.pagination') }}
             </div>
             <!--一覧-->
             <div class="card mt-3">

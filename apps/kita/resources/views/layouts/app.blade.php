@@ -9,14 +9,21 @@
     <script src="{{ asset('js/app.js') }}" defer></script>
 </head>
 <body>
+@auth('members')
+    @if (!request()->is(['login', 'member_registration']))
+        @include('common.header')
+    @endif
+@endauth
 
-@if((auth()->guard('admin_users')->check() && !Request::is('admin/login') || Request::is('admin/admin_users/create')))
-    @include('common.admin_header')
-@elseif ((Request::is('login') || Request::is('admin/login')) || Request::is('member_registration'))
-
-@else
-    @include('common.header')
-@endif
+@auth('admin_users')
+    @if (request()->path() === 'admin/login' || request()->is(['login', 'member_registration']))
+        {{-- 何も読み込まない --}}
+    @elseif (request()->is('admin/*'))
+        @include('common.admin_header')
+    @else
+        @include('common.header')
+    @endif
+@endauth
 
 @yield('content')
 </body>

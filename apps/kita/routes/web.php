@@ -4,7 +4,6 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\ArticlesController;
 use App\Http\Controllers\CommentsController;
-use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\ArticlesTagController;
@@ -34,12 +33,6 @@ Route::post('logout', [LoginController::class, 'logout'])->name('logout');
 //articles基本的なCRUD操作
 Route::resource('articles', ArticlesController::class)->only(['index', 'create', 'store', 'edit', 'update', 'show']);
 //コメント投稿機能
-Route::post('/articles/{id}', [CommentsController::class, 'store'])->name('comments.store');
-//プロフィール編集ページに遷移
-Route::get('/profile', [ProfileController::class, 'showEditProfilePage'])->name('profile.edit')->middleware('auth');
-//プロフィール編集機能
-Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update')->middleware('auth');
-//コメント投稿機能
 Route::post('/comments', [CommentsController::class, 'store'])->name('comments.store')->middleware('auth:members');
 
 //管理者の認証機能
@@ -48,8 +41,8 @@ Route::post('/admin/login', [App\Http\Controllers\Admin\LoginController::class, 
 Route::post('/admin/logout', [App\Http\Controllers\Admin\LoginController::class,'logout'])->name('admin.logout');
 
 //管理者画面の基本的なCRUD操作
-Route::middleware('auth:admin_users')->resource('/admin/admin_users', AdminUserController::class)->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);
+Route::middleware('auth:admin_users')->resource('/admin/admin_users', AdminUserController::class)->except(['show']);
 //会員管理
 Route::get('/admin/users',  [UserController::class, 'index'])->name('user.index');
 //基本的なタグ機能のCRUD操作
-Route::resource('/admin/article_tags', ArticlesTagController::class)->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);
+Route::resource('/admin/article_tags', ArticlesTagController::class)->except(['show']);

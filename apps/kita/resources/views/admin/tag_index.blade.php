@@ -35,7 +35,7 @@
             </div>
             <!--ページネーション-->
             <div class="text-start mb-1 mt-3">
-                <p>{{ $article_tags->links('common.pagination') }}</p>
+                <p>{{ $articleTags->appends(request()->query())->links('common.pagination') }}</p>
             </div>
             <!--一覧-->
             <div class="card mt-5">
@@ -54,16 +54,16 @@
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach ($article_tags as $article_tag)
-                                <tr>
-                                    <th scope="row">{{$article_tag->id}}</th>
-                                    <td>{{$article_tag->name}}</td>
-                                    <td class="text-end">{{$article_tag->created_at}}</td>
-                                    <td class="text-center">
-                                        <a href="{{route('article_tags.edit', $article_tag)}}" class="btn btn-primary text-white">編集</a>
-                                    </td>
-                                </tr>
-                            @endforeach
+                                @foreach ($articleTags as $articleTag)
+                                    <tr>
+                                        <th scope="row">{{$articleTag->id}}</th>
+                                        <td>{{$articleTag->name}}</td>
+                                        <td class="text-end">{{$articleTag->created_at}}</td>
+                                        <td class="text-center">
+                                            <a href="{{route('article_tags.edit', $articleTag)}}" class="btn btn-primary text-white">編集</a>
+                                        </td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>

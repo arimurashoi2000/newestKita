@@ -10,7 +10,7 @@
             </div>
         </div>
 
-        {{ Form::open(['route' => ['admin_users.update', $admin_user]]) }}
+        {{ Form::open(['route' => ['admin_users.update', $adminUser]]) }}
         @csrf
         @method('put')
         <div class="row">
@@ -22,7 +22,7 @@
                         <div class="row">
                             {{ Form::label('id','id', ['class' => 'col-md-auto col-form-label text-md-start']) }}
                         </div>
-                        {{ Form::text('created_at', $admin_user->id, ['class' => 'form-control', 'disabled', 'id' => 'id']) }}
+                        {{ Form::text('created_at', $adminUser->id, ['class' => 'form-control', 'disabled', 'id' => 'id']) }}
                     </div>
                     <!--姓-->
                     <div class="col px-4 my-4">
@@ -30,7 +30,7 @@
                             {{ Form::label('last_name','姓', ['class' => 'col-md-auto col-form-label text-md-start pt-0']) }}
                             <p class="badge mb-2 col-auto rounded bg-danger text-white" style="padding: 0.25rem;">必須</p>
                         </div>
-                        {{ Form::text('last_name', $admin_user->last_name, ['class' => 'form-control', 'id' => 'last_name']) }}
+                        {{ Form::text('last_name', $adminUser->last_name, ['class' => 'form-control', 'id' => 'last_name']) }}
                     </div>
                     <!--名-->
                     <div class="col px-4 my-4">
@@ -38,7 +38,7 @@
                             {{ Form::label('first_name','名', ['class' => 'col-md-auto col-form-label text-md-start pt-0']) }}
                             <p class="badge mb-2 col-auto rounded bg-danger text-white">必須</p>
                         </div>
-                        {{ Form::text('first_name', $admin_user->first_name, ['class' => 'form-control', 'id' => 'first_name']) }}
+                        {{ Form::text('first_name', $adminUser->first_name, ['class' => 'form-control', 'id' => 'first_name']) }}
                     </div>
                     <!--メールアドレス-->
                     <div class="col px-4 my-4">
@@ -46,7 +46,7 @@
                             {{ Form::label('email','メールアドレス', ['class' => 'col-md-auto col-form-label text-md-start pt-0']) }}
                             <p class="badge mb-2 col-auto rounded bg-danger text-white">必須</p>
                         </div>
-                        {{ Form::email('email', $admin_user->email, ['class' => 'form-control', 'id' => 'email']) }}
+                        {{ Form::email('email', $adminUser->email, ['class' => 'form-control', 'id' => 'email']) }}
                     </div>
                     <!--パスワード-->
                     <div class="col px-4 my-4">
@@ -60,14 +60,14 @@
                         <div class="row">
                             {{ Form::label('updated_at','更新日時', ['class' => 'col-md-auto col-form-label text-md-start']) }}
                         </div>
-                        {{ Form::text('created_at', $admin_user->updated_at, ['class' => 'form-control', 'disabled', 'id' => 'updated_at']) }}
+                        {{ Form::text('created_at', $adminUser->updated_at, ['class' => 'form-control', 'disabled', 'id' => 'updated_at']) }}
                     </div>
                     <!--登録日時-->
                     <div class="col px-4 my-4">
                         <div class="row">
                             {{ Form::label('updated_at','登録日時', ['class' => 'col-md-auto col-form-label text-md-start']) }}
                         </div>
-                        {{ Form::text('created_at', $admin_user->created_at, ['class' => 'form-control', 'disabled', 'id' => 'created_at']) }}
+                        {{ Form::text('created_at', $adminUser->created_at, ['class' => 'form-control', 'disabled', 'id' => 'created_at']) }}
                     </div>
                 </div>
             </div>
@@ -80,7 +80,7 @@
                     </div>
         {{ Form::close() }}
                     <!--削除ボタン-->
-                    {{ Form::open(['route' => ['admin_users.destroy', $admin_user], 'class' => 'col-md-12 col-12 text-center py-2',  'onsubmit' => "return confirm('一度削除すると元に戻せません。よろしいですか？');"]) }}
+                    {{ Form::open(['route' => ['admin_users.destroy', $adminUser], 'class' => 'col-md-12 col-12 text-center py-2',  'onsubmit' => "return confirm('一度削除すると元に戻せません。よろしいですか？');"]) }}
                     @csrf
                     @method('delete')
                     {{ Form::button('削除する', ['type' => 'submit', 'class' => 'btn btn-danger col-12 rounded']) }}

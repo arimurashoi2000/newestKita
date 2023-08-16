@@ -10,7 +10,7 @@
             </div>
         </div>
 
-        {{ Form::open(['route' => ['article_tags.update', $article_tag]]) }}
+        {{ Form::open(['route' => ['article_tags.update', $articleTag]]) }}
         @csrf
         @method('put')
         <div class="row">
@@ -22,7 +22,7 @@
                         <div class="row">
                             {{ Form::label('id','ID', ['class' => 'col-md-auto col-form-label text-md-start']) }}
                         </div>
-                        {{ Form::text('id', $article_tag->id, ['class' => 'form-control', 'disabled', 'id' => 'tag_id']) }}
+                        {{ Form::text('id', $articleTag->id, ['class' => 'form-control', 'disabled', 'id' => 'tag_id']) }}
                     </div>
                     <!--タグ名-->
                     <div class="col px-4 my-4">
@@ -30,7 +30,7 @@
                             {{ Form::label('name','タグ名', ['class' => 'col-md-auto col-form-label text-md-start']) }}
                             <p class="badge mb-2 col-auto rounded bg-danger text-white">必須</p>
                         </div>
-                        {{ Form::text('name', $article_tag->name, ['class' => 'form-control', 'id' => 'last_name']) }}
+                        {{ Form::text('name', $articleTag->name, ['class' => 'form-control', 'id' => 'last_name']) }}
                     </div>
 
                     <!--更新日時-->
@@ -38,14 +38,14 @@
                         <div class="row">
                             {{ Form::label('updated_at','更新日時', ['class' => 'col-md-auto col-form-label text-md-start']) }}
                         </div>
-                        {{ Form::text('updated_at', $article_tag->updated_at, ['class' => 'form-control', 'disabled', 'id' => 'updated_at']) }}
+                        {{ Form::text('updated_at', $articleTag->updated_at, ['class' => 'form-control', 'disabled', 'id' => 'updated_at']) }}
                     </div>
                     <!--登録日時-->
                     <div class="col px-4 my-4">
                         <div class="row">
                             {{ Form::label('updated_at','登録日時', ['class' => 'col-md-auto col-form-label text-md-start']) }}
                         </div>
-                        {{ Form::text('created_at', $article_tag->created_at, ['class' => 'form-control', 'disabled', 'id' => 'created_at']) }}
+                        {{ Form::text('created_at', $articleTag->created_at, ['class' => 'form-control', 'disabled', 'id' => 'created_at']) }}
                     </div>
                 </div>
             </div>
@@ -58,7 +58,7 @@
                     </div>
                     {{ Form::close() }}
                     <!--削除ボタン-->
-                    {{ Form::open(['route' => ['article_tags.destroy', $article_tag], 'onsubmit' => "return confirm('一度削除すると元に戻せません。よろしいですか？');"]) }}
+                    {{ Form::open(['route' => ['article_tags.destroy', $articleTag], 'onsubmit' => "return confirm('一度削除すると元に戻せません。よろしいですか？');"]) }}
                     @csrf
                     @method('delete')
                     {{ Form::button('削除する', ['type' => 'submit', 'class' => 'btn btn-danger col-12 rounded']) }}

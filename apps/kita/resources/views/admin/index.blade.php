@@ -53,7 +53,7 @@
                 </div>
                 <!--ページネーション-->
                 <div class="mb-1 mt-3">
-                    {{ $admin_users->links('common.pagination') }}
+                    {{ $adminUsers->appends(request()->query())->links('common.pagination') }}
                 </div>
                 <!--一覧-->
                 <div class="card mt-3">
@@ -66,6 +66,7 @@
                                 <thead>
                                     <tr>
                                         <th scope="col">ID</th>
+                                        <th scope="col">名前</th>
                                         <th scope="col">メールアドレス</th>
                                         <th scope="col" class="text-end">変更日時</th>
                                         <th scope="col" class="text-end">登録日時</th>
@@ -73,14 +74,15 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($admin_users as $admin_user)
+                                    @foreach ($adminUsers as $adminUser)
                                         <tr>
-                                            <th scope="row">{{$admin_user->id}}</th>
-                                            <td>{{$admin_user->last_name}}{{$admin_user->first_name}}</td>
-                                            <td class="text-end">{{$admin_user->updated_at}}</td>
-                                            <td class="text-end">{{$admin_user->created_at}}</td>
+                                            <td scope="row">{{$adminUser->id}}</td>
+                                            <td>{{$adminUser->last_name}}{{$adminUser->first_name}}</td>
+                                            <td>{{$adminUser->email}}</td>
+                                            <td class="text-end">{{$adminUser->updated_at}}</td>
+                                            <td class="text-end">{{$adminUser->created_at}}</td>
                                             <td class="text-center">
-                                                <a href="{{route('admin_users.edit', $admin_user)}}" class="btn btn-primary text-white">編集</a>
+                                                <a href="{{route('admin_users.edit', $adminUser)}}" class="btn btn-primary text-white">編集</a>
                                             </td>
                                         </tr>
                                     @endforeach

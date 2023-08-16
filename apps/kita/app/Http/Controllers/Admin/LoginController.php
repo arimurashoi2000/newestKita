@@ -24,6 +24,12 @@ class LoginController extends Controller
         logout as performLogout;
     }
 
+    public function loggedOut(Request $request)
+    {
+        $this->performLogout($request);
+        return redirect()->route('showLoginForm');
+    }
+
     /**
      * ログイン後は管理者一覧画面に遷移
      * @return string
@@ -45,12 +51,6 @@ class LoginController extends Controller
     protected function guard()
     {
         return Auth::guard('admin_users');
-    }
-
-    public function logout(Request $request)
-    {
-        $this->performLogout($request);
-        return redirect('admin/login');
     }
 
     /**
