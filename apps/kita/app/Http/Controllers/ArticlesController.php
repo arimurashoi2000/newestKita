@@ -8,6 +8,7 @@ use App\Validators\ArticleValidator;
 use App\Consts\CommonConst;
 use App\Models\ArticleTag;
 use App\Models\ArticleComment;
+
 class ArticlesController extends Controller
 {
     public function __construct()
@@ -20,7 +21,8 @@ class ArticlesController extends Controller
      * @param Request $request
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function index(Request $request) {
+    public function index(Request $request)
+    {
         $search = $request->input('search');
         $escapedSearch = '%' . addcslashes($search, '%_\\') . '%';
         $articles = Article::with('member')->orderBy('created_at', 'desc');
@@ -107,5 +109,20 @@ class ArticlesController extends Controller
         $tags = $article->tags;
         $comments = $article->comments;
         return view('articles.articles_show',compact('article', 'tags', 'comments'));
+    }
+
+    /**
+     * 記事削除機能
+     * @param Article $article
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function destroy(Article $article)
+    {
+        if (\Auth::id() === $article->member->id) {
+            $article->delete();
+            return redirect()->route('articles.index')->with('message', '記事が削除されました');
+        } else {
+            return redirect()->route('articles.index')->with('error', '投稿した本人ではありません');
+        }
     }
 }

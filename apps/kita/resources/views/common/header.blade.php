@@ -43,6 +43,10 @@
                                     {{Form::submit('ログアウト', ['class'=>'dropdown-item'])}}
                                     {{ Form::close() }}
                                 </li>
+
+                                <li>
+                                    <a href="{{route('profile.edit')}}" class="text-black text-decoration-none px-3">プロフィール編集</a>
+                                </li>
                             @elseif(!Auth::guard('members')->check() && !Auth::guard('admin_users')->check())
                                 <li>
                                     <a href="{{route('members.loginForm')}}" class="text-black text-decoration-none px-2">ログイン</a>
@@ -53,6 +57,10 @@
                                     @csrf
                                     {{Form::submit('ログアウト', ['class'=>'dropdown-item'])}}
                                     {{ Form::close() }}
+                                </li>
+
+                                <li>
+                                    <a href="{{route('profile.edit')}}" class="text-black text-decoration-none px-3">プロフィール編集</a>
                                 </li>
                             @elseif(!Auth::guard('members')->check() && Auth::guard('admin_users')->check())
                                 <li>
