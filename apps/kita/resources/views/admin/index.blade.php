@@ -18,7 +18,7 @@
                                         {{Form::label('last_name', '姓', ['class' => 'col-md-10 col-12 px-0'])}}
                                     </div>
                                     <div class="row pt-1">
-                                        {{Form::text('last_name', null, ['class'=>'title col-md-10 col-12 border border-secondary mt-2 rounded'])}}
+                                        {{Form::text('last_name', request('last_name'), ['class'=>'title col-md-10 col-12 border border-secondary mt-2 rounded'])}}
                                     </div>
                                 </div>
                                 <!--名-->
@@ -27,7 +27,7 @@
                                         {{Form::label('first_name', '名', ['class' => 'col-md-10 col-12 px-0'])}}
                                     </div>
                                     <div class="row pt-1">
-                                        {{Form::text('first_name', null, ['class'=>'title col-md-10 col-12 border border-secondary mt-2 rounded'])}}
+                                        {{Form::text('first_name', request('first_name'), ['class'=>'title col-md-10 col-12 border border-secondary mt-2 rounded'])}}
                                     </div>
                                 </div>
                                 <!--メールアドレス-->
@@ -36,7 +36,7 @@
                                         {{Form::label('email', 'メールアドレス', ['class' => 'col-md-10 col-12 px-0'])}}
                                     </div>
                                     <div class="row pt-1">
-                                        {{Form::text('email', null, ['class'=>'title col-md-10 col-12 border border-secondary mt-2 rounded'])}}
+                                        {{Form::text('email', request('email'), ['class'=>'title col-md-10 col-12 border border-secondary mt-2 rounded'])}}
                                     </div>
                                 </div>
                             </div>
@@ -44,7 +44,7 @@
 
                         <div class="row">
                             <div class="col-md-12 col-12 justify-content-center">
-                                <div class="border rounded p-3 text-center custom-bg-lightgray">
+                                <div class="border border-top-0 rounded-bottom p-3 text-center custom-bg-lightgray">
                                     {{ Form::submit('検索', ['class' => 'btn btn-primary']) }}
                                 </div>
                             </div>
@@ -76,8 +76,8 @@
                                 <tbody>
                                     @foreach ($adminUsers as $adminUser)
                                         <tr>
-                                            <td scope="row">{{$adminUser->id}}</td>
-                                            <td>{{$adminUser->last_name}}{{$adminUser->first_name}}</td>
+                                            <th scope="row">{{$adminUser->id}}</th>
+                                            <td>{{$adminUser->last_name}}　{{$adminUser->first_name}}</td>
                                             <td>{{$adminUser->email}}</td>
                                             <td class="text-end">{{$adminUser->updated_at}}</td>
                                             <td class="text-end">{{$adminUser->created_at}}</td>

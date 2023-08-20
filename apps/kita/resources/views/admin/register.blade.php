@@ -17,37 +17,37 @@
                 @include('common.flash_message')
                 <div class="border rounded bg-white py-3">
                     <div class="col px-4 my-4">
-                        <div class="row">
+                        <div class="row d-flex align-items-center">
                             {{ Form::label('last_name','姓', ['class' => 'col-md-auto col-form-label text-md-start']) }}
-                            <p class="mb-2 col-auto rounded bg-danger text-white">必須</p>
+                            <p class="badge mb-2 col-auto rounded bg-danger text-white" style="padding: 0.25rem;">必須</p>
                         </div>
                         {{ Form::text('last_name', null, ['class' => 'form-control', 'id' => 'last_name']) }}
                     </div>
                     <div class="col px-4 my-4">
-                        <div class="row">
+                        <div class="row d-flex align-items-center">
                             {{ Form::label('first_name','名', ['class' => 'col-md-auto col-form-label text-md-start']) }}
-                            <p class="mb-2 col-auto rounded bg-danger text-white">必須</p>
+                            <p class="badge mb-2 col-auto rounded bg-danger text-white" style="padding: 0.25rem;">必須</p>
                         </div>
                         {{ Form::text('first_name', null, ['class' => 'form-control', 'id' => 'first_name']) }}
                     </div>
                     <div class="col px-4 my-4">
-                        <div class="row">
+                        <div class="row d-flex align-items-center">
                             {{ Form::label('email','メールアドレス', ['class' => 'col-md-auto col-form-label text-md-start']) }}
-                            <p class="mb-2 col-auto rounded bg-danger text-white">必須</p>
+                            <p class="badge mb-2 col-auto rounded bg-danger text-white" style="padding: 0.25rem;">必須</p>
                         </div>
                         {{ Form::email('email', null, ['class' => 'form-control', 'id' => 'email']) }}
                     </div>
                     <div class="col px-4 my-4">
-                        <div class="row">
+                        <div class="row d-flex align-items-center">
                             {{ Form::label('password','パスワード', ['class' => 'col-md-auto col-form-label text-md-start']) }}
-                            <p class="mb-2 col-auto rounded bg-danger text-white">必須</p>
+                            <p class="badge mb-2 col-auto rounded bg-danger text-white" style="padding: 0.25rem;">必須</p>
                         </div>
                         {{ Form::password('password', ['class' => 'form-control', 'id' => 'password']) }}
                     </div>
                     <div class="col px-4 my-4">
-                        <div class="row">
+                        <div class="row d-flex align-items-center">
                             {{ Form::label('','パスワード(確認)', ['class' => 'col-md-auto col-form-label text-md-start']) }}
-                            <p class="mb-2 col-auto rounded bg-danger text-white">必須</p>
+                            <p class="badge mb-2 col-auto rounded bg-danger text-white" style="padding: 0.25rem;">必須</p>
                         </div>
                         {{ Form::password('password_confirmation', ['class' => 'form-control', 'id' => 'password_confirmation']) }}
                     </div>

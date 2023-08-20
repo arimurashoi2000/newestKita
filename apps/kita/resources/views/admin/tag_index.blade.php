@@ -18,7 +18,7 @@
                             </div>
                             <div class="col-md-12 col-12">
                                 <div class="row pt-1 col-md-12 d-flex justify-content-center align-items-center">
-                                    {{Form::text('name', null, ['class'=>'border border-secondary title col-md-12 col-12 mt-2 rounded text-center ms-3'])}}
+                                    {{Form::text('name', request('name'), ['class'=>'border border-secondary title col-md-12 col-12 mt-2 rounded ms-3'])}}
                                 </div>
                             </div>
                         </div>
@@ -26,7 +26,7 @@
 
                     <div class="row">
                         <div class="col-md-12 col-12 justify-content-center">
-                            <div class="border rounded p-3 text-center custom-bg-lightgray">
+                            <div class="border border-top-0 rounded-bottom p-3 text-center custom-bg-lightgray">
                                 {{ Form::submit('検索', ['class' => 'btn btn-primary']) }}
                             </div>
                         </div>

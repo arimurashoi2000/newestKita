@@ -17,7 +17,7 @@
                                     {{Form::label('name', 'ユーザー名', ['class' => 'col-md-10 col-12 px-0'])}}
                                 </div>
                                 <div class="row pt-1">
-                                    {{Form::text('name', null, ['class'=>'title col-md-10 col-12 border border-secondary mt-2 rounded'])}}
+                                    {{Form::text('name', request('name'), ['class'=>'title col-md-10 col-12 border border-secondary mt-2 rounded'])}}
                                 </div>
                             </div>
 
@@ -27,7 +27,7 @@
                                     {{Form::label('email', 'メールアドレス', ['class' => 'col-md-10 col-12 px-0'])}}
                                 </div>
                                 <div class="row pt-1">
-                                    {{Form::text('email', null, ['class'=>'title col-md-10 col-12 border border-secondary mt-2 rounded'])}}
+                                    {{Form::text('email', request('email'), ['class'=>'title col-md-10 col-12 border border-secondary mt-2 rounded'])}}
                                 </div>
                             </div>
                         </div>
@@ -36,7 +36,7 @@
                         <!--投稿ボタン-->
                         <div class="row">
                             <div class="col-md-12 col-12 justify-content-center">
-                                <div class="border rounded p-3 text-center custom-bg-lightgray">
+                                <div class="border border-top-0 rounded-bottom p-3 text-center custom-bg-lightgray">
                                     {{ Form::submit('検索', ['class' => 'btn btn-primary']) }}
                                 </div>
                             </div>

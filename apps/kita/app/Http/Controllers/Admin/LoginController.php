@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 class LoginController extends Controller
@@ -20,13 +21,30 @@ class LoginController extends Controller
     |
     */
 
-    use AuthenticatesUsers {
-        logout as performLogout;
+    use AuthenticatesUsers;
+
+    public function logout(Request $request)
+    {
+        \Auth::guard('admin_users')->logout();
+
+        $request->session()->regenerateToken();
+
+        if ($response = $this->loggedOut($request)) {
+            return $response;
+        }
+
+        return $request->wantsJson()
+            ? new JsonResponse([], 204)
+            : redirect('/');
     }
 
+    /**
+     * ログアウト機能
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function loggedOut(Request $request)
     {
-        $this->performLogout($request);
         return redirect()->route('showLoginForm');
     }
 

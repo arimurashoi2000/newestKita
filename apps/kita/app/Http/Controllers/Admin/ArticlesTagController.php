@@ -20,7 +20,7 @@ class ArticlesTagController extends Controller
         $search = $request->input('name');
         $escapedSearch = addcslashes($search, '%_\\');
         if (!empty($escapedSearch)) {
-            $articleTags = ArticleTag::where('name', 'like', $escapedSearch)->orderBy('created_at', 'desc')->paginate(CommonConst::PAGINATION_ADMIN);
+            $articleTags = ArticleTag::where('name', 'like', '%'. $escapedSearch . '%')->orderBy('created_at', 'desc')->paginate(CommonConst::PAGINATION_ADMIN);
             return view('admin.tag_index', compact('articleTags'));
         } else {
             $articleTags = ArticleTag::orderBy('created_at', 'desc')->paginate(CommonConst::PAGINATION_ADMIN);

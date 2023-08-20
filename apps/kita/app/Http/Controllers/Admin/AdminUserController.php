@@ -30,15 +30,15 @@ class AdminUserController extends Controller
         $adminUsers = AdminUser::orderBy('created_at', 'desc');
 
         if (!empty($lastName)) {
-            $adminUsers->where('last_name', 'like', $escapedLastName);
+            $adminUsers->where('last_name', 'like', '%'. $escapedLastName . '%');
         }
 
         if (!empty($firstName)) {
-            $adminUsers->where('first_name', 'like', $escapedFirstName);
+            $adminUsers->where('first_name', 'like', '%'. $escapedFirstName . '%');
         }
 
         if (!empty($email)) {
-            $adminUsers->where('email', 'like', $escapedEmail);
+            $adminUsers->where('email', 'like', '%'. $escapedEmail . '%');
         }
 
         $adminUsers = $adminUsers->paginate(CommonConst::PAGINATION_ADMIN);
@@ -71,16 +71,16 @@ class AdminUserController extends Controller
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
-        $admin_user = new AdminUser();
-        $admin_user->fill([
+        $adminUser = new AdminUser();
+        $adminUser->fill([
             'first_name' => $request->input('first_name'),
             'last_name' => $request->input('last_name'),
             'email' => $request->input('email'),
             'password' => Hash::make($request->input('password')),
         ]);
-        $admin_user->save();
+        $adminUser->save();
 
-        return redirect()->route('admin_users.edit', compact('admin_user'))->with('message', '登録処理が完了しました。');
+        return redirect()->route('admin_users.edit', $adminUser)->with('message', '登録処理が完了しました。');
     }
 
     public function edit(AdminUser $adminUser)
@@ -113,6 +113,6 @@ class AdminUserController extends Controller
     public function destroy(AdminUser $adminUser)
     {
         $adminUser->delete();
-        return redirect()->route('admin_users.index')->with('message', '削除処理が削除されました');
+        return redirect()->route('admin_users.index')->with('message', '削除処理が完了しました');
     }
 }

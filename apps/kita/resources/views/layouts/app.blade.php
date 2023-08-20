@@ -9,21 +9,39 @@
     <script src="{{ asset('js/app.js') }}" defer></script>
 </head>
 <body>
-@auth('members')
-    @if (!request()->is(['login', 'member_registration']))
+@if(Auth::guard('members')->check() && Auth::guard('admin_users')->check())
+    @if (!request()->is(['login', 'member_registration', 'admin/*']))
         @include('common.header')
-    @endif
-@endauth
-
-@auth('admin_users')
-    @if (request()->path() === 'admin/login' || request()->is(['login', 'member_registration']))
-        {{-- 何も読み込まない --}}
-    @elseif (request()->is('admin/*'))
+    @elseif (!request()->is(['admin/login']) && request()->is(['admin/*']))
         @include('common.admin_header')
     @else
-        @include('common.header')
+
     @endif
-@endauth
+@elseif(!Auth::guard('members')->check() && !Auth::guard('admin_users')->check())
+    @if (!request()->is(['login', 'member_registration', 'admin/*']))
+        @include('common.header')
+    @elseif (!request()->is(['admin/login']) && request()->is(['admin/*']))
+        @include('common.admin_header')
+    @else
+
+    @endif
+@elseif(Auth::guard('members')->check() && !Auth::guard('admin_users')->check())
+    @if (!request()->is(['login', 'member_registration', 'admin/*']))
+        @include('common.header')
+    @elseif (!request()->is(['admin/login']) && request()->is(['admin/*']))
+        @include('common.admin_header')
+    @else
+
+    @endif
+@elseif(!Auth::guard('members')->check() && Auth::guard('admin_users')->check())
+    @if (!request()->is(['login', 'member_registration', 'admin/*']))
+        @include('common.header')
+    @elseif (!request()->is(['admin/login']) && request()->is(['admin/*']))
+        @include('common.admin_header')
+    @else
+
+    @endif
+@endif
 
 @yield('content')
 </body>
