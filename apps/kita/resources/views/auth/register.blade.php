@@ -13,7 +13,7 @@
 
             <div class="card">
                 <div class="card-body px-5 py-4">
-                    {{ Form::open(['route'=>'register', 'files'=>true]) }}
+                    {{ Form::open(['route'=>'members.register', 'files'=>true]) }}
                     <div class="row mb-1">
                         {{ Form::label('name','ユーザー名', ['class' => 'col-md col-form-label text-md-start']) }}
                     </div>

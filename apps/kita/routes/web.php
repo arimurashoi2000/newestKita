@@ -22,8 +22,8 @@ use App\Http\Controllers\PasswordController;
 */
 
 // 会員登録ルート
-Route::get('/member_registration', [RegisterController::class, 'showRegistrationForm'])->name('register');
-Route::post('/member_registration', [RegisterController::class, 'register']);
+Route::get('/member_registration', [RegisterController::class, 'showRegistrationForm'])->name('members.registerForm');
+Route::post('/member_registration', [RegisterController::class, 'register'])->name('members.register');
 // ログインルート
 Route::get('login', [LoginController::class, 'showLoginForm'])->name('members.loginForm');
 Route::post('login', [LoginController::class, 'login'])->name('members.login');

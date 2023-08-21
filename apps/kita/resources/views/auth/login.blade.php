@@ -15,7 +15,7 @@
                     {{ Form::open(['route'=>'members.login', 'files'=>true]) }}
                     @csrf
                     <div class="row mb-1">
-                        <p class="text-md-end">新規会員登録は<a href="{{ route('register') }}">こちら</a></p>
+                        <p class="text-md-end">新規会員登録は<a href="{{ route('members.registerForm') }}">こちら</a></p>
                     </div>
 
                     <div class="row mb-1">
