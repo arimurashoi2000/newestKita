@@ -24,10 +24,10 @@ class UserController extends Controller
 
         $users = Member::orderBy('created_at', 'desc');
         if (!empty($escapedName)) {
-            $users->where('name', 'like', '%'. $escapedName . '%');
+            $users->where('name', 'like', $escapedName);
         }
         if (!empty($escapedEmail)) {
-            $users->where('email', 'like', '%'. $escapedEmail . '%');
+            $users->where('email', 'like', $escapedEmail);
         }
 
         $users = $users->paginate(CommonConst::PAGINATION_ADMIN);

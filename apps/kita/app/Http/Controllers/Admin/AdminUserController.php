@@ -30,15 +30,15 @@ class AdminUserController extends Controller
         $adminUsers = AdminUser::orderBy('created_at', 'desc');
 
         if (!empty($lastName)) {
-            $adminUsers->where('last_name', 'like', '%'. $escapedLastName . '%');
+            $adminUsers->where('last_name', 'like', $escapedLastName);
         }
 
         if (!empty($firstName)) {
-            $adminUsers->where('first_name', 'like', '%'. $escapedFirstName . '%');
+            $adminUsers->where('first_name', 'like', $escapedFirstName);
         }
 
         if (!empty($email)) {
-            $adminUsers->where('email', 'like', '%'. $escapedEmail . '%');
+            $adminUsers->where('email', 'like', $escapedEmail);
         }
 
         $adminUsers = $adminUsers->paginate(CommonConst::PAGINATION_ADMIN);

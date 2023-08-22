@@ -23,28 +23,15 @@ class LoginController extends Controller
 
     use AuthenticatesUsers;
 
+    /**
+     * ログアウト処理
+     * @param Request $request
+     * @return \Illuminate\Contracts\Foundation\Application|JsonResponse|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function logout(Request $request)
     {
-        \Auth::guard('admin_users')->logout();
+        $this->guard()->logout();
 
-        $request->session()->regenerateToken();
-
-        if ($response = $this->loggedOut($request)) {
-            return $response;
-        }
-
-        return $request->wantsJson()
-            ? new JsonResponse([], 204)
-            : redirect('/');
-    }
-
-    /**
-     * ログアウト機能
-     * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function loggedOut(Request $request)
-    {
         return redirect()->route('showLoginForm');
     }
 

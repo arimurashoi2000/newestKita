@@ -9,37 +9,15 @@
     <script src="{{ asset('js/app.js') }}" defer></script>
 </head>
 <body>
-@if(Auth::guard('members')->check() && Auth::guard('admin_users')->check())
-    @if (!request()->is(['login', 'member_registration', 'admin/*']))
+@if (\Auth::guard('members')->check() && !request()->is(['login', 'member_registration', 'admin/*']))
+    @include('common.header')
+@elseif (\Auth::guard('admin_users')->check() && !request()->is(['admin/login']) && request()->is(['admin/*']))
+    @include('common.admin_header')
+@else
+    @if(!request()->is(['login', 'member_registration', 'admin/*']))
         @include('common.header')
-    @elseif (!request()->is(['admin/login']) && request()->is(['admin/*']))
+    @elseif(!request()->is(['admin/*']) && !request()->is(['login', 'member_registration', 'admin/*']))
         @include('common.admin_header')
-    @else
-
-    @endif
-@elseif(!Auth::guard('members')->check() && !Auth::guard('admin_users')->check())
-    @if (!request()->is(['login', 'member_registration', 'admin/*']))
-        @include('common.header')
-    @elseif (!request()->is(['admin/login']) && request()->is(['admin/*']))
-        @include('common.admin_header')
-    @else
-
-    @endif
-@elseif(Auth::guard('members')->check() && !Auth::guard('admin_users')->check())
-    @if (!request()->is(['login', 'member_registration', 'admin/*']))
-        @include('common.header')
-    @elseif (!request()->is(['admin/login']) && request()->is(['admin/*']))
-        @include('common.admin_header')
-    @else
-
-    @endif
-@elseif(!Auth::guard('members')->check() && Auth::guard('admin_users')->check())
-    @if (!request()->is(['login', 'member_registration', 'admin/*']))
-        @include('common.header')
-    @elseif (!request()->is(['admin/login']) && request()->is(['admin/*']))
-        @include('common.admin_header')
-    @else
-
     @endif
 @endif
 

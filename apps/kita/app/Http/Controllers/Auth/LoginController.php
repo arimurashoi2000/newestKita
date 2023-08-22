@@ -23,29 +23,17 @@ class LoginController extends Controller
     */
 
     use AuthenticatesUsers;
-    public function logout(Request $request)
-    {
-        \Auth::guard('members')->logout();
-
-        $request->session()->regenerateToken();
-
-        if ($response = $this->loggedOut($request)) {
-            return $response;
-        }
-
-        return $request->wantsJson()
-            ? new JsonResponse([], 204)
-            : redirect('/');
-    }
 
     /**
      * ログアウト機能
      * @param Request $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function loggedOut(Request $request)
+    public function logout(Request $request)
     {
-        return redirect()->route('members.login');
+        $this->guard()->logout();
+
+        return redirect()->route('members.loginForm');
     }
 
     /**
@@ -75,5 +63,20 @@ class LoginController extends Controller
     public function showLoginForm()
     {
         return view('auth.login');
+    }
+
+    protected function sendLoginResponse(Request $request)
+    {
+        $request->session()->regenerate();
+
+        $this->clearLoginAttempts($request);
+
+        if ($response = $this->authenticated($request, $this->guard()->user())) {
+            return $response;
+        }
+
+        return $request->wantsJson()
+            ? new JsonResponse([], 204)
+            : redirect()->route('articles.index');
     }
 }
