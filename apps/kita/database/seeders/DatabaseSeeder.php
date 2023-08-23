@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
         $this->call([MemberSeeder::class]);
         $this->call([ArticleTagSeeder::class]);
         $this->call([ArticleSeeder::class]);
+        $this->call([AdminUserSeeder::class]);
         $this->call([ArticleCommentSeeder::class]);
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',

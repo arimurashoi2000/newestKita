@@ -1,14 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Http\Request;
 class LoginController extends Controller
 {
     /*
@@ -25,24 +24,23 @@ class LoginController extends Controller
     use AuthenticatesUsers;
 
     /**
-     * ログアウト機能
+     * ログアウト処理
      * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Contracts\Foundation\Application|JsonResponse|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function logout(Request $request)
     {
         $this->guard()->logout();
 
-        return redirect()->route('members.loginForm');
+        return redirect()->route('showLoginForm');
     }
 
     /**
-     * Where to redirect users after login.
-     *
-     * @var string
+     * ログイン後は管理者一覧画面に遷移
+     * @return string
      */
     protected function redirectTo() {
-        return route('articles.index');
+        return route('admin_users.index');
     }
 
     /**
@@ -52,31 +50,20 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest:members')->except('logout');
+        $this->middleware('guest:admin_users')->except('logout');
     }
 
     protected function guard()
     {
-        return Auth::guard('members');
+        return Auth::guard('admin_users');
     }
 
+    /**
+     * 管理者側のログイン画面へ遷移
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
     public function showLoginForm()
     {
-        return view('auth.login');
-    }
-
-    protected function sendLoginResponse(Request $request)
-    {
-        $request->session()->regenerate();
-
-        $this->clearLoginAttempts($request);
-
-        if ($response = $this->authenticated($request, $this->guard()->user())) {
-            return $response;
-        }
-
-        return $request->wantsJson()
-            ? new JsonResponse([], 204)
-            : redirect()->route('articles.index');
+        return view('admin.login');
     }
 }

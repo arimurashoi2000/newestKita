@@ -32,6 +32,10 @@ class Article extends Model
         return $this->hasMany(ArticleComment::class);
     }
 
+    /**
+     *タグモデルとのリレーション
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
     public function tags() {
         return $this->belongsToMany(ArticleTag::class)->withTimestamps();
     }

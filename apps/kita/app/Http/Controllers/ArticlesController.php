@@ -94,7 +94,6 @@ class ArticlesController extends Controller
                 $selectedTags = $request->input('tag_id');
                 $article->tags()->sync($selectedTags);
             }
-
             return redirect()->route('articles.edit', $article)->with('message', '記事編集が完了しました。');
         } else {
             return redirect()->route('articles.show', $article)->with('error', '他人の記事は編集できません。');

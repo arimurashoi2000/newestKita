@@ -26,7 +26,7 @@ class RedirectIfAuthenticated
                 return redirect('admin/admin_users');
             }
             //redirect destination for members
-            if (Auth::guard($guard)->check()) {
+            if ($guard == "members" && Auth::guard($guard)->check()) {
                 return redirect('articles');
             }
         }
