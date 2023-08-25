@@ -18,7 +18,7 @@
                                         {{Form::label('last_name', '姓', ['class' => 'col-md-10 col-12 px-0'])}}
                                     </div>
                                     <div class="row pt-1 col-12 px-0">
-                                        {{Form::text('last_name', request('last_name'), ['class'=>'title form-control border border-secondary mt-2 rounded'])}}
+                                        {{Form::text('last_name', request('last_name'), ['class'=>'form-control border border-secondary mt-2 rounded'])}}
                                     </div>
                                 </div>
                                 <!--名-->
@@ -27,7 +27,7 @@
                                         {{Form::label('first_name', '名', ['class' => 'col-md-10 col-12 px-0'])}}
                                     </div>
                                     <div class="row pt-1 col-12 px-0">
-                                        {{Form::text('first_name', request('first_name'), ['class'=>'title form-control border border-secondary mt-2 rounded'])}}
+                                        {{Form::text('first_name', request('first_name'), ['class'=>'form-control border border-secondary mt-2 rounded'])}}
                                     </div>
                                 </div>
                                 <!--メールアドレス-->
@@ -36,7 +36,7 @@
                                         {{Form::label('email', 'メールアドレス', ['class' => 'col-md-10 col-12 px-0'])}}
                                     </div>
                                     <div class="row pt-1 col-12 px-0">
-                                        {{Form::text('email', request('email'), ['class'=>'title form-control border border-secondary mt-2 rounded'])}}
+                                        {{Form::text('email', request('email'), ['class'=>'form-control border border-secondary mt-2 rounded'])}}
                                     </div>
                                 </div>
                             </div>

@@ -18,7 +18,7 @@
                             </div>
                             <div class="col-md-12 col-12">
                                 <div class="row pt-1 col-12 px-0 d-flex justify-content-center align-items-center">
-                                    {{Form::text('name', request('name'), ['class'=>'border border-secondary title mt-2 rounded ms-3'])}}
+                                    {{Form::text('name', request('name'), ['class'=>'form-control border border-secondary mt-2 rounded ms-3'])}}
                                 </div>
                             </div>
                         </div>

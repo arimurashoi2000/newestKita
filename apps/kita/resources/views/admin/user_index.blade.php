@@ -17,7 +17,7 @@
                                     {{Form::label('name', 'ユーザー名', ['class' => 'col-md-10 col-12 px-0'])}}
                                 </div>
                                 <div class="row pt-1 col-12 px-0">
-                                    {{Form::text('name', request('name'), ['class'=>'title border border-secondary mt-2 rounded'])}}
+                                    {{Form::text('name', request('name'), ['class'=>'form-control border border-secondary mt-2 rounded'])}}
                                 </div>
                             </div>
 
@@ -27,7 +27,7 @@
                                     {{Form::label('email', 'メールアドレス', ['class' => 'col-md-10 col-12 px-0'])}}
                                 </div>
                                 <div class="row pt-1 col-12 px-0">
-                                    {{Form::text('email', request('email'), ['class'=>'border border-secondary mt-2 rounded'])}}
+                                    {{Form::text('email', request('email'), ['class'=>'form-control border border-secondary mt-2 rounded'])}}
                                 </div>
                             </div>
                         </div>
