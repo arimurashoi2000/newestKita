@@ -54,3 +54,7 @@ Route::get('/profile', [ProfileController::class, 'showEditProfilePage'])->name(
 Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update')->middleware('auth:members');
 // パスワード変更機能
 Route::put('/password_change', [PasswordController::class, 'changePassword'])->name('password.update')->middleware('auth:members');
+
+Route::get('/', function () {
+    return view('adminLTE');
+});

@@ -18,7 +18,7 @@ class ArticlesTagController extends Controller
     public function index(Request $request)
     {
         $search = $request->input('name');
-        $escapedSearch = addcslashes($search, '%_\\');
+        $escapedSearch = '%'. addcslashes($search, '%_\\') .'%';
         if (!empty($escapedSearch)) {
             $articleTags = ArticleTag::where('name', 'like', $escapedSearch)->orderBy('created_at', 'desc')->paginate(CommonConst::PAGINATION_ADMIN);
             return view('admin.tag_index', compact('articleTags'));

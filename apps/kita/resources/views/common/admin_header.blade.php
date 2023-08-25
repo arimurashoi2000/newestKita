@@ -1,31 +1,55 @@
 <header>
-    <div class ="container-fluid bg-dark sticky-top">
-        <nav class="navbar navbar-expand-lg navbar-dark">
-            <div class="container-fluid">
-                <a class="navbar-brand text-light" href="{{route('admin_users.index')}}">Kita</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mx-4 mb-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link text-light mx-3" href="{{ route('admin_users.index') }}">管理者管理</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-light mx-3" href="{{ route('user.index') }}">会員管理</a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link text-light mx-3" href="{{ route('article_tags.index') }}">タグ管理</a>
-                        </li>
-                    </ul>
-                    <li class="d-flex ml-auto mx-3">
-                        {{ Form::open(['route' => 'admin.logout', 'method' => 'post']) }}
-                        @csrf
-                        {{Form::submit('ログアウト', ['class'=>'btn btn-outline-light px-4'])}}
-                        {{ Form::close() }}
-                    </li>
-                </div>
-            </div>
+    <nav class="main-header navbar navbar-expand navbar-dark navbar-light">
+        <!-- Left navbar links -->
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+            </li>
+        </ul>
+    </nav>
+</header>
+
+<!-- Main Sidebar Container -->
+<aside class="main-sidebar sidebar-dark-primary elevation-4 position-fixed">
+    <!-- Brand Logo -->
+    <a href="" class="brand-link text-center" style="text-decoration: none;">
+        <span class="brand-text font-weight-light text-white">Kita</span>
+    </a>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <!-- Sidebar Menu -->
+        <nav class="mt-2">
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu">
+                <li class="nav-header text-white">MENU</li>
+                <li class="nav-item">
+                    <a href="{{ route('admin_users.index') }}" class="nav-link text-white">
+                        <i class="nav-icon fa-solid fa-users-gear"></i>
+                        <p>管理者管理</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('user.index') }}" class="nav-link text-white">
+                        <i class="nav-icon fa-solid fa-users-line"></i>
+                        <p>会員管理</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('article_tags.index') }}" class="nav-link text-white">
+                        <i class="nav-icon fa-solid fa-tags"></i>
+                        <p>タグ管理</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    {!! Form::open(['route' => 'admin.logout', 'method' => 'POST']) !!}
+                    {!! csrf_field() !!}
+                    <button type="submit" class="btn-link nav-link text-white" style="text-align: left;">
+                        <i class="nav-icon fa-solid fa-arrow-right-from-bracket"></i>
+                        <p>ログアウト</p>
+                    </button>
+                    {!! Form::close() !!}
+                </li>
+            </ul>
         </nav>
     </div>
-</header>
+</aside>

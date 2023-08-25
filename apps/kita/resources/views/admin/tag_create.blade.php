@@ -3,7 +3,7 @@
     <title>タグ管理-新規作成</title>
 @endsection
 @section('content')
-    <div class="container">
+    <div class="content-wrapper container">
         <div class="row pt-5">
             <div class="col">
                 <h1>タグ管理 - 新規作成</h1>

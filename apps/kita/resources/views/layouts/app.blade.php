@@ -8,7 +8,8 @@
     <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
     <script src="{{ asset('js/app.js') }}" defer></script>
 </head>
-<body>
+
+<body class="sidebar-mini layout-fixed sidebar-collapse" style="height: auto;">
 @if (\Auth::guard('members')->check() && !request()->is(['login', 'member_registration', 'admin/*']))
     @include('common.header')
 @elseif (\Auth::guard('admin_users')->check() && !request()->is(['admin/login']) && request()->is(['admin/*']))
