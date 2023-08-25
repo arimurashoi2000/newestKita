@@ -3,7 +3,7 @@
     <title>管理者編集画面</title>
 @endsection
 @section('content')
-    <div class="content-wrapper container">
+    <div class="content-wrapper px-5 py-5">
         <div class="row pt-5">
             <div class="col">
                 <h1>管理者管理 - 編集</h1>
