@@ -3,12 +3,12 @@
     <title>タグ管理</title>
 @endsection
 @section('content')
-    <div class="container mt-0">
+    <div class="content-wrapper mt-0 px-5 py-5">
         <h2 class="mt-3">タグ管理</h2>
         @include('common.flash_message')
         <div class="justify-content-center" style="--bs-bg-opacity: .1;">
             <!--検索-->
-            <div class="card col-md-12 mt-5">
+            <div class="card col-md-12 mt-5 px-0">
                 {{ Form::open(['route' => 'article_tags.index', 'method' => 'get']) }}
                     <div class="card-body col-md-12 px-4 py-3">
                         <!--タグ名-->
@@ -17,19 +17,15 @@
                                 {{Form::label('name', 'タグ名', ['class' => 'col-md-11 col-12 px-0 ms-3'])}}
                             </div>
                             <div class="col-md-12 col-12">
-                                <div class="row pt-1 col-md-12 d-flex justify-content-center align-items-center">
-                                    {{Form::text('name', request('name'), ['class'=>'border border-secondary title col-md-12 col-12 mt-2 rounded ms-3'])}}
+                                <div class="row pt-1 col-12 px-0 d-flex justify-content-center align-items-center">
+                                    {{Form::text('name', request('name'), ['class'=>'form-control border border-secondary mt-2 rounded ms-3'])}}
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="row">
-                        <div class="col-md-12 col-12 justify-content-center">
-                            <div class="border border-top-0 rounded-bottom p-3 text-center custom-bg-lightgray">
-                                {{ Form::submit('検索', ['class' => 'btn btn-primary']) }}
-                            </div>
-                        </div>
+                    <div class="card-footer d-flex justify-content-center px-0">
+                        {{ Form::submit('検索', ['class' => 'btn btn-primary']) }}
                     </div>
                 {{ Form::close() }}
             </div>

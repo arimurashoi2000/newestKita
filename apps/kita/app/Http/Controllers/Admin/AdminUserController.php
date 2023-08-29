@@ -66,7 +66,6 @@ class AdminUserController extends Controller
             'email' => 'required|string|email|max:255|unique:admin_users',
             'password' => 'required|string|min:8|confirmed',
         ]);
-
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }

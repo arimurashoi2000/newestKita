@@ -41,11 +41,9 @@ Route::prefix('admin')->group(function () {
 
     Route::middleware('auth:admin_users')->group(function () {
         Route::resource('/admin_users', AdminUserController::class)->except(['show']);
+        Route::resource('/article_tags', ArticlesTagController::class)->except(['show']);
+        Route::get('/users', [UserController::class, 'index'])->name('user.index');
     });
-
-    Route::get('/users', [UserController::class, 'index'])->name('user.index');
-
-    Route::resource('/article_tags', ArticlesTagController::class)->except(['show']);
 });
 
 //プロフィール編集ページに遷移

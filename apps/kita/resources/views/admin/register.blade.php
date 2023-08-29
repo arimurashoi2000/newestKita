@@ -3,7 +3,7 @@
     <title>管理者登録画面</title>
 @endsection
 @section('content')
-    <div class="container">
+    <div class="content-wrapper px-5 py-5">
         <div class="row pt-5">
             <div class="col">
                 <h1>管理者管理 - 新規登録</h1>

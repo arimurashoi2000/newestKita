@@ -3,7 +3,7 @@
     <title>タグ編集画面</title>
 @endsection
 @section('content')
-    <div class="container">
+    <div class="content-wrapper px-5 py-5">
         <div class="row pt-5">
             <div class="col">
                 <h1>タグ管理 - 更新</h1>
@@ -58,7 +58,7 @@
                     </div>
                     {{ Form::close() }}
                     <!--削除ボタン-->
-                    {{ Form::open(['route' => ['article_tags.destroy', $articleTag], 'onsubmit' => "return confirm('一度削除すると元に戻せません。よろしいですか？');"]) }}
+                    {{ Form::open(['route' => ['article_tags.destroy', $articleTag], 'class' => 'col-md-12 col-12 text-center py-2', 'onsubmit' => "return confirm('一度削除すると元に戻せません。よろしいですか？');"]) }}
                     @csrf
                     @method('delete')
                     {{ Form::button('削除する', ['type' => 'submit', 'class' => 'btn btn-danger col-12 rounded']) }}

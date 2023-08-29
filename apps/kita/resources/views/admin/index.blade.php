@@ -3,51 +3,47 @@
     <title>管理者画面</title>
 @endsection
 @section('content')
-    <div class="container mt-0">
+    <div class="content-wrapper mt-0 px-5 py-5">
         <h2 class="mt-3">管理者管理</h2>
             <div class="justify-content-center" style="--bs-bg-opacity: .1;">
                 @include('common.flash_message')
                  <!--検索-->
-                <div class="card col-md-12 mt-5">
+                <div class="card col-md-12 mt-5 px-0">
                     {{ Form::open(['route' => 'admin_users.index', 'method' => 'get']) }}
                         <div class="card-body px-4 py-3">
                             <div class="d-flex">
                                 <!--姓-->
-                                <div class="col-md-4">
+                                <div class="form-group col-md-4">
                                     <div class="row pt-3">
                                         {{Form::label('last_name', '姓', ['class' => 'col-md-10 col-12 px-0'])}}
                                     </div>
-                                    <div class="row pt-1">
-                                        {{Form::text('last_name', request('last_name'), ['class'=>'title col-md-10 col-12 border border-secondary mt-2 rounded'])}}
+                                    <div class="row pt-1 col-12 px-0">
+                                        {{Form::text('last_name', request('last_name'), ['class'=>'form-control border border-secondary mt-2 rounded'])}}
                                     </div>
                                 </div>
                                 <!--名-->
-                                <div class="col-md-4">
+                                <div class="form-group col-md-4">
                                     <div class="row pt-3">
                                         {{Form::label('first_name', '名', ['class' => 'col-md-10 col-12 px-0'])}}
                                     </div>
-                                    <div class="row pt-1">
-                                        {{Form::text('first_name', request('first_name'), ['class'=>'title col-md-10 col-12 border border-secondary mt-2 rounded'])}}
+                                    <div class="row pt-1 col-12 px-0">
+                                        {{Form::text('first_name', request('first_name'), ['class'=>'form-control border border-secondary mt-2 rounded'])}}
                                     </div>
                                 </div>
                                 <!--メールアドレス-->
-                                <div class="col-md-4">
+                                <div class="form-group col-md-4">
                                     <div class="row pt-3">
                                         {{Form::label('email', 'メールアドレス', ['class' => 'col-md-10 col-12 px-0'])}}
                                     </div>
-                                    <div class="row pt-1">
-                                        {{Form::text('email', request('email'), ['class'=>'title col-md-10 col-12 border border-secondary mt-2 rounded'])}}
+                                    <div class="row pt-1 col-12 px-0">
+                                        {{Form::text('email', request('email'), ['class'=>'form-control border border-secondary mt-2 rounded'])}}
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="row">
-                            <div class="col-md-12 col-12 justify-content-center">
-                                <div class="border border-top-0 rounded-bottom p-3 text-center custom-bg-lightgray">
-                                    {{ Form::submit('検索', ['class' => 'btn btn-primary']) }}
-                                </div>
-                            </div>
+                        <div class="card-footer d-flex justify-content-center px-0">
+                            {{ Form::submit('検索', ['class' => 'btn btn-primary']) }}
                         </div>
                     {{ Form::close() }}
                 </div>
