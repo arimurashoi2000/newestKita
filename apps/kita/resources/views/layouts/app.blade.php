@@ -7,6 +7,9 @@
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
     <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="{{ asset('js/articles_delete.js') }}" defer></script>
+    <script src="{{ asset('js/pagination.js') }}" defer></script>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
 
 <body class="sidebar-mini layout-fixed sidebar-collapse" style="height: auto;">

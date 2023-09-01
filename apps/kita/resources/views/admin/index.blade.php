@@ -2,6 +2,22 @@
 @section('title')
     <title>管理者画面</title>
 @endsection
+<script>
+    $(function() {
+        $('#search_button').click(
+            function() {
+                $.ajax({
+                    url: "{{route('admin_users.index')}}",
+                    method: 'get',
+                }).done(function(data) {
+                    alert('成功')
+                }).fail(function() {
+                    alert('失敗');
+                });
+            }
+        );
+    });
+</script>
 @section('content')
     <div class="content-wrapper mt-0 px-5 py-5">
         <h2 class="mt-3">管理者管理</h2>
@@ -42,6 +58,7 @@
                             </div>
                         </div>
 
+                        <!--投稿ボタン-->
                         <div class="card-footer d-flex justify-content-center px-0">
                             {{ Form::submit('検索', ['class' => 'btn btn-primary']) }}
                         </div>

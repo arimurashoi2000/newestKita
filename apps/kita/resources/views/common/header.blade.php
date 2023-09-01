@@ -1,8 +1,8 @@
 <header>
     <div class="bg-white">
         <div class="container d-flex justify-content-center align-items-center bg-white">
-            <nav class="navbar navbar-expand-sm navbar-light">
-                <a href="{{route('articles.index')}}" class="btn btn-success rounded-circle me-3" style="font-size: 2rem; padding: 0.5rem 2rem;">Kita</a>
+            <nav class="navbar navbar-expand-sm navbar-light bg-white">
+                <a href="{{route('articles.index')}}" class="btn btn-success rounded-circle me-3 !importan text-white" style="font-size: 2rem; padding: 0.5rem 2rem;">Kita</a>
 
                 <button class="navbar-toggler my-2 bg-success" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -47,6 +47,10 @@
                                 <li>
                                     <a href="{{route('profile.edit')}}" class="text-black text-decoration-none px-3">プロフィール編集</a>
                                 </li>
+
+                                <li>
+                                    <a href="{{route('mypage.index')}}" class="text-black text-decoration-none px-3">マイページ</a>
+                                </li>
                             @elseif(!Auth::guard('members')->check() && !Auth::guard('admin_users')->check())
                                 <li>
                                     <a href="{{route('members.loginForm')}}" class="text-black text-decoration-none px-2">ログイン</a>
@@ -62,6 +66,11 @@
                                 <li>
                                     <a href="{{route('profile.edit')}}" class="text-black text-decoration-none px-3">プロフィール編集</a>
                                 </li>
+
+                                <li>
+                                    <a href="{{route('mypage.index')}}" class="text-black text-decoration-none px-3">マイページ</a>
+                                </li>
+
                             @elseif(!Auth::guard('members')->check() && Auth::guard('admin_users')->check())
                                 <li>
                                     <a href="{{route('members.loginForm')}}" class="text-black text-decoration-none px-2">ログイン</a>

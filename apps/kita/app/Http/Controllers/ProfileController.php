@@ -7,6 +7,8 @@ use App\Models\Member;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
+use App\Models\Article;
+use App\Consts\CommonConst;
 class ProfileController extends Controller
 {
     /**
@@ -47,5 +49,37 @@ class ProfileController extends Controller
         $member->fill($request->all())->save();
 
         return redirect()->route('profile.edit')->with('message', 'プロフィールを編集しました。');
+    }
+
+    /**
+     * 自分の書いた記事一覧表示機能
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
+    public function index() {
+        $member = \Auth::user();
+        $myArticle = Article::with('member')->orderBy('created_at', 'desc')->where('member_id', $member->id);
+
+        $myArticle = $myArticle->paginate(CommonConst::PAGINATION_ARTICLE);
+        return view('articles.mypage', compact('myArticle'));
+    }
+
+    /**
+     * 複数の記事削除機能
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function destroy(Request $request)
+    {
+        $articleNum = $request->input('myArticle');
+        // $myArticle はカンマ区切りの文字列なので、explode() 関数を使用して配列に変換
+        $articleId = explode(',', $articleNum);
+        // 記事を削除
+        Article::whereIn('id', $articleId)->delete();
+
+        $member = \Auth::user();
+        $myArticle = Article::with('member')->orderBy('created_at', 'desc')->where('member_id', $member->id)->paginate(CommonConst::PAGINATION_ARTICLE);
+        return response()->json([
+            'success' => true,
+        ]);
     }
 }
