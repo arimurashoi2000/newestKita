@@ -42,6 +42,7 @@
                             </div>
                         </div>
 
+                        <!--投稿ボタン-->
                         <div class="card-footer d-flex justify-content-center px-0">
                             {{ Form::submit('検索', ['class' => 'btn btn-primary']) }}
                         </div>

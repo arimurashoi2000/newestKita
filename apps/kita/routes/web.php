@@ -50,5 +50,10 @@ Route::prefix('admin')->group(function () {
 Route::get('/profile', [ProfileController::class, 'showEditProfilePage'])->name('profile.edit')->middleware('auth:members');
 //プロフィール編集機能
 Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update')->middleware('auth:members');
+//マイページに移動
+Route::get('/mypage', [ProfileController::class, 'index'])->name('mypage.index')->middleware('auth:members');
+//記事を一括削除
+Route::delete('/mypage', [ProfileController::class, 'destroy'])->name('mypage.destroy')->middleware('auth:members');
+
 // パスワード変更機能
 Route::put('/password_change', [PasswordController::class, 'changePassword'])->name('password.update')->middleware('auth:members');
