@@ -49,6 +49,6 @@
             </div>
         </div>
     </div>
-    <script src="{{ asset('js/articles_delete.js') }}" defer></script>
-    <script src="{{ asset('js/checkbox.js') }}" defer></script>
+    <script src="{{ asset('assets/js/articles_delete.js') }}" defer></script>
+    <script src="{{ asset('assets/js/articles_checkbox.js') }}" defer></script>
 @endsection
