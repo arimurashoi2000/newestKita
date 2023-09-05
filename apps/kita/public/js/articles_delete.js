@@ -22,11 +22,13 @@ $(function() {
                 dataType: 'JSON',
             }).done(function(response) {
                 alert('記事削除に成功しました');
-                location.reload();
+                // 選択された記事IDに基づいて行を削除
+                selectedArticles.forEach(function(id) {
+                    $('#row_' + id).remove();
+                });
             }).fail(function() {
                 alert('記事削除に失敗しました');
             });
         }
     );
 });
-

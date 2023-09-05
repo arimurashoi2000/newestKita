@@ -76,8 +76,6 @@ class ProfileController extends Controller
         // 記事を削除
         Article::whereIn('id', $articleId)->delete();
 
-        $member = \Auth::user();
-        $myArticle = Article::with('member')->orderBy('created_at', 'desc')->where('member_id', $member->id)->paginate(CommonConst::PAGINATION_ARTICLE);
         return response()->json([
             'success' => true,
         ]);

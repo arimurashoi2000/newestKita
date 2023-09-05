@@ -3,18 +3,18 @@
     <title>マイページ</title>
 @endsection
 @section('content')
-
     <div class="container py-5">
         <div class="d-flex justify-content-center" style="--bs-bg-opacity: .1;">
             <div class="col-md-7 col-10text-dark">
                 @include('common.flash_message')
                 <div class="card">
                     <div class="card-body px-5 py-3">
-                            <div class="col-auto text-start px-0">
-                                {{ Form::submit('削除する', ['class' => 'btn btn-danger rounded-pill', 'id' => 'delete']) }}
-                            </div>
+                        <div class="col-auto text-start px-0">
+                            {{ Form::submit('削除する', ['class' => 'btn btn-danger rounded-pill', 'id' => 'delete']) }}
+                        </div>
 
-                            @foreach ($myArticle as $article)
+                        @foreach ($myArticle as $article)
+                            <div id="row_{{ $article->id }}">
                                 <div class="row pt-3">
                                     <div class="col-md-6">
                                         <p class="mb-0">{{$article->member->name}}が{{ $article->created_at->format('Y年m月d日') }}に投稿</p>
@@ -39,13 +39,16 @@
                                         </ul>
                                     </div>
                                 </div>
-                            @endforeach
-                            <div class="d-flex align-items-center justify-content-center mb-1 mt-3" id="pagination-container">
-                                <p>{{ $myArticle->links() }}</p>
                             </div>
+                        @endforeach
+                        <div class="d-flex align-items-center justify-content-center mb-1 mt-3" id="pagination-container">
+                            <p>{{ $myArticle->links() }}</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <script src="{{ asset('js/articles_delete.js') }}" defer></script>
+    <script src="{{ asset('js/checkbox.js') }}" defer></script>
 @endsection
